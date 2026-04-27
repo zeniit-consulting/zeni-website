@@ -1,0 +1,156 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Blog" description="Thought leadership and insights from Zeni Consulting on technology, strategy, and scaling systems." noPadding>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="page-hero__bg"></div>
+    <div class="container page-hero__inner">
+      <span class="page-hero__badge" data-aos="fade-up" data-i18n="blog.hero.badge">Insights</span>
+      <h1 data-aos="fade-up" data-i18n="blog.hero.title">Blog</h1>
+      <p class="page-hero__sub" data-aos="fade-up" data-i18n="blog.hero.sub">Insights on technology, strategy, and building systems that scale.</p>
+    </div>
+  </section>
+
+  <!-- Coming Soon -->
+  <section class="section">
+    <div class="container">
+      <div class="coming-card" data-aos="fade-up">
+        <div class="coming-card__icon">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        </div>
+        <h2 data-i18n="blog.coming.title">Content Coming Soon</h2>
+        <p data-i18n="blog.coming.text">We're preparing thought leadership content — insights, whitepapers, and practical guides for growing businesses.</p>
+        <p class="coming-card__highlight" data-i18n="blog.coming.notify">Want to be notified when we publish?</p>
+        <div class="coming-card__topics">
+          <span class="topic-tag" data-i18n="blog.topic.1">IT Strategy</span>
+          <span class="topic-tag" data-i18n="blog.topic.2">AI Automation</span>
+          <span class="topic-tag" data-i18n="blog.topic.3">Software Architecture</span>
+          <span class="topic-tag" data-i18n="blog.topic.4">Digital Transformation</span>
+          <span class="topic-tag" data-i18n="blog.topic.5">Technology Audit</span>
+        </div>
+        <a href="/contact" class="btn btn--primary" data-i18n="blog.coming.btn">Get in touch</a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* ═══ PAGE HERO ═══ */
+  .page-hero {
+    position: relative;
+    padding: calc(4rem + var(--space-3xl)) 0 var(--space-3xl);
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 60%, var(--color-primary-darker) 100%);
+    overflow: hidden;
+  }
+
+  .page-hero__bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 70% 30%, rgba(255,255,255,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .page-hero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 40rem;
+  }
+
+  .page-hero__badge {
+    display: inline-block;
+    padding: 0.375rem 1rem;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: var(--radius-full);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: var(--space-lg);
+  }
+
+  .page-hero h1 {
+    color: var(--color-white);
+    margin-bottom: var(--space-md);
+  }
+
+  .page-hero__sub {
+    font-size: 1.125rem;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* ═══ COMING SOON CARD ═══ */
+  .coming-card {
+    max-width: 36rem;
+    margin: 0 auto;
+    text-align: center;
+    padding: var(--space-3xl) var(--space-xl);
+    background: var(--color-white);
+    border: 1px solid var(--color-neutral-200);
+    border-radius: var(--radius-xl);
+  }
+
+  .coming-card__icon {
+    width: 4.5rem;
+    height: 4.5rem;
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-xl);
+  }
+
+  .coming-card h2 {
+    margin: 0 0 var(--space-md);
+    font-size: 1.5rem;
+    color: var(--color-neutral-900);
+  }
+
+  .coming-card > p {
+    color: var(--color-neutral-600);
+    line-height: 1.7;
+    margin: 0 0 var(--space-md);
+    font-size: 0.9375rem;
+  }
+
+  .coming-card__highlight {
+    font-weight: 600;
+    color: var(--color-neutral-800) !important;
+  }
+
+  .coming-card__topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    justify-content: center;
+    margin: var(--space-xl) 0;
+  }
+
+  .topic-tag {
+    padding: 0.375rem 0.875rem;
+    background: var(--color-primary-50);
+    color: var(--color-primary);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--color-primary-light);
+  }
+
+  /* ═══ RESPONSIVE ═══ */
+  @media (max-width: 768px) {
+    .page-hero {
+      padding: calc(4rem + var(--space-2xl)) 0 var(--space-2xl);
+    }
+
+    .coming-card {
+      padding: var(--space-2xl) var(--space-lg);
+    }
+  }
+</style>

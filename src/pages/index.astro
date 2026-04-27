@@ -1,0 +1,963 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const services = [
+  {
+    href: '/services/development',
+    titleKey: 'home.feature.dev.title',
+    textKey: 'home.feature.dev.text',
+    delay: 0,
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
+  },
+  {
+    href: '/services/hardware',
+    titleKey: 'home.feature.hw.title',
+    textKey: 'home.feature.hw.text',
+    delay: 50,
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>',
+  },
+  {
+    href: '/services/consulting',
+    titleKey: 'home.feature.it.title',
+    textKey: 'home.feature.it.text',
+    delay: 100,
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>',
+  },
+  {
+    href: '/services/automation',
+    titleKey: 'home.feature.ai.title',
+    textKey: 'home.feature.ai.text',
+    delay: 150,
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>',
+  },
+  {
+    href: '/services/audit',
+    titleKey: 'home.feature.audit.title',
+    textKey: 'home.feature.audit.text',
+    delay: 200,
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>',
+  },
+  {
+    href: '/services/strategy',
+    titleKey: 'home.feature.strategy.title',
+    textKey: 'home.feature.strategy.text',
+    delay: 250,
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
+  },
+];
+
+const testimonials = [
+  {
+    quoteKey: 'home.testimonial.1.text',
+    nameKey: 'home.testimonial.1.name',
+    roleKey: 'home.testimonial.1.role',
+    initial: 'A',
+    delay: 0,
+  },
+  {
+    quoteKey: 'home.testimonial.2.text',
+    nameKey: 'home.testimonial.2.name',
+    roleKey: 'home.testimonial.2.role',
+    initial: 'S',
+    delay: 100,
+  },
+  {
+    quoteKey: 'home.testimonial.3.text',
+    nameKey: 'home.testimonial.3.name',
+    roleKey: 'home.testimonial.3.role',
+    initial: 'B',
+    delay: 200,
+  },
+];
+---
+
+<BaseLayout title="Home" description="Strategic IT consulting for growing businesses. Software development, hardware installation, IT consulting, and AI automation." noPadding>
+  <section class="hero">
+    <div class="hero__bg"></div>
+    <div class="container hero__grid">
+      <div class="hero__content" data-aos="fade-up">
+        <span class="hero__badge" data-i18n="home.hero.badge">IT Consulting & Services</span>
+        <h1 class="hero__headline" data-i18n="home.hero.headline">Build systems that scale with the technology you need.</h1>
+        <p class="hero__sub" data-i18n="home.hero.sub">Strategic IT consulting for growing businesses. From software development to AI automation—we align technology with your goals.</p>
+        <div class="hero__cta">
+          <a href="/contact" class="btn btn--white btn--large" data-i18n="home.hero.cta1">Book Free Consultation</a>
+          <a href="/services" class="btn btn--ghost btn--large" data-i18n="home.hero.cta2">View Services</a>
+        </div>
+      </div>
+
+      <div class="hero__panel" data-aos="fade-left" data-aos-delay="150">
+        <div class="hero-panel__aside">
+          <div class="hero-mini-card">
+            <span class="hero-mini-card__label" data-i18n="home.stat.projects">Projects Delivered</span>
+            <strong>50+</strong>
+          </div>
+          <div class="hero-mini-card">
+            <span class="hero-mini-card__label" data-i18n="home.stat.satisfaction">Client Satisfaction</span>
+            <strong>98%</strong>
+          </div>
+          <div class="hero-mini-card hero-mini-card--accent">
+            <span class="hero-mini-card__label" data-i18n="home.why.item2.title">Strategy-First Approach</span>
+            <p data-i18n="home.why.item2.text">Technology decisions driven by business goals, not trends. Every recommendation is tied to measurable outcomes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="proof-strip">
+    <div class="container">
+      <div class="proof-strip__shell">
+        <div class="proof-strip__brand-block" data-aos="fade-up">
+          <p class="proof-strip__label" data-i18n="home.trusted.label">Trusted by growing businesses</p>
+        </div>
+
+        <div class="proof-strip__stats" data-aos="fade-up" data-aos-delay="100">
+          <div class="proof-stat">
+            <strong>50+</strong>
+            <span data-i18n="home.stat.projects">Projects Delivered</span>
+          </div>
+          <div class="proof-stat">
+            <strong>10+</strong>
+            <span data-i18n="home.stat.experience">Years Experience</span>
+          </div>
+          <div class="proof-stat">
+            <strong>98%</strong>
+            <span data-i18n="home.stat.satisfaction">Client Satisfaction</span>
+          </div>
+          <div class="proof-stat">
+            <strong>24/7</strong>
+            <span data-i18n="home.stat.support">Support Available</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" id="services-section">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <span class="section__label" data-i18n="home.services.label">Our Services</span>
+        <h2 class="section__title" data-i18n="home.services.title">Comprehensive IT solutions for your business</h2>
+        <p class="section__subtitle" data-i18n="home.services.subtitle">From strategy to execution, we provide end-to-end technology services tailored to your specific needs.</p>
+      </div>
+
+      <div class="services-grid">
+        {services.map((service) => (
+          <a href={service.href} class="service-card" data-aos="fade-up" data-aos-delay={service.delay}>
+            <div class="service-card__icon" set:html={service.icon}></div>
+            <h3 class="service-card__title" data-i18n={service.titleKey}></h3>
+            <p class="service-card__text" data-i18n={service.textKey}></p>
+            <span class="service-card__link" data-i18n="home.feature.learn">Learn more →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section insight-section">
+    <div class="container insight-grid">
+      <div class="insight-column">
+        <div class="section-header section-header--left" data-aos="fade-up">
+          <span class="section__label" data-i18n="home.why.label">Why Zeni</span>
+          <h2 class="section__title" data-i18n="home.why.title">Technology that works for your business</h2>
+          <p class="section__subtitle" data-i18n="home.why.subtitle">We combine technical expertise with business understanding to deliver solutions that create real impact.</p>
+        </div>
+
+        <div class="why-stack">
+          <article class="why-card" data-aos="fade-up">
+            <div class="why-card__meta">
+              <span class="why-card__number">01</span>
+            </div>
+            <div>
+              <h3 class="why-card__title" data-i18n="home.why.item1.title">No Vendor Lock-In</h3>
+              <p class="why-card__text" data-i18n="home.why.item1.text">We build with open standards and ensure you always own your code, data, and infrastructure.</p>
+            </div>
+          </article>
+          <article class="why-card" data-aos="fade-up" data-aos-delay="50">
+            <div class="why-card__meta">
+              <span class="why-card__number">02</span>
+            </div>
+            <div>
+              <h3 class="why-card__title" data-i18n="home.why.item2.title">Business-First Approach</h3>
+              <p class="why-card__text" data-i18n="home.why.item2.text">Technology decisions driven by business goals, not trends. Every recommendation is tied to measurable outcomes.</p>
+            </div>
+          </article>
+          <article class="why-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="why-card__meta">
+              <span class="why-card__number">03</span>
+            </div>
+            <div>
+              <h3 class="why-card__title" data-i18n="home.why.item3.title">Transparent Process</h3>
+              <p class="why-card__text" data-i18n="home.why.item3.text">Clear milestones, regular updates, and documented handovers. You always know where your project stands.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="insight-column insight-column--process">
+        <div class="section-header section-header--left" data-aos="fade-up">
+          <span class="section__label" data-i18n="home.process.label">How We Work</span>
+          <h2 class="section__title" data-i18n="home.process.title">Our Process</h2>
+          <p class="section__subtitle" data-i18n="home.process.intro">A structured approach that delivers consistent, high-quality results every time.</p>
+        </div>
+
+        <div class="process-list">
+          <article class="process-step" data-aos="fade-up">
+            <div class="process-step__rail">
+              <span class="process-step__index">1</span>
+            </div>
+            <div class="process-step__body">
+              <h3 class="process-step__title" data-i18n="home.process.d1.title">Discovery</h3>
+              <p class="process-step__text" data-i18n="home.process.d1.text">Understand your business, goals, and constraints before proposing solutions.</p>
+            </div>
+          </article>
+          <article class="process-step" data-aos="fade-up" data-aos-delay="100">
+            <div class="process-step__rail">
+              <span class="process-step__index">2</span>
+            </div>
+            <div class="process-step__body">
+              <h3 class="process-step__title" data-i18n="home.process.d2.title">Plan & Build</h3>
+              <p class="process-step__text" data-i18n="home.process.d2.text">Transparent delivery with clear milestones you can review and steer at every stage.</p>
+            </div>
+          </article>
+          <article class="process-step" data-aos="fade-up" data-aos-delay="200">
+            <div class="process-step__rail">
+              <span class="process-step__index">3</span>
+            </div>
+            <div class="process-step__body">
+              <h3 class="process-step__title" data-i18n="home.process.d3.title">Optimize & Handover</h3>
+              <p class="process-step__text" data-i18n="home.process.d3.text">Documentation and knowledge transfer built into every engagement. You stay in control.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt enable-overflow testimonials-section">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <span class="section__label" data-i18n="home.testimonials.label">Testimonials</span>
+        <h2 class="section__title" data-i18n="home.testimonials.title">What our clients say</h2>
+      </div>
+      <div class="testimonials-grid testimonials-grid--full">
+        {testimonials.map((testimonial, index) => (
+          <article class:list={["testimonial-card", index === 0 && "testimonial-card--featured"]} data-aos="fade-up" data-aos-delay={testimonial.delay}>
+            <div class="testimonial-card__stars" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <p class="testimonial-card__text" data-i18n={testimonial.quoteKey}></p>
+            <div class="testimonial-card__author">
+              <div class="testimonial-card__avatar">{testimonial.initial}</div>
+              <div>
+                <strong data-i18n={testimonial.nameKey}></strong>
+                <span data-i18n={testimonial.roleKey}></span>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="cta-section__bg"></div>
+    <div class="cta-section__image"></div>
+    <div class="container cta-section__inner">
+      <h2 class="cta-section__headline" data-aos="fade-up" data-i18n="home.cta.headline">Ready to build systems that scale?</h2>
+      <p class="cta-section__sub" data-aos="fade-up" data-aos-delay="50" data-i18n="home.cta.sub">Let's discuss how we can align technology with your business goals. Free consultation, no obligations.</p>
+      <div class="cta-section__buttons" data-aos="fade-up" data-aos-delay="100">
+        <a href="/contact" class="btn btn--white btn--large" data-i18n="home.cta.cta1">Book Free Consultation</a>
+        <a href="/services" class="btn btn--ghost btn--large" data-i18n="home.cta.cta2">Explore Services</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    position: relative;
+    padding: calc(4rem + var(--space-4xl)) 0 calc(var(--space-4xl) + var(--space-xl));
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 52%, var(--color-primary-darker) 100%);
+    overflow: hidden;
+  }
+
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 18% 22%, rgba(255, 255, 255, 0.12), transparent 32%),
+      radial-gradient(circle at 86% 32%, rgba(255, 255, 255, 0.08), transparent 26%),
+      linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.08) 100%);
+    pointer-events: none;
+  }
+
+  .hero__grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(19rem, 0.9fr);
+    gap: var(--space-3xl);
+    align-items: center;
+  }
+
+  .hero__content {
+    max-width: 39rem;
+  }
+
+  .hero__badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.45rem 1rem;
+    margin-bottom: var(--space-lg);
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-full);
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    backdrop-filter: blur(10px);
+  }
+
+  .hero__headline {
+    margin-bottom: var(--space-lg);
+    color: var(--color-white);
+    font-size: clamp(1.25rem, 3.5vw, 2.75rem);
+    line-height: 1.05;
+    max-width: 18ch;
+  }
+
+  .hero__sub {
+    max-width: 34rem;
+    margin-bottom: var(--space-xl);
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 1.0625rem;
+    line-height: 1.75;
+  }
+
+  .hero__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
+
+  .hero__panel {
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  .hero-panel__main,
+  .hero-mini-card {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: var(--radius-2xl);
+    color: var(--color-white);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  .hero-panel__main {
+    padding: var(--space-xl);
+    box-shadow: 0 18px 40px rgba(0, 45, 91, 0.22);
+  }
+
+  .hero-panel__eyebrow,
+  .hero-mini-card__label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .hero-panel__value {
+    margin: 0.5rem 0 1rem;
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .hero-panel__bar {
+    height: 0.625rem;
+    margin-bottom: var(--space-lg);
+    background: rgba(255, 255, 255, 0.14);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+  }
+
+  .hero-panel__bar-fill {
+    display: block;
+    width: 84%;
+    height: 100%;
+    background: linear-gradient(90deg, #42d392 0%, #8ef0c4 100%);
+    border-radius: var(--radius-full);
+  }
+
+  .hero-panel__signals {
+    display: grid;
+    gap: var(--space-sm);
+  }
+
+  .hero-panel__signal {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    color: rgba(255, 255, 255, 0.88);
+    font-size: 0.9375rem;
+  }
+
+  .hero-panel__dot {
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .hero-panel__dot--green {
+    background: var(--color-success);
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+  }
+
+  .hero-panel__dot--blue {
+    background: #7fd7ff;
+    box-shadow: 0 0 10px rgba(127, 215, 255, 0.5);
+  }
+
+  .hero-panel__aside {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-lg);
+  }
+
+  .hero-mini-card {
+    padding: var(--space-lg);
+  }
+
+  .hero-mini-card strong {
+    display: block;
+    margin-top: 0.5rem;
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    line-height: 1;
+  }
+
+  .hero-mini-card p {
+    margin-top: 0.625rem;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+
+  .hero-mini-card--accent {
+    grid-column: 1 / -1;
+    background: rgba(255, 255, 255, 0.16);
+  }
+
+  .proof-strip {
+    position: relative;
+    z-index: 2;
+    margin-top: calc(var(--space-3xl) * -1);
+    padding-bottom: var(--space-xl);
+  }
+
+  .proof-strip__shell {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: var(--space-xl);
+    padding: var(--space-xl);
+    background: var(--color-white);
+    border: 1px solid rgba(15, 23, 42, 0.06);
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-xl);
+  }
+
+  .proof-strip__label {
+    margin-bottom: var(--space-md);
+    color: var(--color-neutral-500);
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  .proof-strip__logos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.875rem 1.5rem;
+    color: var(--color-neutral-400);
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+
+  .proof-strip__stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--color-neutral-200);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+  }
+
+  .proof-stat {
+    padding: var(--space-lg);
+    background: var(--color-neutral-50);
+  }
+
+  .proof-stat strong {
+    display: block;
+    margin-bottom: 0.375rem;
+    color: var(--color-primary);
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    line-height: 1;
+  }
+
+  .proof-stat span {
+    color: var(--color-neutral-500);
+    font-size: 0.875rem;
+  }
+
+  .section-header {
+    margin-bottom: var(--space-3xl);
+    text-align: center;
+  }
+
+  .section-header--left {
+    text-align: left;
+  }
+
+  .section-header--left .section__title,
+  .section-header--left .section__subtitle {
+    text-align: left;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .section-header--tight {
+    margin-bottom: var(--space-xl);
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-lg);
+  }
+
+  .service-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    padding: var(--space-xl);
+    background: var(--color-white);
+    border: 1px solid var(--color-neutral-200);
+    border-radius: var(--radius-xl);
+    text-decoration: none;
+    color: inherit;
+    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+  }
+
+  .service-card:hover {
+    color: inherit;
+    border-color: rgba(0, 96, 175, 0.25);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .service-card__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    margin-bottom: var(--space-lg);
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    border-radius: var(--radius-lg);
+  }
+
+  .service-card__title {
+    margin-bottom: var(--space-sm);
+    font-size: 1.125rem;
+  }
+
+  .service-card__text {
+    flex: 1;
+    margin-bottom: var(--space-lg);
+    color: var(--color-neutral-600);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
+
+  .service-card__link {
+    color: var(--color-primary);
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  .insight-section {
+    background: linear-gradient(180deg, var(--color-white) 0%, #fbfdff 100%);
+  }
+
+  .insight-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
+    gap: var(--space-3xl);
+    align-items: start;
+  }
+
+  .why-stack,
+  .process-list {
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  .why-card,
+  .process-step,
+  .showcase-panel,
+  .testimonial-card {
+    background: var(--color-white);
+    border: 1px solid var(--color-neutral-200);
+    border-radius: var(--radius-xl);
+  }
+
+  .why-card {
+    display: grid;
+    grid-template-columns: 5.5rem 1fr;
+    gap: var(--space-lg);
+    padding: var(--space-xl);
+    align-items: start;
+  }
+
+  .why-card__meta {
+    display: grid;
+    gap: 0.75rem;
+    justify-items: start;
+  }
+
+  .why-card__number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 3rem;
+    padding: 0.45rem 0.75rem;
+    background: var(--color-primary-light);
+    border-radius: var(--radius-full);
+    color: var(--color-primary);
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 800;
+  }
+
+  .why-card__title {
+    margin-bottom: var(--space-xs);
+    font-size: 1.0625rem;
+  }
+
+  .why-card__text,
+  .process-step__text {
+    color: var(--color-neutral-600);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
+
+  .process-list {
+    position: relative;
+    padding-left: var(--space-md);
+  }
+
+  .process-list::before {
+    content: '';
+    position: absolute;
+    left: 2rem;
+    top: 2.5rem;
+    bottom: 2.5rem;
+    width: 2px;
+    background: linear-gradient(180deg, rgba(0, 96, 175, 0.14) 0%, rgba(0, 96, 175, 0.6) 50%, rgba(0, 96, 175, 0.14) 100%);
+  }
+
+  .process-step {
+    position: relative;
+    display: grid;
+    grid-template-columns: 4.5rem 1fr;
+    gap: var(--space-lg);
+    padding: var(--space-xl);
+    align-items: start;
+  }
+
+  .process-step__rail {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    justify-items: center;
+  }
+
+  .process-step__index {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: var(--color-primary);
+    border: 4px solid var(--color-white);
+    border-radius: 50%;
+    color: var(--color-white);
+    font-weight: 700;
+    box-shadow: var(--shadow-md);
+  }
+
+  .process-step__title {
+    margin-bottom: var(--space-xs);
+    font-size: 1.0625rem;
+  }
+
+  .enable-overflow {
+    overflow: hidden;
+  }
+
+  .testimonials-section .section-header {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) repeat(2, minmax(0, 0.925fr));
+    gap: var(--space-md);
+    align-items: stretch;
+  }
+
+  .testimonials-grid--full {
+    width: 100%;
+  }
+
+  .testimonial-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100%;
+    padding: var(--space-lg);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .testimonial-card--featured {
+    padding: var(--space-xl);
+    background: linear-gradient(180deg, var(--color-white) 0%, var(--color-primary-50) 100%);
+    border-color: rgba(0, 96, 175, 0.16);
+  }
+
+  .testimonial-card__stars {
+    display: flex;
+    gap: 0.25rem;
+    margin-bottom: var(--space-md);
+  }
+
+  .testimonial-card__stars span {
+    width: 0.625rem;
+    height: 0.625rem;
+    background: var(--color-warning);
+    border-radius: 50%;
+    opacity: 0.9;
+  }
+
+  .testimonial-card__text {
+    margin-bottom: var(--space-lg);
+    color: var(--color-neutral-700);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
+
+  .testimonial-card--featured .testimonial-card__text {
+    font-size: 1rem;
+  }
+
+  .testimonial-card__author {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .testimonial-card__avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: var(--color-primary-light);
+    border-radius: 50%;
+    color: var(--color-primary);
+    font-family: var(--font-heading);
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+
+  .testimonial-card__author strong {
+    display: block;
+    margin-bottom: 0.125rem;
+    color: var(--color-neutral-900);
+    font-size: 0.875rem;
+  }
+
+  .testimonial-card__author span {
+    color: var(--color-neutral-500);
+    font-size: 0.8125rem;
+  }
+
+  .cta-section {
+    position: relative;
+    padding: var(--space-5xl) 0;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 52%, var(--color-primary-darker) 100%);
+    overflow: hidden;
+  }
+
+  .cta-section__bg {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(135deg, rgba(0, 96, 175, 0.82) 0%, rgba(0, 77, 140, 0.78) 52%, rgba(0, 58, 107, 0.86) 100%),
+      radial-gradient(circle at 24% 50%, rgba(255, 255, 255, 0.08), transparent 26%),
+      radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.05), transparent 24%);
+    pointer-events: none;
+  }
+
+  .cta-section__image {
+    position: absolute;
+    inset: 0;
+    background-image: url('/images/cta-grid-bg.svg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    opacity: 0.5;
+    transform: scale(1.05);
+    pointer-events: none;
+  }
+
+  .cta-section__inner {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+
+  .cta-section__headline {
+    margin-bottom: var(--space-md);
+    color: var(--color-white);
+  }
+
+  .cta-section__sub {
+    max-width: 38rem;
+    margin: 0 auto var(--space-xl);
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 1.0625rem;
+    line-height: 1.75;
+  }
+
+  .cta-section__buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
+
+  @media (max-width: 1100px) {
+    .hero__grid,
+    .proof-strip__shell,
+    .insight-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero__headline {
+      max-width: 18ch;
+    }
+
+    .services-grid,
+    .testimonials-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      padding: calc(4rem + var(--space-3xl)) 0 var(--space-4xl);
+    }
+
+    .hero__headline {
+      max-width: none;
+      font-size: clamp(2.25rem, 10vw, 3.25rem);
+    }
+
+    .hero__cta,
+    .cta-section__buttons {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .hero__cta .btn,
+    .cta-section__buttons .btn {
+      width: 100%;
+    }
+
+    .hero-panel__aside,
+    .services-grid,
+    .proof-strip__stats {
+      grid-template-columns: 1fr;
+    }
+
+    .proof-strip {
+      margin-top: calc(var(--space-2xl) * -1);
+    }
+
+    .proof-strip__shell,
+    .showcase-panel,
+    .hero-panel__main,
+    .hero-mini-card,
+    .why-card,
+    .process-step {
+      padding: var(--space-lg);
+    }
+
+    .why-card,
+    .process-step {
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+
+    .why-card__meta,
+    .process-step__rail {
+      justify-items: start;
+    }
+
+    .process-step__rail {
+      justify-content: flex-start;
+    }
+
+    .process-list {
+      padding-left: 0;
+    }
+
+    .process-list::before {
+      display: none;
+    }
+
+    .testimonials-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .cta-section__image {
+      background-attachment: scroll;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .proof-strip__logos {
+      gap: 0.75rem 1rem;
+      font-size: 0.95rem;
+    }
+
+    .proof-stat strong {
+      font-size: 1.5rem;
+    }
+  }
+</style>

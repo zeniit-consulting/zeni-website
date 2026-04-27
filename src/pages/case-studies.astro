@@ -1,0 +1,384 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const caseStudies = [
+  {
+    title: 'E-commerce Platform Consolidation',
+    client: 'Retail & Distribution',
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>',
+    challenge: 'Five legacy systems with overlapping functionality, manual data sync, and no single source of truth.',
+    solution: 'Strategic audit and phased migration roadmap. We designed an integrated architecture and led the first phase—core order and inventory unification.',
+    outcome: 'Unified platform. 60% reduction in manual reconciliation. Clear path for remaining phases.',
+    type: 'Sample Project',
+    metrics: [
+      { value: '60%', label: 'Less manual work' },
+      { value: '5→1', label: 'Systems unified' },
+    ],
+  },
+  {
+    title: 'Custom Workflow Engine',
+    client: 'B2B SaaS',
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
+    challenge: 'Client onboarding required 20+ manual steps across multiple tools. Scaling was constrained by operational bottlenecks.',
+    solution: 'Custom Laravel + Vue.js workflow engine with CRM integration, approval chains, and automated provisioning.',
+    outcome: 'Onboarding time cut from 5 days to 24 hours. Team capacity freed for higher-value support.',
+    type: 'System Development',
+    metrics: [
+      { value: '5d→24h', label: 'Onboarding time' },
+      { value: '20+', label: 'Steps automated' },
+    ],
+  },
+  {
+    title: 'Internal Operations Dashboard',
+    client: 'Zeni Consulting',
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>',
+    challenge: 'Need for real-time visibility into project status, resource allocation, and delivery metrics across engagements.',
+    solution: 'Internal dashboard built with Vue.js and PostgreSQL—aggregating data from our tools and providing a single pane of glass.',
+    outcome: 'Improved delivery predictability. Better resource planning. Foundation for client-facing dashboards.',
+    type: 'Internal Project',
+    metrics: [
+      { value: '1', label: 'Single pane of glass' },
+      { value: '3x', label: 'Better planning' },
+    ],
+  },
+];
+---
+
+<BaseLayout title="Case Studies" description="Real projects, real outcomes. How we help businesses build systems that scale." noPadding>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="page-hero__bg"></div>
+    <div class="container page-hero__inner">
+      <span class="page-hero__badge" data-aos="fade-up" data-i18n="casestudies.hero.badge">In-Depth Analysis</span>
+      <h1 data-aos="fade-up" data-i18n="casestudies.hero.title">Case Studies</h1>
+      <p class="page-hero__sub" data-aos="fade-up" data-i18n="casestudies.hero.sub">Real projects. Measurable outcomes. Trust through evidence.</p>
+    </div>
+  </section>
+
+  <!-- Case Studies -->
+  <section class="section">
+    <div class="container">
+      <div class="cases-list">
+        {caseStudies.map((study, i) => (
+          <article class="case-card" data-aos="fade-up" data-aos-delay={i * 100}>
+            <div class="case-card__sidebar">
+              <div class="case-card__icon" set:html={study.icon} />
+              <span class="case-card__type">{study.type}</span>
+              <div class="case-card__metrics">
+                {study.metrics.map((m) => (
+                  <div class="metric-item">
+                    <span class="metric-item__value">{m.value}</span>
+                    <span class="metric-item__label">{m.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div class="case-card__content">
+              <h2>{study.title}</h2>
+              <p class="case-card__client">{study.client}</p>
+              <div class="case-card__sections">
+                <div class="case-section">
+                  <h3 data-i18n="casestudies.challenge">Challenge</h3>
+                  <p>{study.challenge}</p>
+                </div>
+                <div class="case-section">
+                  <h3 data-i18n="casestudies.solution">Solution</h3>
+                  <p>{study.solution}</p>
+                </div>
+                <div class="case-section case-section--highlight">
+                  <h3 data-i18n="casestudies.outcome">Outcome</h3>
+                  <p>{study.outcome}</p>
+                </div>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-section__bg"></div>
+    <div class="container cta-section__inner">
+      <h2 data-aos="fade-up" data-i18n="casestudies.cta.title">Have a project in mind?</h2>
+      <p data-aos="fade-up" data-i18n="casestudies.cta.text">We'd love to hear about your challenges and explore how we can help.</p>
+      <div data-aos="fade-up">
+        <a href="/contact" class="btn btn--white" data-i18n="casestudies.cta.btn">Get in touch</a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* ═══ PAGE HERO ═══ */
+  .page-hero {
+    position: relative;
+    padding: calc(4rem + var(--space-3xl)) 0 var(--space-3xl);
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 60%, var(--color-primary-darker) 100%);
+    overflow: hidden;
+  }
+
+  .page-hero__bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 70% 30%, rgba(255,255,255,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .page-hero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 40rem;
+  }
+
+  .page-hero__badge {
+    display: inline-block;
+    padding: 0.375rem 1rem;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: var(--radius-full);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: var(--space-lg);
+  }
+
+  .page-hero h1 {
+    color: var(--color-white);
+    margin-bottom: var(--space-md);
+  }
+
+  .page-hero__sub {
+    font-size: 1.125rem;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* ═══ CASES LIST ═══ */
+  .cases-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+    max-width: 56rem;
+    margin: 0 auto;
+  }
+
+  .case-card {
+    display: grid;
+    grid-template-columns: 12rem 1fr;
+    background: var(--color-white);
+    border: 1px solid var(--color-neutral-200);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    transition: box-shadow var(--transition-base);
+  }
+
+  .case-card:hover {
+    box-shadow: var(--shadow-lg);
+  }
+
+  .case-card__sidebar {
+    padding: var(--space-xl);
+    background: var(--color-neutral-50);
+    border-right: 1px solid var(--color-neutral-200);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .case-card__icon {
+    width: 3rem;
+    height: 3rem;
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .case-card__type {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-primary);
+    text-align: center;
+  }
+
+  .case-card__metrics {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-top: auto;
+    width: 100%;
+  }
+
+  .metric-item {
+    text-align: center;
+    padding: var(--space-sm);
+    background: var(--color-white);
+    border-radius: var(--radius-md);
+  }
+
+  .metric-item__value {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    line-height: 1.2;
+  }
+
+  .metric-item__label {
+    display: block;
+    font-size: 0.6875rem;
+    color: var(--color-neutral-500);
+    margin-top: 0.125rem;
+  }
+
+  .case-card__content {
+    padding: var(--space-xl);
+  }
+
+  .case-card__content h2 {
+    margin: 0;
+    font-size: 1.375rem;
+    color: var(--color-neutral-900);
+  }
+
+  .case-card__client {
+    font-size: 0.875rem;
+    color: var(--color-neutral-500);
+    margin: 0.25rem 0 0;
+  }
+
+  .case-card__sections {
+    margin-top: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .case-section h3 {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-neutral-500);
+    margin: 0 0 var(--space-xs);
+  }
+
+  .case-section p {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--color-neutral-700);
+    line-height: 1.7;
+  }
+
+  .case-section--highlight {
+    background: var(--color-primary-50);
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    border-left: 3px solid var(--color-primary);
+  }
+
+  .case-section--highlight h3 {
+    color: var(--color-primary);
+  }
+
+  .case-section--highlight p {
+    color: var(--color-neutral-800);
+    font-weight: 500;
+  }
+
+  /* ═══ CTA ═══ */
+  .cta-section {
+    position: relative;
+    padding: var(--space-3xl) 0;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 60%, var(--color-primary-darker) 100%);
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .cta-section__bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 30% 70%, rgba(255,255,255,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .cta-section__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 36rem;
+    margin: 0 auto;
+  }
+
+  .cta-section h2 {
+    color: var(--color-white);
+    margin-bottom: var(--space-md);
+  }
+
+  .cta-section p {
+    color: rgba(255,255,255,0.8);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    margin-bottom: var(--space-xl);
+  }
+
+  .btn--white {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 2rem;
+    background: var(--color-white);
+    color: var(--color-primary);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: all var(--transition-base);
+  }
+
+  .btn--white:hover {
+    background: var(--color-neutral-100);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  /* ═══ RESPONSIVE ═══ */
+  @media (max-width: 768px) {
+    .page-hero {
+      padding: calc(4rem + var(--space-2xl)) 0 var(--space-2xl);
+    }
+
+    .case-card {
+      grid-template-columns: 1fr;
+    }
+
+    .case-card__sidebar {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      border-right: none;
+      border-bottom: 1px solid var(--color-neutral-200);
+      padding: var(--space-lg);
+    }
+
+    .case-card__metrics {
+      flex-direction: row;
+      gap: var(--space-lg);
+      margin-top: var(--space-sm);
+    }
+
+    .metric-item {
+      flex: 1;
+    }
+  }
+</style>

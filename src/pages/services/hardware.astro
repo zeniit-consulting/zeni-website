@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ServiceDetail from '../../components/ServiceDetail.astro';
+---
+
+<BaseLayout title="Hardware Installation" description="Professional hardware setup, network infrastructure, and IT equipment installation for your business." noPadding>
+  <section class="svc-hero">
+    <div class="svc-hero__bg"></div>
+    <div class="container svc-hero__inner">
+      <a href="/services" class="svc-hero__back" data-i18n="servicedetail.back">&larr; All Services</a>
+      <div class="svc-hero__icon">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      </div>
+      <h1 data-i18n="service.hw.title">Hardware Installation</h1>
+      <p class="svc-hero__sub" data-i18n="service.hw.sub">Reliable infrastructure. Properly installed. Built to last.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container container--narrow">
+      <ServiceDetail
+        title="Hardware Installation"
+        i18nPrefix="service.hw"
+        problem="New offices, expansions, or infrastructure upgrades require proper hardware deployment. Poor installation leads to downtime, cable clutter, and future maintenance headaches. Many businesses struggle with vendor coordination and lack in-house expertise."
+        approach="We handle end-to-end hardware installation: network cabling, server racks, workstations, and peripherals. We follow structured cabling standards, document everything, and ensure your infrastructure is scalable and maintainable from day one."
+        outcome="Clean, organized infrastructure. Reduced downtime. Clear documentation for future upgrades. Hardware that supports your business operations reliably."
+        useCase="A growing logistics company opened a new warehouse. We installed network infrastructure, access points, and workstations—delivering a turnkey setup with documentation and handover training for their IT team."
+      />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .svc-hero {
+    position: relative;
+    padding: calc(4rem + var(--space-3xl)) 0 var(--space-3xl);
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 60%, var(--color-primary-darker) 100%);
+    overflow: hidden;
+  }
+  .svc-hero__bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 70% 30%, rgba(255,255,255,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .svc-hero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 40rem;
+  }
+  .svc-hero__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: var(--space-xl);
+    transition: color var(--transition-fast);
+  }
+  .svc-hero__back:hover {
+    color: var(--color-white);
+  }
+  .svc-hero__icon {
+    width: 3.5rem;
+    height: 3.5rem;
+    background: rgba(255,255,255,0.15);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-white);
+    margin-bottom: var(--space-lg);
+  }
+  .svc-hero h1 {
+    color: var(--color-white);
+    margin-bottom: var(--space-md);
+  }
+  .svc-hero__sub {
+    font-size: 1.125rem;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.7;
+    margin: 0;
+  }
+  @media (max-width: 768px) {
+    .svc-hero {
+      padding: calc(4rem + var(--space-2xl)) 0 var(--space-2xl);
+    }
+  }
+</style>

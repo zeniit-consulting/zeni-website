@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ServiceDetail from '../../components/ServiceDetail.astro';
+---
+
+<BaseLayout title="Technology Audit" description="Objective assessment of your current stack, security posture, and optimization opportunities." noPadding>
+  <section class="svc-hero">
+    <div class="svc-hero__bg"></div>
+    <div class="container svc-hero__inner">
+      <a href="/services" class="svc-hero__back" data-i18n="servicedetail.back">&larr; All Services</a>
+      <div class="svc-hero__icon">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+      </div>
+      <h1 data-i18n="service.audit.title">Technology Audit</h1>
+      <p class="svc-hero__sub" data-i18n="service.audit.sub">Objective assessment. Clear recommendations. Confident next steps.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container container--narrow">
+      <ServiceDetail
+        title="Technology Audit"
+        i18nPrefix="service.audit"
+        problem="You may suspect your technology has gaps—security risks, performance issues, or outdated architecture—but lack an objective view. Internal teams are too close; vendors may push their own agenda. You need an honest, actionable assessment."
+        approach="We conduct a structured audit of your systems, architecture, security posture, and operational practices. We document findings with severity, impact, and prioritized recommendations. Our reports are written for decision-makers—clear, concise, and actionable."
+        outcome="A clear picture of your technology health. Prioritized recommendations for improvement. Confidence in your next steps—whether that's incremental fixes or strategic overhaul."
+        useCase="A financial services startup preparing for Series A needed to demonstrate due diligence on security and compliance. We delivered an audit covering infrastructure, application security, and data handling—with a remediation roadmap that satisfied investor due diligence."
+      />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .svc-hero {
+    position: relative;
+    padding: calc(4rem + var(--space-3xl)) 0 var(--space-3xl);
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 60%, var(--color-primary-darker) 100%);
+    overflow: hidden;
+  }
+  .svc-hero__bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 70% 30%, rgba(255,255,255,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .svc-hero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 40rem;
+  }
+  .svc-hero__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: var(--space-xl);
+    transition: color var(--transition-fast);
+  }
+  .svc-hero__back:hover {
+    color: var(--color-white);
+  }
+  .svc-hero__icon {
+    width: 3.5rem;
+    height: 3.5rem;
+    background: rgba(255,255,255,0.15);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-white);
+    margin-bottom: var(--space-lg);
+  }
+  .svc-hero h1 {
+    color: var(--color-white);
+    margin-bottom: var(--space-md);
+  }
+  .svc-hero__sub {
+    font-size: 1.125rem;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.7;
+    margin: 0;
+  }
+  @media (max-width: 768px) {
+    .svc-hero {
+      padding: calc(4rem + var(--space-2xl)) 0 var(--space-2xl);
+    }
+  }
+</style>
