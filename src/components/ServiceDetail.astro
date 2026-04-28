@@ -5,49 +5,141 @@ interface Props {
   approach: string;
   outcome: string;
   useCase: string;
+  features?: string[];
   i18nPrefix?: string;
 }
 
-const { title, problem, approach, outcome, useCase, i18nPrefix } = Astro.props;
+const {
+  title,
+  problem,
+  approach,
+  outcome,
+  useCase,
+  features = [],
+  i18nPrefix,
+} = Astro.props;
 ---
 
 <div class="service-detail">
   <div class="service-detail__block">
     <div class="service-detail__label">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        ><circle cx="12" cy="12" r="10"></circle><line
+          x1="12"
+          y1="16"
+          x2="12"
+          y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg
+      >
       <h2 data-i18n="servicedetail.problem">The Problem</h2>
     </div>
-    <p data-i18n={i18nPrefix ? `${i18nPrefix}.problem` : undefined}>{problem}</p>
+    <p data-i18n={i18nPrefix ? `${i18nPrefix}.problem` : undefined}>
+      {problem}
+    </p>
   </div>
   <div class="service-detail__block">
     <div class="service-detail__label">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        ><path d="M12 20h9"></path><path
+          d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg
+      >
       <h2 data-i18n="servicedetail.approach">Our Approach</h2>
     </div>
-    <p data-i18n={i18nPrefix ? `${i18nPrefix}.approach` : undefined}>{approach}</p>
+    <p data-i18n={i18nPrefix ? `${i18nPrefix}.approach` : undefined}>
+      {approach}
+    </p>
   </div>
   <div class="service-detail__block">
     <div class="service-detail__label">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        ><path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path><polyline
+          points="22 4 12 14.01 9 11.01"></polyline></svg
+      >
       <h2 data-i18n="servicedetail.outcome">The Outcome</h2>
     </div>
-    <p data-i18n={i18nPrefix ? `${i18nPrefix}.outcome` : undefined}>{outcome}</p>
+    <p data-i18n={i18nPrefix ? `${i18nPrefix}.outcome` : undefined}>
+      {outcome}
+    </p>
   </div>
+  {
+    features.length > 0 && (
+      <div class="service-detail__block">
+        <div class="service-detail__label">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+  <circle cx="12" cy="12" r="10"></circle>
+  <path d="M9 12l2 2 4-4"></path>
+</svg>
+          <h2 data-i18n="servicedetail.features">Key Features</h2>
+        </div>
+        <ul class="svc-features">
+          <li data-i18n="services.webdev.features.1" />
+          <li data-i18n="services.webdev.features.2" />
+          <li data-i18n="services.webdev.features.3" />
+          <li data-i18n="services.webdev.features.4" />
+        </ul>
+      </div>
+    )
+  }
   <div class="service-detail__block service-detail__block--highlight">
     <div class="service-detail__label">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        ><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path
+          d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"></path></svg
+      >
       <h2 data-i18n="servicedetail.usecase">Example Use Case</h2>
     </div>
-    <p data-i18n={i18nPrefix ? `${i18nPrefix}.usecase` : undefined}>{useCase}</p>
+    <p data-i18n={i18nPrefix ? `${i18nPrefix}.usecase` : undefined}>
+      {useCase}
+    </p>
   </div>
 
   <div class="service-detail__cta">
     <p data-i18n="servicedetail.cta.text">Interested in this service?</p>
-    <a href="/contact" class="btn btn--primary" data-i18n="servicedetail.cta.btn">Schedule a Consultation</a>
+    <a
+      href="/contact"
+      class="btn btn--primary"
+      data-i18n="servicedetail.cta.btn">Schedule a Consultation</a
+    >
   </div>
 </div>
 
 <style>
+  .svc-features {
+    margin-top: 10px;
+    padding-left: 0;
+    list-style: none;
+  }
+
+  .svc-features li {
+    margin-bottom: 8px;
+    color: #444;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
   .service-detail {
     display: flex;
     flex-direction: column;

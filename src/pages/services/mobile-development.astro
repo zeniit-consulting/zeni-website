@@ -5,8 +5,8 @@ import ServiceSidebar from "../../components/ServiceSidebar.astro";
 ---
 
 <BaseLayout
-  title="Hardware Installation"
-  description="Professional hardware setup, network infrastructure, and IT equipment installation for your business."
+  title="Mobile Development"
+  description="Custom mobile applications built with clean architecture—scalable, maintainable, and fit for purpose."
   noPadding
 >
   <section class="svc-hero">
@@ -23,32 +23,29 @@ import ServiceSidebar from "../../components/ServiceSidebar.astro";
           fill="none"
           stroke="currentColor"
           stroke-width="1.5"
-          ><rect x="2" y="3" width="20" height="14" rx="2"></rect><line
-            x1="8"
-            y1="21"
-            x2="16"
-            y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg
+          ><polyline points="16 18 22 12 16 6"></polyline><polyline
+            points="8 6 2 12 8 18"></polyline></svg
         >
       </div>
-      <h1 data-i18n="service.hw.title">Hardware Installation</h1>
-      <p class="svc-hero__sub" data-i18n="service.hw.sub">
-        Reliable infrastructure. Properly installed. Built to last.
+      <h1 data-i18n="services.mobile.title">Mobile Development</h1>
+      <p class="svc-hero__sub" data-i18n="services.mobile.summary">
+        Custom mobile applications built to last. Scalable, maintainable, and fit
+        for purpose.
       </p>
     </div>
   </section>
-
   <section class="section">
     <div class="container container--narrow">
       <div class="service-layout">
         <!-- left -->
         <div class="service-main">
           <ServiceDetail
-            title="Hardware Installation"
-            i18nPrefix="service.hw"
-            problem="New offices, expansions, or infrastructure upgrades require proper hardware deployment. Poor installation leads to downtime, cable clutter, and future maintenance headaches. Many businesses struggle with vendor coordination and lack in-house expertise."
-            approach="We handle end-to-end hardware installation: network cabling, server racks, workstations, and peripherals. We follow structured cabling standards, document everything, and ensure your infrastructure is scalable and maintainable from day one."
-            outcome="Clean, organized infrastructure. Reduced downtime. Clear documentation for future upgrades. Hardware that supports your business operations reliably."
-            useCase="A growing logistics company opened a new warehouse. We installed network infrastructure, access points, and workstations—delivering a turnkey setup with documentation and handover training for their IT team."
+            title="Mobile Development"
+            i18nPrefix="service.mobile"
+            problem="Off-the-shelf solutions often fall short—custom workflows, integration needs, or scalability requirements demand tailored systems. Many projects fail due to poor architecture, unclear requirements, or lack of long-term maintenance planning."
+            approach="We build systems with clean architecture principles: separation of concerns, testability, and documentation from day one. We work in iterations with clear deliverables, so you see progress and can steer direction early. Technology choices are driven by your context—not by our comfort zone."
+            outcome="Systems that work for your business today and scale with you tomorrow. Codebases that your team (or ours) can maintain and extend without starting over."
+            useCase="A B2B SaaS company needed a custom workflow engine to automate client onboarding. We delivered a Laravel-based system with Vue.js frontend—integrated with their CRM, deployed on AWS, and documented for their in-house team to own."
           />
         </div>
         <!-- RIGHT -->
@@ -130,4 +127,6 @@ import ServiceSidebar from "../../components/ServiceSidebar.astro";
     grid-template-columns: 2fr 1fr;
     gap: 40px;
   }
+  
+  
 </style>
