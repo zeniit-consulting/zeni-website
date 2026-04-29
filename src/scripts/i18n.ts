@@ -251,6 +251,24 @@ export const translations: Record<string, Record<Lang, string>> = {
     es: "Saber más →",
   },
 
+  // ── Homepage: Technology We Use ─────────────────────────────────
+  "home.technology.label": {
+    id: "Teknologi yang Kami Gunakan",
+    en: "Technologies We Use",
+    es: "Tecnologías que Usamos",
+  },
+  "home.technology.title": {
+    id: "Teknologi yang kami gunakan untuk membangun sistem yang berkembang",
+    en: "Technologies we use to build systems that scale",
+    es: "Tecnologías que usamos para construir sistemas que escalan",
+  },
+  "home.technology.subtitle": {
+    id: "Kami memilih teknologi berdasarkan kebutuhan bisnis, bukan tren. Tumpukan kami dirancang untuk skalabilitas, keandalan, dan kemudahan pemeliharaan.",
+    en: "We choose technologies based on business needs, not trends. Our stack is designed for scalability, reliability, and maintainability.",
+    es: "Elegimos tecnologías basadas en las necesidades del negocio, no en las tendencias. Nuestra pila está diseñada para escalabilidad, confiabilidad y mantenibilidad.",
+  },
+  
+
   // ── Homepage: Stats ───────────────────────────────────
   "home.stat.projects": {
     id: "Proyek Selesai",

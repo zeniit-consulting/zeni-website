@@ -90,6 +90,25 @@ const testimonials = [
     delay: 200,
   },
 ];
+
+const tech = [
+  {
+    name: "React",
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
+  },
+  {
+    name: "Vue",
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12l10 10L22 12"/><path d="M2 7l10 10L22 7"/></svg>',
+  },
+  {
+    name: "Angular",
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>',
+  },
+  {
+    name: "Tailwind",
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12l10 10L22 12"/><path d="M2 7l10 10L22 7"/></svg>',
+  },
+];
 ---
 
 <BaseLayout
@@ -270,7 +289,59 @@ const testimonials = [
     </div>
   </section>
 
-  <section class="section insight-section">
+  <!-- Technology We Use -->
+  <section class="section insight-section tech" id="technology-section">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <span class="section__label" data-i18n="home.technology.label">
+          Technology
+        </span>
+        <h2 class="section__title" data-i18n="home.technology.title">
+          Modern tools powering our solutions
+        </h2>
+        <p class="section__subtitle" data-i18n="home.technology.subtitle">
+          We use proven technologies across frontend, backend, and
+          infrastructure to deliver scalable and reliable systems.
+        </p>
+      </div>
+
+      <div class="tech__logos" data-aos="fade-up" data-aos-delay="50">
+        <div class="tech__track">
+          <!-- Frontend -->
+          <img src="/images/tech/vuejs.webp" alt="Vue.js" loading="lazy" />
+          <img src="/images/tech/nextjs.webp" alt="Next.js" loading="lazy" />
+          <img src="/images/tech/reactjs.webp" alt="React.js" loading="lazy" />
+          <img src="/images/tech/astro.svg" alt="Astro" loading="lazy" />
+          <!-- Backend -->
+          <img src="/images/tech/laravel.webp" alt="Laravel" loading="lazy" />
+          <img src="/images/tech/nodejs.webp" alt="Node.js" loading="lazy" />
+          <img src="/images/tech/python.webp" alt="Python" loading="lazy" />
+          <!-- DevOps -->
+          <img src="/images/tech/docker.webp" alt="Docker" loading="lazy" />
+          <!-- Database -->
+          <img src="/images/tech/MySQL.svg" alt="MySQL" loading="lazy" />
+
+          <!-- Duplikat -->
+
+          <!-- Frontend -->
+          <img src="/images/tech/vuejs.webp" alt="Vue.js" loading="lazy" />
+          <img src="/images/tech/nextjs.webp" alt="Next.js" loading="lazy" />
+          <img src="/images/tech/reactjs.webp" alt="React.js" loading="lazy" />
+          <img src="/images/tech/astro.svg" alt="Astro" loading="lazy" />
+          <!-- Backend -->
+          <img src="/images/tech/laravel.webp" alt="Laravel" loading="lazy" />
+          <img src="/images/tech/nodejs.webp" alt="Node.js" loading="lazy" />
+          <img src="/images/tech/python.webp" alt="Python" loading="lazy" />
+          <!-- DevOps -->
+          <img src="/images/tech/docker.webp" alt="Docker" loading="lazy" />
+          <!-- Database -->
+          <img src="/images/tech/MySQL.svg" alt="MySQL" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
     <div class="container insight-grid">
       <div class="insight-column">
         <div class="section-header section-header--left" data-aos="fade-up">
@@ -757,14 +828,34 @@ const testimonials = [
     margin-bottom: var(--space-xl);
   }
 
-  .clients__logos {
+  .tech__logos {
     overflow: hidden;
     width: 100%;
-    margin-left: -20px;
-    margin-right: -20px;
+    margin-top: 30px;
+    position: relative;
   }
 
-  .clients__track {
+  .tech__logos::before,
+  .tech__logos::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 80px;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .tech__logos::before {
+    left: 0;
+    background: linear-gradient(to right, var(--color-white), transparent);
+  }
+
+  .tech__logos::after {
+    right: 0;
+    background: linear-gradient(to left, var(--color-white), transparent);
+  }
+
+  .tech__track {
     display: flex;
     flex-wrap: nowrap;
     gap: 1.5rem 2.5rem;
@@ -773,12 +864,17 @@ const testimonials = [
     width: max-content;
     animation: scroll 25s linear infinite;
   }
-  .clients__track:hover {
+  .tech__track {
+  animation: scroll 25s linear infinite reverse;
+}
+  
+
+  .tech__track:hover {
     animation-play-state: paused;
   }
 
-  .clients__track img {
-    height: 40px;
+  .tech__track img {
+    height: 60px;
     object-fit: contain;
     flex-shrink: 0;
     filter: grayscale(100%);
@@ -786,21 +882,21 @@ const testimonials = [
     transition: all 0.3s ease;
   }
 
-  .clients__track img:hover {
+  .tech__track img:hover {
     filter: grayscale(0%);
     opacity: 1;
     transform: scale(1.05);
   }
 
   /* animation logo clients */
-  @keyframes scroll {
+  /* @keyframes scroll {
     from {
       transform: translateX(0);
     }
     to {
       transform: translatex(-50%);
     }
-  }
+  } */
 
   .services-grid {
     display: grid;
@@ -1159,6 +1255,72 @@ const testimonials = [
     margin-top: var(--space-lg);
     display: flex;
     justify-content: center;
+  }
+
+  .clients__logos {
+    overflow: hidden;
+    width: 100%;
+    margin-top: 30px;
+    position: relative;
+  }
+
+  .clients__logos::before,
+  .clients__logos::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 15%;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .clients__logos::before {
+    left: 0;
+    background: linear-gradient(to right, var(--color-white), transparent);
+  }
+
+  .clients__logos::after {
+    right: 0;
+    background: linear-gradient(to left, var(--color-white), transparent);
+  }
+
+  .clients__track {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 1.5rem 2.5rem;
+    justify-content: center;
+    align-items: center;
+    width: max-content;
+    animation: scroll 25s linear infinite;
+  }
+
+  .clients__track:hover {
+    animation-play-state: paused;
+  }
+
+  .clients__track img {
+    height: 40px;
+    object-fit: contain;
+    flex-shrink: 0;
+    filter: grayscale(100%);
+    opacity: 0.7;
+    transition: all 0.3s ease;
+  }
+
+  .clients__track img:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  /* animation logo clients */
+  @keyframes scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translatex(-50%);
+    }
   }
 
   @media (max-width: 1100px) {
