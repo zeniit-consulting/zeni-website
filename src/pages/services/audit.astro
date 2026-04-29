@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ServiceDetail from '../../components/ServiceDetail.astro';
+import ServiceSidebar from '../../components/ServiceSidebar.astro';
 ---
 
 <BaseLayout title="Technology Audit" description="Objective assessment of your current stack, security posture, and optimization opportunities." noPadding>
@@ -18,14 +19,22 @@ import ServiceDetail from '../../components/ServiceDetail.astro';
 
   <section class="section">
     <div class="container container--narrow">
-      <ServiceDetail
-        title="Technology Audit"
-        i18nPrefix="service.audit"
-        problem="You may suspect your technology has gaps—security risks, performance issues, or outdated architecture—but lack an objective view. Internal teams are too close; vendors may push their own agenda. You need an honest, actionable assessment."
-        approach="We conduct a structured audit of your systems, architecture, security posture, and operational practices. We document findings with severity, impact, and prioritized recommendations. Our reports are written for decision-makers—clear, concise, and actionable."
-        outcome="A clear picture of your technology health. Prioritized recommendations for improvement. Confidence in your next steps—whether that's incremental fixes or strategic overhaul."
-        useCase="A financial services startup preparing for Series A needed to demonstrate due diligence on security and compliance. We delivered an audit covering infrastructure, application security, and data handling—with a remediation roadmap that satisfied investor due diligence."
-      />
+      <div class="service-layout">
+        <!-- Left -->
+        <div class="service-main">
+          <ServiceDetail
+            title="Technology Audit"
+            i18nPrefix="service.audit"
+            problem="You may suspect your technology has gaps—security risks, performance issues, or outdated architecture—but lack an objective view. Internal teams are too close; vendors may push their own agenda. You need an honest, actionable assessment."
+            approach="We conduct a structured audit of your systems, architecture, security posture, and operational practices. We document findings with severity, impact, and prioritized recommendations. Our reports are written for decision-makers—clear, concise, and actionable."
+            outcome="A clear picture of your technology health. Prioritized recommendations for improvement. Confidence in your next steps—whether that's incremental fixes or strategic overhaul."
+            useCase="A financial services startup preparing for Series A needed to demonstrate due diligence on security and compliance. We delivered an audit covering infrastructure, application security, and data handling—with a remediation roadmap that satisfied investor due diligence."
+          />
+
+        </div>
+        <!-- Right -->
+         <ServiceSidebar />
+      </div>
     </div>
   </section>
 </BaseLayout>
@@ -86,5 +95,11 @@ import ServiceDetail from '../../components/ServiceDetail.astro';
     .svc-hero {
       padding: calc(4rem + var(--space-2xl)) 0 var(--space-2xl);
     }
+  }
+
+  .service-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
   }
 </style>

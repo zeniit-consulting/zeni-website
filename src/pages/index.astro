@@ -1,103 +1,153 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
 
 const services = [
   {
-    href: '/services/development',
-    titleKey: 'home.feature.dev.title',
-    textKey: 'home.feature.dev.text',
+    href: "/services/web-development",
+    titleKey: "home.feature.web.title",
+    textKey: "home.feature.web.text",
     delay: 0,
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><line x1="4" y1="10" x2="20" y2="10"/></svg>',
+  },
+  {
+    href: "/services/mobile-development",
+    titleKey: "home.feature.mobile.title",
+    textKey: "home.feature.mobile.text",
+    delay: 50,
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="16" r="1"/></svg>',
+  },
+  {
+    href: "/services/web-app-development",
+    titleKey: "home.feature.webapp.title",
+    textKey: "home.feature.webapp.text",
+    delay: 100,
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="7" y1="4" x2="7" y2="20"/></svg>',
+  },
+  {
+    href: "/services/development",
+    titleKey: "home.feature.dev.title",
+    textKey: "home.feature.dev.text",
+    delay: 150,
     icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
   },
   {
-    href: '/services/hardware',
-    titleKey: 'home.feature.hw.title',
-    textKey: 'home.feature.hw.text',
-    delay: 50,
+    href: "/services/hardware",
+    titleKey: "home.feature.hw.title",
+    textKey: "home.feature.hw.text",
+    delay: 200,
     icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>',
   },
   {
-    href: '/services/consulting',
-    titleKey: 'home.feature.it.title',
-    textKey: 'home.feature.it.text',
-    delay: 100,
+    href: "/services/consulting",
+    titleKey: "home.feature.it.title",
+    textKey: "home.feature.it.text",
+    delay: 250,
     icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>',
   },
   {
-    href: '/services/automation',
-    titleKey: 'home.feature.ai.title',
-    textKey: 'home.feature.ai.text',
-    delay: 150,
+    href: "/services/automation",
+    titleKey: "home.feature.ai.title",
+    textKey: "home.feature.ai.text",
+    delay: 300,
     icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>',
   },
   {
-    href: '/services/audit',
-    titleKey: 'home.feature.audit.title',
-    textKey: 'home.feature.audit.text',
-    delay: 200,
+    href: "/services/audit",
+    titleKey: "home.feature.audit.title",
+    textKey: "home.feature.audit.text",
+    delay: 350,
     icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>',
   },
   {
-    href: '/services/strategy',
-    titleKey: 'home.feature.strategy.title',
-    textKey: 'home.feature.strategy.text',
-    delay: 250,
+    href: "/services/strategy",
+    titleKey: "home.feature.strategy.title",
+    textKey: "home.feature.strategy.text",
+    delay: 400,
     icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
   },
 ];
 
 const testimonials = [
   {
-    quoteKey: 'home.testimonial.1.text',
-    nameKey: 'home.testimonial.1.name',
-    roleKey: 'home.testimonial.1.role',
-    initial: 'A',
+    quoteKey: "home.testimonial.1.text",
+    nameKey: "home.testimonial.1.name",
+    roleKey: "home.testimonial.1.role",
+    initial: "A",
     delay: 0,
   },
   {
-    quoteKey: 'home.testimonial.2.text',
-    nameKey: 'home.testimonial.2.name',
-    roleKey: 'home.testimonial.2.role',
-    initial: 'S',
+    quoteKey: "home.testimonial.2.text",
+    nameKey: "home.testimonial.2.name",
+    roleKey: "home.testimonial.2.role",
+    initial: "S",
     delay: 100,
   },
   {
-    quoteKey: 'home.testimonial.3.text',
-    nameKey: 'home.testimonial.3.name',
-    roleKey: 'home.testimonial.3.role',
-    initial: 'B',
+    quoteKey: "home.testimonial.3.text",
+    nameKey: "home.testimonial.3.name",
+    roleKey: "home.testimonial.3.role",
+    initial: "B",
     delay: 200,
   },
 ];
 ---
 
-<BaseLayout title="Home" description="Strategic IT consulting for growing businesses. Software development, hardware installation, IT consulting, and AI automation." noPadding>
+<BaseLayout
+  title="Home"
+  description="Strategic IT consulting for growing businesses. Software development, hardware installation, IT consulting, and AI automation."
+  noPadding
+>
   <section class="hero">
     <div class="hero__bg"></div>
     <div class="container hero__grid">
       <div class="hero__content" data-aos="fade-up">
-        <span class="hero__badge" data-i18n="home.hero.badge">IT Consulting & Services</span>
-        <h1 class="hero__headline" data-i18n="home.hero.headline">Build systems that scale with the technology you need.</h1>
-        <p class="hero__sub" data-i18n="home.hero.sub">Strategic IT consulting for growing businesses. From software development to AI automation—we align technology with your goals.</p>
+        <span class="hero__badge" data-i18n="home.hero.badge"
+          >IT Consulting & Services</span
+        >
+        <h1 class="hero__headline" data-i18n="home.hero.headline">
+          Build systems that scale with the technology you need.
+        </h1>
+        <p class="hero__sub" data-i18n="home.hero.sub">
+          Strategic IT consulting for growing businesses. From software
+          development to AI automation—we align technology with your goals.
+        </p>
         <div class="hero__cta">
-          <a href="/contact" class="btn btn--white btn--large" data-i18n="home.hero.cta1">Book Free Consultation</a>
-          <a href="/services" class="btn btn--ghost btn--large" data-i18n="home.hero.cta2">View Services</a>
+          <a
+            href="/contact"
+            class="btn btn--white btn--large"
+            data-i18n="home.hero.cta1">Book Free Consultation</a
+          >
+          <a
+            href="/services"
+            class="btn btn--ghost btn--large"
+            data-i18n="home.hero.cta2">View Services</a
+          >
         </div>
       </div>
 
       <div class="hero__panel" data-aos="fade-left" data-aos-delay="150">
         <div class="hero-panel__aside">
           <div class="hero-mini-card">
-            <span class="hero-mini-card__label" data-i18n="home.stat.projects">Projects Delivered</span>
+            <span class="hero-mini-card__label" data-i18n="home.stat.projects"
+              >Projects Delivered</span
+            >
             <strong>50+</strong>
           </div>
           <div class="hero-mini-card">
-            <span class="hero-mini-card__label" data-i18n="home.stat.satisfaction">Client Satisfaction</span>
+            <span
+              class="hero-mini-card__label"
+              data-i18n="home.stat.satisfaction">Client Satisfaction</span
+            >
             <strong>98%</strong>
           </div>
           <div class="hero-mini-card hero-mini-card--accent">
-            <span class="hero-mini-card__label" data-i18n="home.why.item2.title">Strategy-First Approach</span>
-            <p data-i18n="home.why.item2.text">Technology decisions driven by business goals, not trends. Every recommendation is tied to measurable outcomes.</p>
+            <span class="hero-mini-card__label" data-i18n="home.why.item2.title"
+              >Strategy-First Approach</span
+            >
+            <p data-i18n="home.why.item2.text">
+              Technology decisions driven by business goals, not trends. Every
+              recommendation is tied to measurable outcomes.
+            </p>
           </div>
         </div>
       </div>
@@ -108,7 +158,9 @@ const testimonials = [
     <div class="container">
       <div class="proof-strip__shell">
         <div class="proof-strip__brand-block" data-aos="fade-up">
-          <p class="proof-strip__label" data-i18n="home.trusted.label">Trusted by growing businesses</p>
+          <p class="proof-strip__label" data-i18n="home.trusted.label">
+            Trusted by growing businesses
+          </p>
         </div>
 
         <div class="proof-strip__stats" data-aos="fade-up" data-aos-delay="100">
@@ -133,23 +185,87 @@ const testimonials = [
     </div>
   </section>
 
+  <section class="clients section section-alt" id="clients-section">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <span class="section__label" data-i18n="home.clients.label"
+          >Our Clients</span
+        >
+        <h2 class="section__title" data-i18n="home.clients.title">
+          We partner with ambitious businesses across industries
+        </h2>
+        <p class="section__subtitle" data-i18n="home.clients.subtitle">
+          From tech startups to established enterprises, we help organizations
+          leverage technology for growth and innovation.
+        </p>
+      </div>
+
+      <div class="clients__logos" data-aos="fade-up" data-aos-delay="50">
+        <div class="clients__track">
+          <img src="/images/clients/google.png" alt="Google" />
+          <img src="/images/clients/netflix.png" alt="Netflix" />
+          <img src="/images/clients/spotify.png" alt="Spotify" />
+          <img src="/images/clients/airbnb.png" alt="Airbnb" />
+          <img src="/images/clients/microsoft.png" alt="Microsoft" />
+          <img src="/images/clients/paypal.png" alt="Paypal" />
+          <img src="/images/clients/amazon.png" alt="Amazon" />
+          <img src="/images/clients/adobe.png" alt="Adobe" />
+          <!-- Duplikat -->
+          <img src="/images/clients/google.png" alt="Google" />
+          <img src="/images/clients/netflix.png" alt="Netflix" />
+          <img src="/images/clients/spotify.png" alt="Spotify" />
+          <img src="/images/clients/airbnb.png" alt="Airbnb" />
+          <img src="/images/clients/microsoft.png" alt="Microsoft" />
+          <img src="/images/clients/paypal.png" alt="Paypal" />
+          <img src="/images/clients/amazon.png" alt="Amazon" />
+          <img src="/images/clients/adobe.png" alt="Adobe" />
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="section section--alt" id="services-section">
     <div class="container">
       <div class="section-header" data-aos="fade-up">
-        <span class="section__label" data-i18n="home.services.label">Our Services</span>
-        <h2 class="section__title" data-i18n="home.services.title">Comprehensive IT solutions for your business</h2>
-        <p class="section__subtitle" data-i18n="home.services.subtitle">From strategy to execution, we provide end-to-end technology services tailored to your specific needs.</p>
+        <span class="section__label" data-i18n="home.services.label"
+          >Our Services</span
+        >
+        <h2 class="section__title" data-i18n="home.services.title">
+          Comprehensive IT solutions for your business
+        </h2>
+        <p class="section__subtitle" data-i18n="home.services.subtitle">
+          From strategy to execution, we provide end-to-end technology services
+          tailored to your specific needs.
+        </p>
       </div>
 
       <div class="services-grid">
-        {services.map((service) => (
-          <a href={service.href} class="service-card" data-aos="fade-up" data-aos-delay={service.delay}>
-            <div class="service-card__icon" set:html={service.icon}></div>
-            <h3 class="service-card__title" data-i18n={service.titleKey}></h3>
-            <p class="service-card__text" data-i18n={service.textKey}></p>
-            <span class="service-card__link" data-i18n="home.feature.learn">Learn more →</span>
-          </a>
-        ))}
+        {
+          services.slice(0, 6).map((service) => (
+            <a
+              href={service.href}
+              class="service-card"
+              data-aos="fade-up"
+              data-aos-delay={service.delay}
+            >
+              <div class="service-card__icon" set:html={service.icon} />
+              <h3 class="service-card__title" data-i18n={service.titleKey} />
+              <p class="service-card__text" data-i18n={service.textKey} />
+              <span class="service-card__link" data-i18n="home.feature.learn">
+                Learn more →
+              </span>
+            </a>
+          ))
+        }
+      </div>
+      <div class="btn-view" data-aos="fade-up" data-aos-delay="350">
+        <a
+          href="/services"
+          class="btn btn--primary btn--large"
+          data-i18n="services.view.details"
+        >
+          View All Services
+        </a>
       </div>
     </div>
   </section>
@@ -158,9 +274,15 @@ const testimonials = [
     <div class="container insight-grid">
       <div class="insight-column">
         <div class="section-header section-header--left" data-aos="fade-up">
-          <span class="section__label" data-i18n="home.why.label">Why Zeni</span>
-          <h2 class="section__title" data-i18n="home.why.title">Technology that works for your business</h2>
-          <p class="section__subtitle" data-i18n="home.why.subtitle">We combine technical expertise with business understanding to deliver solutions that create real impact.</p>
+          <span class="section__label" data-i18n="home.why.label">Why Zeni</span
+          >
+          <h2 class="section__title" data-i18n="home.why.title">
+            Technology that works for your business
+          </h2>
+          <p class="section__subtitle" data-i18n="home.why.subtitle">
+            We combine technical expertise with business understanding to
+            deliver solutions that create real impact.
+          </p>
         </div>
 
         <div class="why-stack">
@@ -169,8 +291,13 @@ const testimonials = [
               <span class="why-card__number">01</span>
             </div>
             <div>
-              <h3 class="why-card__title" data-i18n="home.why.item1.title">No Vendor Lock-In</h3>
-              <p class="why-card__text" data-i18n="home.why.item1.text">We build with open standards and ensure you always own your code, data, and infrastructure.</p>
+              <h3 class="why-card__title" data-i18n="home.why.item1.title">
+                No Vendor Lock-In
+              </h3>
+              <p class="why-card__text" data-i18n="home.why.item1.text">
+                We build with open standards and ensure you always own your
+                code, data, and infrastructure.
+              </p>
             </div>
           </article>
           <article class="why-card" data-aos="fade-up" data-aos-delay="50">
@@ -178,8 +305,13 @@ const testimonials = [
               <span class="why-card__number">02</span>
             </div>
             <div>
-              <h3 class="why-card__title" data-i18n="home.why.item2.title">Business-First Approach</h3>
-              <p class="why-card__text" data-i18n="home.why.item2.text">Technology decisions driven by business goals, not trends. Every recommendation is tied to measurable outcomes.</p>
+              <h3 class="why-card__title" data-i18n="home.why.item2.title">
+                Business-First Approach
+              </h3>
+              <p class="why-card__text" data-i18n="home.why.item2.text">
+                Technology decisions driven by business goals, not trends. Every
+                recommendation is tied to measurable outcomes.
+              </p>
             </div>
           </article>
           <article class="why-card" data-aos="fade-up" data-aos-delay="100">
@@ -187,8 +319,13 @@ const testimonials = [
               <span class="why-card__number">03</span>
             </div>
             <div>
-              <h3 class="why-card__title" data-i18n="home.why.item3.title">Transparent Process</h3>
-              <p class="why-card__text" data-i18n="home.why.item3.text">Clear milestones, regular updates, and documented handovers. You always know where your project stands.</p>
+              <h3 class="why-card__title" data-i18n="home.why.item3.title">
+                Transparent Process
+              </h3>
+              <p class="why-card__text" data-i18n="home.why.item3.text">
+                Clear milestones, regular updates, and documented handovers. You
+                always know where your project stands.
+              </p>
             </div>
           </article>
         </div>
@@ -196,9 +333,16 @@ const testimonials = [
 
       <div class="insight-column insight-column--process">
         <div class="section-header section-header--left" data-aos="fade-up">
-          <span class="section__label" data-i18n="home.process.label">How We Work</span>
-          <h2 class="section__title" data-i18n="home.process.title">Our Process</h2>
-          <p class="section__subtitle" data-i18n="home.process.intro">A structured approach that delivers consistent, high-quality results every time.</p>
+          <span class="section__label" data-i18n="home.process.label"
+            >How We Work</span
+          >
+          <h2 class="section__title" data-i18n="home.process.title">
+            Our Process
+          </h2>
+          <p class="section__subtitle" data-i18n="home.process.intro">
+            A structured approach that delivers consistent, high-quality results
+            every time.
+          </p>
         </div>
 
         <div class="process-list">
@@ -207,8 +351,13 @@ const testimonials = [
               <span class="process-step__index">1</span>
             </div>
             <div class="process-step__body">
-              <h3 class="process-step__title" data-i18n="home.process.d1.title">Discovery</h3>
-              <p class="process-step__text" data-i18n="home.process.d1.text">Understand your business, goals, and constraints before proposing solutions.</p>
+              <h3 class="process-step__title" data-i18n="home.process.d1.title">
+                Discovery
+              </h3>
+              <p class="process-step__text" data-i18n="home.process.d1.text">
+                Understand your business, goals, and constraints before
+                proposing solutions.
+              </p>
             </div>
           </article>
           <article class="process-step" data-aos="fade-up" data-aos-delay="100">
@@ -216,8 +365,13 @@ const testimonials = [
               <span class="process-step__index">2</span>
             </div>
             <div class="process-step__body">
-              <h3 class="process-step__title" data-i18n="home.process.d2.title">Plan & Build</h3>
-              <p class="process-step__text" data-i18n="home.process.d2.text">Transparent delivery with clear milestones you can review and steer at every stage.</p>
+              <h3 class="process-step__title" data-i18n="home.process.d2.title">
+                Plan & Build
+              </h3>
+              <p class="process-step__text" data-i18n="home.process.d2.text">
+                Transparent delivery with clear milestones you can review and
+                steer at every stage.
+              </p>
             </div>
           </article>
           <article class="process-step" data-aos="fade-up" data-aos-delay="200">
@@ -225,8 +379,13 @@ const testimonials = [
               <span class="process-step__index">3</span>
             </div>
             <div class="process-step__body">
-              <h3 class="process-step__title" data-i18n="home.process.d3.title">Optimize & Handover</h3>
-              <p class="process-step__text" data-i18n="home.process.d3.text">Documentation and knowledge transfer built into every engagement. You stay in control.</p>
+              <h3 class="process-step__title" data-i18n="home.process.d3.title">
+                Optimize & Handover
+              </h3>
+              <p class="process-step__text" data-i18n="home.process.d3.text">
+                Documentation and knowledge transfer built into every
+                engagement. You stay in control.
+              </p>
             </div>
           </article>
         </div>
@@ -237,25 +396,49 @@ const testimonials = [
   <section class="section section--alt enable-overflow testimonials-section">
     <div class="container">
       <div class="section-header" data-aos="fade-up">
-        <span class="section__label" data-i18n="home.testimonials.label">Testimonials</span>
-        <h2 class="section__title" data-i18n="home.testimonials.title">What our clients say</h2>
+        <span class="section__label" data-i18n="home.testimonials.label"
+          >Testimonials</span
+        >
+        <h2 class="section__title" data-i18n="home.testimonials.title">
+          What our clients say
+        </h2>
       </div>
       <div class="testimonials-grid testimonials-grid--full">
-        {testimonials.map((testimonial, index) => (
-          <article class:list={["testimonial-card", index === 0 && "testimonial-card--featured"]} data-aos="fade-up" data-aos-delay={testimonial.delay}>
-            <div class="testimonial-card__stars" aria-hidden="true">
-              <span></span><span></span><span></span><span></span><span></span>
-            </div>
-            <p class="testimonial-card__text" data-i18n={testimonial.quoteKey}></p>
-            <div class="testimonial-card__author">
-              <div class="testimonial-card__avatar">{testimonial.initial}</div>
-              <div>
-                <strong data-i18n={testimonial.nameKey}></strong>
-                <span data-i18n={testimonial.roleKey}></span>
+        {
+          testimonials.map((testimonial, index) => (
+            <article
+              class:list={[
+                "testimonial-card",
+                index === 0 && "testimonial-card--featured",
+              ]}
+              data-aos="fade-up"
+              data-aos-delay={testimonial.delay}
+            >
+              <div class="testimonial-card__stars" aria-hidden="true">
+                <>
+                  <span />
+                  <span />
+                  <span />
+                  <span />
+                  <span />
+                </>
               </div>
-            </div>
-          </article>
-        ))}
+              <p
+                class="testimonial-card__text"
+                data-i18n={testimonial.quoteKey}
+              />
+              <div class="testimonial-card__author">
+                <div class="testimonial-card__avatar">
+                  {testimonial.initial}
+                </div>
+                <div>
+                  <strong data-i18n={testimonial.nameKey} />
+                  <span data-i18n={testimonial.roleKey} />
+                </div>
+              </div>
+            </article>
+          ))
+        }
       </div>
     </div>
   </section>
@@ -264,11 +447,33 @@ const testimonials = [
     <div class="cta-section__bg"></div>
     <div class="cta-section__image"></div>
     <div class="container cta-section__inner">
-      <h2 class="cta-section__headline" data-aos="fade-up" data-i18n="home.cta.headline">Ready to build systems that scale?</h2>
-      <p class="cta-section__sub" data-aos="fade-up" data-aos-delay="50" data-i18n="home.cta.sub">Let's discuss how we can align technology with your business goals. Free consultation, no obligations.</p>
+      <h2
+        class="cta-section__headline"
+        data-aos="fade-up"
+        data-i18n="home.cta.headline"
+      >
+        Ready to build systems that scale?
+      </h2>
+      <p
+        class="cta-section__sub"
+        data-aos="fade-up"
+        data-aos-delay="50"
+        data-i18n="home.cta.sub"
+      >
+        Let's discuss how we can align technology with your business goals. Free
+        consultation, no obligations.
+      </p>
       <div class="cta-section__buttons" data-aos="fade-up" data-aos-delay="100">
-        <a href="/contact" class="btn btn--white btn--large" data-i18n="home.cta.cta1">Book Free Consultation</a>
-        <a href="/services" class="btn btn--ghost btn--large" data-i18n="home.cta.cta2">Explore Services</a>
+        <a
+          href="/contact"
+          class="btn btn--white btn--large"
+          data-i18n="home.cta.cta1">Book Free Consultation</a
+        >
+        <a
+          href="/services"
+          class="btn btn--ghost btn--large"
+          data-i18n="home.cta.cta2">Explore Services</a
+        >
       </div>
     </div>
   </section>
@@ -277,8 +482,14 @@ const testimonials = [
 <style>
   .hero {
     position: relative;
-    padding: calc(4rem + var(--space-4xl)) 0 calc(var(--space-4xl) + var(--space-xl));
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 52%, var(--color-primary-darker) 100%);
+    padding: calc(4rem + var(--space-4xl)) 0
+      calc(var(--space-4xl) + var(--space-xl));
+    background: linear-gradient(
+      135deg,
+      var(--color-primary) 0%,
+      var(--color-primary-dark) 52%,
+      var(--color-primary-darker) 100%
+    );
     overflow: hidden;
   }
 
@@ -286,8 +497,16 @@ const testimonials = [
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(circle at 18% 22%, rgba(255, 255, 255, 0.12), transparent 32%),
-      radial-gradient(circle at 86% 32%, rgba(255, 255, 255, 0.08), transparent 26%),
+      radial-gradient(
+        circle at 18% 22%,
+        rgba(255, 255, 255, 0.12),
+        transparent 32%
+      ),
+      radial-gradient(
+        circle at 86% 32%,
+        rgba(255, 255, 255, 0.08),
+        transparent 26%
+      ),
       linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.08) 100%);
     pointer-events: none;
   }
@@ -538,6 +757,51 @@ const testimonials = [
     margin-bottom: var(--space-xl);
   }
 
+  .clients__logos {
+    overflow: hidden;
+    width: 100%;
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+
+  .clients__track {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 1.5rem 2.5rem;
+    justify-content: center;
+    align-items: center;
+    width: max-content;
+    animation: scroll 25s linear infinite;
+  }
+  .clients__track:hover {
+    animation-play-state: paused;
+  }
+
+  .clients__track img {
+    height: 40px;
+    object-fit: contain;
+    flex-shrink: 0;
+    filter: grayscale(100%);
+    opacity: 0.7;
+    transition: all 0.3s ease;
+  }
+
+  .clients__track img:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  /* animation logo clients */
+  @keyframes scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translatex(-50%);
+    }
+  }
+
   .services-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -554,7 +818,10 @@ const testimonials = [
     border-radius: var(--radius-xl);
     text-decoration: none;
     color: inherit;
-    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+    transition:
+      transform var(--transition-base),
+      box-shadow var(--transition-base),
+      border-color var(--transition-base);
   }
 
   .service-card:hover {
@@ -667,13 +934,18 @@ const testimonials = [
   }
 
   .process-list::before {
-    content: '';
+    content: "";
     position: absolute;
     left: 2rem;
     top: 2.5rem;
     bottom: 2.5rem;
     width: 2px;
-    background: linear-gradient(180deg, rgba(0, 96, 175, 0.14) 0%, rgba(0, 96, 175, 0.6) 50%, rgba(0, 96, 175, 0.14) 100%);
+    background: linear-gradient(
+      180deg,
+      rgba(0, 96, 175, 0.14) 0%,
+      rgba(0, 96, 175, 0.6) 50%,
+      rgba(0, 96, 175, 0.14) 100%
+    );
   }
 
   .process-step {
@@ -744,7 +1016,11 @@ const testimonials = [
 
   .testimonial-card--featured {
     padding: var(--space-xl);
-    background: linear-gradient(180deg, var(--color-white) 0%, var(--color-primary-50) 100%);
+    background: linear-gradient(
+      180deg,
+      var(--color-white) 0%,
+      var(--color-primary-50) 100%
+    );
     border-color: rgba(0, 96, 175, 0.16);
   }
 
@@ -808,7 +1084,12 @@ const testimonials = [
   .cta-section {
     position: relative;
     padding: var(--space-5xl) 0;
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 52%, var(--color-primary-darker) 100%);
+    background: linear-gradient(
+      135deg,
+      var(--color-primary) 0%,
+      var(--color-primary-dark) 52%,
+      var(--color-primary-darker) 100%
+    );
     overflow: hidden;
   }
 
@@ -816,16 +1097,29 @@ const testimonials = [
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(135deg, rgba(0, 96, 175, 0.82) 0%, rgba(0, 77, 140, 0.78) 52%, rgba(0, 58, 107, 0.86) 100%),
-      radial-gradient(circle at 24% 50%, rgba(255, 255, 255, 0.08), transparent 26%),
-      radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.05), transparent 24%);
+      linear-gradient(
+        135deg,
+        rgba(0, 96, 175, 0.82) 0%,
+        rgba(0, 77, 140, 0.78) 52%,
+        rgba(0, 58, 107, 0.86) 100%
+      ),
+      radial-gradient(
+        circle at 24% 50%,
+        rgba(255, 255, 255, 0.08),
+        transparent 26%
+      ),
+      radial-gradient(
+        circle at 80% 20%,
+        rgba(255, 255, 255, 0.05),
+        transparent 24%
+      );
     pointer-events: none;
   }
 
   .cta-section__image {
     position: absolute;
     inset: 0;
-    background-image: url('/images/cta-grid-bg.svg');
+    background-image: url("/images/cta-grid-bg.svg");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -859,6 +1153,12 @@ const testimonials = [
     justify-content: center;
     flex-wrap: wrap;
     gap: var(--space-md);
+  }
+
+  .btn-view {
+    margin-top: var(--space-lg);
+    display: flex;
+    justify-content: center;
   }
 
   @media (max-width: 1100px) {

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ServiceDetail from '../../components/ServiceDetail.astro';
+import ServiceSidebar from '../../components/ServiceSidebar.astro';
 ---
 
 <BaseLayout title="Business AI Automation" description="Streamline operations with AI—reduce manual work and free your team for higher-value tasks." noPadding>
@@ -18,14 +19,22 @@ import ServiceDetail from '../../components/ServiceDetail.astro';
 
   <section class="section">
     <div class="container container--narrow">
-      <ServiceDetail
-        title="Business AI Automation"
-        i18nPrefix="service.ai"
-        problem="Manual, repetitive processes drain time and introduce errors. Data entry, report generation, cross-system synchronization—these tasks consume hours that could be spent on strategy, customer relationships, or innovation."
-        approach="We map your current workflows, identify automation opportunities, and design solutions that integrate with your existing tools. We prioritize high-impact, low-risk automations first—delivering quick wins while building toward broader transformation."
-        outcome="Reduced manual effort, fewer errors, and faster execution. Your team spends less time on routine tasks and more on work that drives growth."
-        useCase="A logistics company was manually syncing orders between their ERP and shipping carriers. We built an automation layer that syncs in real-time, handles edge cases, and sends alerts—cutting 4 hours of daily manual work to near zero."
-      />
+      <div class="service-layout">
+        <!-- Left -->
+        <div class="service-main">
+          <ServiceDetail
+            title="Business AI Automation"
+            i18nPrefix="service.ai"
+            problem="Manual, repetitive processes drain time and introduce errors. Data entry, report generation, cross-system synchronization—these tasks consume hours that could be spent on strategy, customer relationships, or innovation."
+            approach="We map your current workflows, identify automation opportunities, and design solutions that integrate with your existing tools. We prioritize high-impact, low-risk automations first—delivering quick wins while building toward broader transformation."
+            outcome="Reduced manual effort, fewer errors, and faster execution. Your team spends less time on routine tasks and more on work that drives growth."
+            useCase="A logistics company was manually syncing orders between their ERP and shipping carriers. We built an automation layer that syncs in real-time, handles edge cases, and sends alerts—cutting 4 hours of daily manual work to near zero."
+          />
+
+        </div>
+        <!-- Right -->
+         <ServiceSidebar/>
+      </div>
     </div>
   </section>
 </BaseLayout>
@@ -86,5 +95,10 @@ import ServiceDetail from '../../components/ServiceDetail.astro';
     .svc-hero {
       padding: calc(4rem + var(--space-2xl)) 0 var(--space-2xl);
     }
+  }
+  .service-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
   }
 </style>
