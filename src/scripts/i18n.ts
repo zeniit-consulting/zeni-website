@@ -570,6 +570,54 @@ export const translations: Record<string, Record<Lang, string>> = {
     es: "Tecnologías con las que trabajamos",
   },
 
+   // ── Homepage: Vision & Mission ───────────────────────────────────
+  "home.vision-mision.label": {
+    id: "Visi & Misi",
+    en: "Vision & Mission",
+    es: "Visión y Misión",
+  },
+  "home.vision-mision.title": {
+    id: "Visi kami untuk masa depan teknologi bisnis",
+    en: "Our vision for the future of business technology",
+    es: "Nuestra visión para el futuro de la tecnología empresarial",
+  },
+  "home.vision-mision.subtitle": {
+    id: "Kami percaya masa depan bisnis adalah sistem yang berkembang dengan teknologi yang tepat, tanpa ketergantungan vendor. Kami berkomitmen untuk memberdayakan bisnis membangun masa depan itu.",
+    en: "We believe the future of business is systems that scale with the right technology, without vendor lock-in. We're committed to empowering businesses to build that future.",
+    es: "Creemos que el futuro de los negocios son sistemas que escalan con la tecnología adecuada, sin dependencia de proveedores. Estamos comprometidos a empoderar a las empresas para construir ese futuro.",
+  },
+  "home.vision.title": {
+    id: "Visi Kami",
+    en: "Our Vision",
+    es: "Nuestra Visión",
+  },
+  "home.vision.description": {
+    id: "Kami membayangkan dunia di mana bisnis memiliki kendali penuh atas teknologi mereka, membangun sistem yang berkembang dengan kebutuhan mereka tanpa batasan vendor.",
+    en: "Our vision is to empower businesses to build systems that scale with the right technology, without vendor lock-in.",
+    es: "Nuestra visión es empoderar a las empresas para construir sistemas que escalen con la tecnología adecuada, sin dependencia de proveedores.",
+  },
+  "home.mission.title": {
+    id: "Misi Kami",
+    en: "Our Mission",
+    es: "Nuestra Misión",
+  },
+  "home.mission.item1": {
+    id: "Misi kami adalah menjadi mitra strategis untuk bisnis yang ingin membangun sistem yang berkembang. Kami menyediakan konsultasi IT strategis, pengembangan software kustom, dan transfer pengetahuan penuh untuk memberdayakan klien kami mencapai tujuan mereka.",
+    en: "Our mission is to be the strategic partner for businesses looking to build systems that scale. We provide strategic IT consulting, custom software development, and full knowledge transfer to empower our clients to achieve their goals.",
+    es: "Nuestra misión es ser el socio estratégico para las empresas que buscan construir sistemas que escalen. Proporcionamos consultoría IT estratégica, desarrollo de software personalizado y transferencia total de conocimiento para empoderar a nuestros clientes a alcanzar sus objetivos.",
+  },
+  "home.mission.item2": {
+    id: "Kami berkomitmen untuk membangun hubungan jangka panjang dengan klien kami, menjadi mitra tepercaya dalam perjalanan teknologi mereka. Kami percaya bahwa dengan memberikan solusi yang tepat, mendokumentasikan segalanya, dan mentransfer pengetahuan, kami dapat membantu bisnis membangun masa depan yang berkembang dengan teknologi yang tepat.",
+    en: "We're committed to building long-term relationships with our clients, becoming a trusted partner in their technology journey. We believe that by delivering the right solutions, documenting everything, and transferring knowledge, we can help businesses build a future that scales with the right technology.",
+    es: "Estamos comprometidos a construir relaciones a largo plazo con nuestros clientes, convirtiéndonos en un socio de confianza en su viaje tecnológico. Creemos que al entregar las soluciones adecuadas, documentar todo y transferir conocimiento, podemos ayudar a las empresas a construir un futuro que escale con la tecnología adecuada.",
+  },
+  "home.mission.item3": {
+    id: "Kami berusaha untuk menjadi lebih dari sekadar vendor teknologi. Kami ingin menjadi mitra strategis yang membantu bisnis meraih potensi penuh mereka melalui teknologi yang tepat, tanpa ketergantungan vendor.",
+    en: "We strive to be more than just a technology vendor. We want to be a strategic partner that helps businesses reach their full potential through the right technology, without vendor lock-in.",
+    es: "Nos esforzamos por ser más que un proveedor de tecnología. Queremos ser un socio estratégico que ayude a las empresas a alcanzar su máximo potencial a través de la tecnología adecuada, sin dependencia de proveedores.",
+  },
+
+
   // ── Homepage: Testimonials ────────────────────────────
   "home.testimonials.label": {
     id: "Testimoni",

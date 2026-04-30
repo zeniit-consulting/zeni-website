@@ -571,6 +571,53 @@ const testimonials = [
     </div>
   </section>
 
+  <!-- Visi Misi -->
+  <section class="section  vision-mission" id="foundation">
+    <div class="container">
+       <div class="section-header" data-aos="fade-up">
+          <span class="section-badge" data-i18n="home.vision-mision.label">OUR FOUNDATION</span>
+          <h2 data-i18n="home.vision-mision.title"></h2>
+          <p class="section-subtitle" data-i18n="home.vision-mision.subtitle"></p>
+        </div>
+        
+        <!-- VISION -->
+        <div class="vision-box" data-aos="fade-up" data-aos-delay="50">
+            <div class="vm-icon">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                </svg>
+            </div>
+            <h3 data-i18n="home.vision.title"></h3>
+            <p data-i18n="home.vision.description"></p>
+        </div>
+
+        <div class="mission-connector"></div>
+
+        <!-- MISSIONS -->
+        <div class="mission-grid" data-aos="fade-up" data-aos-delay="100">
+            <div class="mission-card">
+                <span>01</span>
+                
+                <p data-i18n="home.mission.item1"></p>
+            </div>
+
+            <div class="mission-card active">
+                <span>02</span>
+               
+                <p data-i18n="home.mission.item2"></p>
+            </div>
+
+            <div class="mission-card">
+                <span>03</span>
+               
+                <p data-i18n="home.mission.item3"></p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
   <section class="cta-section">
     <div class="cta-section__bg"></div>
     <div class="cta-section__image"></div>
@@ -1232,6 +1279,200 @@ const testimonials = [
     color: var(--color-neutral-500);
     font-size: 0.8125rem;
   }
+
+  /* == Vision & Mission */
+.vision-mission{
+    padding:110px 7%;
+    background:#ffffff;
+    position:relative;
+    overflow:hidden;
+}
+
+.vision-mission .container{
+    max-width:1200px;
+    margin:auto;
+    text-align:center;
+}
+
+.section-badge{
+    display:inline-block;
+    font-size:12px;
+    font-weight:700;
+    color:#2563eb;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    margin-bottom:14px;
+}
+
+.vision-mission h2{
+    font-size:42px;
+    font-weight:800;
+    color:#0f172a;
+    margin-bottom:16px;
+}
+
+.section-subtitle{
+    max-width:730px;
+    margin:0 auto 65px;
+    color:#64748b;
+    line-height:1.8;
+}
+
+/* vision */
+.vision-box{
+    max-width:780px;
+    margin:0 auto;
+    padding:50px;
+    background:#ffffff;
+    border:1px solid #e5e7eb;
+    border-radius:28px;
+    box-shadow:0 20px 50px rgba(15,23,42,0.05);
+    position:relative;
+    z-index:2;
+}
+
+.vm-icon{
+    width:62px;
+    height:62px;
+    margin:0 auto 20px;
+    border-radius:18px;
+    background:#eff6ff;
+    color:#2563eb;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.vision-box h3{
+    font-size:30px;
+    color:#0f172a;
+    margin-bottom:14px;
+    font-weight:700;
+}
+
+.vision-box p{
+    max-width:620px;
+    margin:auto;
+    color:#64748b;
+    line-height:1.9;
+}
+
+/* subtle connector */
+.mission-connector{
+    width:2px;
+    height:70px;
+    background:linear-gradient(to bottom,#bfdbfe,#dbeafe);
+    margin:0 auto;
+}
+
+/* mission cards */
+.mission-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
+    align-items:end;
+}
+
+.mission-card{
+    background:#ffffff;
+    border:1px solid #e5e7eb;
+    border-radius:22px;
+    padding:34px 28px;
+    text-align:left;
+    box-shadow:0 14px 32px rgba(15,23,42,0.04);
+    transition:.35s ease;
+    position:relative;
+}
+
+.mission-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 22px 42px rgba(15,23,42,0.08);
+}
+
+.mission-card.active{
+    transform:translateY(-30px);
+    border-color:#dbeafe;
+    box-shadow:0 22px 42px rgba(37,99,235,0.08);
+}
+
+.mission-card span{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:#dbeafe;
+    color:#2563eb;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:18px;
+}
+
+.mission-card h4{
+    font-size:18px;
+    color:#0f172a;
+    margin-bottom:10px;
+    font-weight:700;
+}
+
+.mission-card p{
+    color:#64748b;
+    line-height:1.75;
+}
+
+/* soft blue blur accent */
+.vision-mission::before{
+    content:"";
+    position:absolute;
+    width:320px;
+    height:320px;
+    background:rgba(219,234,254,0.45);
+    filter:blur(80px);
+    top:80px;
+    left:-100px;
+    z-index:0;
+}
+
+.vision-mission::after{
+    content:"";
+    position:absolute;
+    width:280px;
+    height:280px;
+    background:rgba(191,219,254,0.35);
+    filter:blur(80px);
+    bottom:40px;
+    right:-80px;
+    z-index:0;
+}
+
+@media(max-width:900px){
+    .mission-grid{
+        grid-template-columns:1fr;
+    }
+
+    .mission-card.active{
+        transform:none;
+    }
+
+    .vision-box{
+        padding:35px 25px;
+    }
+
+    .vision-mission h2{
+        font-size:30px;
+    }
+}
+
+@media(max-width:900px){
+    .vm-grid{
+        grid-template-columns:1fr;
+    }
+
+    .vision-mission h2{
+        font-size:30px;
+    }
+}
 
   .cta-section {
     position: relative;
