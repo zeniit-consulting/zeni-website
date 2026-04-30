@@ -4,6 +4,7 @@ export const translations: Record<string, Record<Lang, string>> = {
   // ── Navigation & Header ──────────────────────────────
   "nav.home": { id: "Beranda", en: "Home", es: "Inicio" },
   "nav.about": { id: "Tentang Kami", en: "About Us", es: "Sobre Nosotros" },
+  "nav.projects": { id: "Proyek Unggulan", en: "Featured Projects", es: "Proyectos Destacados" },
   "nav.services": { id: "Layanan", en: "Services", es: "Servicios" },
   "nav.portfolio": { id: "Portofolio", en: "Portfolio", es: "Portafolio" },
   "nav.casestudies": {
@@ -267,7 +268,183 @@ export const translations: Record<string, Record<Lang, string>> = {
     en: "We choose technologies based on business needs, not trends. Our stack is designed for scalability, reliability, and maintainability.",
     es: "Elegimos tecnologías basadas en las necesidades del negocio, no en las tendencias. Nuestra pila está diseñada para escalabilidad, confiabilidad y mantenibilidad.",
   },
-  
+
+  // ── Homepage: Project Showcase ─────────────────────────────────
+    "projects.detail.back": {
+    id: "← Kembali ke Proyek",
+    en: "← Back to Projects",
+    es: "← Volver a Proyectos",
+  },
+  "projects.hero.title": {
+    id: "Proyek Kami",
+    en: "Our Projects",
+    es: "Nuestros Proyectos",
+  },
+  "projects.view.details": {
+    id: "Lihat Semua Proyek",
+    en: "View All Projects",
+    es: "Ver Todos los Proyectos",
+  },
+  "projects.hero.badge": {
+    id: "Apa yang Kami Lakukan",
+    en: "What We Do",
+    es: "Qué Hacemos",
+  },
+  "projects.hero.sub": {
+    id: "Jelajahi portofolio proyek sukses kami dan lihat bagaimana kami membantu bisnis mencapai tujuan mereka.",
+    en: "Explore our portfolio of successful projects and see how we've helped businesses achieve their goals.",
+    es: "Explora nuestro portafolio de proyectos exitosos y descubre cómo hemos ayudado a las empresas a alcanzar sus objetivos.",
+  },
+
+  "home.project.label": {
+    id: "Proyek Kita",
+    en: "Our Projects",
+    es: "Nuestros Proyectos",
+  },
+
+  "home.project.title": {
+    id: "Proyek yang Kami Telah Selesaikan",
+    en: "Projects we've delivered",
+    es: "Proyectos que hemos entregado",
+  },
+  "home.project.subtitle": {
+    id: "Solusi nyata dibangun untuk bisnis nyata.",
+    en: "Real solutions built for real businesses.",
+    es: "Soluciones reales construidas para negocios reales.",
+  },
+
+  "project.e-commerce.title": {
+    id: "Platform E-commerce",
+    en: "E-commerce Platform",
+    es: "Plataforma E-commerce",
+  },
+  "project.e-commerce.description": {
+    id: "Solusi e-commerce terpadu, termasuk katalog, keranjang belanja, dan pemrosesan pembayaran.",
+    en: "Integrated e-commerce solution, including catalog, shopping cart, and payment processing.",
+    es: "Solución integral para comercio electrónico, incluyendo catálogo, carrito de compras y procesamiento de pagos.",
+  },
+  "project.e-commerce.tech": {
+    id: "Laravel •  Vue.js",
+    en: "Laravel •  Vue.js",
+    es: "Laravel •  Vue.js",
+  },
+
+  "project.inventory.title": {
+    id: "Sistem Manajemen Inventaris",
+    en: "Inventory Management System",
+    es: "Sistema de Gestión de Inventario",
+  },
+  "project.inventory.description": {
+    id: "Solusi manajemen inventaris yang komprehensif, termasuk pencatatan stok, pemantauan permintaan, dan laporan otomatis.",
+    en: "Comprehensive inventory management solution, including stock recording, demand monitoring, and automated reporting.",
+    es: "Solución integral para la gestión de inventario, incluyendo registro de existencias, monitoreo de demanda y reportes automatizados.",
+  },
+  "project.inventory.tech": {
+    id: "Node.js • React",
+    en: "Node.js • React",
+    es: "Node.js • React",
+  },
+
+  "project.chatbot.title": {
+    id: "AI Chatbot",
+    en: "AI Chatbot",
+    es: "Chatbot IA",
+  },
+  "project.chatbot.description": {
+    id: "Chatbot dukungan pelanggan bertenaga AI yang mengurangi waktu respons sebesar 40%.",
+    en: "AI-powered customer support chatbot that reduced response times by 40%.",
+    es: "Chatbot de soporte al cliente impulsado por IA que redujo los tiempos de respuesta en un 40%.",
+  },
+  "project.chatbot.tech": {
+    id: "Python • TensorFlow",
+    en: "Python • TensorFlow",
+    es: "Python • TensorFlow",
+  },
+
+  "project.mobile-banking.title": {
+    id: "Aplikasi Mobile Banking",
+    en: "Mobile Banking App",
+    es: "Aplicación de Banca Móvil",
+  },
+  "project.mobile-banking.description": {
+    id: "Aplikasi mobile banking yang aman dengan autentikasi biometrik dan pemantauan transaksi real-time.",
+    en: "Secure mobile banking application with biometric authentication and real-time transaction monitoring.",
+    es: "Aplicación de banca móvil segura con autenticación biométrica y monitoreo de transacciones en tiempo real.",
+  },
+  "project.mobile-banking.tech": {
+    id: "Kotlin • Swift",
+    en: "Kotlin • Swift",
+    es: "Kotlin • Swift",
+  },
+
+  "project.analytics.title": {
+    id: "Dashboard Analytics SaaS",
+    en: "SaaS Analytics Dashboard",
+    es: "Panel de Analytics para SaaS",
+  },
+  "project.analytics.description": {
+    id: "Dashboard analytics multi-tenant untuk produk SaaS, memungkinkan pelanggan memvisualisasikan metrik dan tren utama.",
+    en: "Multi-tenant analytics dashboard for a SaaS product, enabling customers to visualize key metrics and trends.",
+    es: "Panel de analytics multi-tenant para un producto SaaS, que permite a los clientes visualizar métricas y tendencias clave.",
+  },
+  "project.analytics.tech": {
+    id: "React • Node.js",
+    en: "React • Node.js",
+    es: "React • Node.js",
+  },
+  "project.travel.title": {
+    id: "Situs Pemesanan Perjalanan",
+    en: "Travel Booking Website",
+    es: "Sitio Web de Reservas de Viaje",
+  },
+  "project.travel.description": {
+    id: "Situs web untuk pemesanan perjalanan dengan antarmuka yang ramah pengguna dan integrasi dengan penyedia layanan terkemuka.",
+    en: "Travel booking website with a user-friendly interface and integration with leading service providers.",
+    es: "Sitio web para reservas de viaje con una interfaz amigable y una integración con proveedores de servicios líderes.",
+  },
+  "project.travel.tech": {
+    id: "Laravel • Vue.js",
+    en: "Laravel • Vue.js",
+    es: "Laravel • Vue.js",
+  },
+
+  "project.company-profile.title": {
+    id: "Situs Profil Perusahaan",
+    en: "Company Profile Website",
+    es: "Sitio Web de Perfil de Empresa",
+  },
+  "project.company-profile.description": {
+    id: "Situs web profil perusahaan profesional dengan manajemen CMS untuk pembaruan konten yang mudah.",
+    en: "Professional corporate company profile website with CMS management for easy content updates.",
+    es: "Sitio web de perfil corporativo profesional con gestión de CMS para actualizaciones de contenido fáciles.",
+  },
+  "project.company-profile.tech": {
+    id: "Astro • Tailwind CSS",
+    en: "Astro • Tailwind CSS",
+    es: "Astro • Tailwind CSS", 
+  },
+
+  "project.invoice.title": {
+    id: "Sistem Manajemen Invoice",
+    en: "Invoice Management System",
+    es: "Sistema de Gestión de Facturas",
+  },
+  "project.invoice.description": {
+    id: "Platform digital untuk manajemen invoice dan pengingat penagihan, membantu bisnis mengotomatisasi proses penagihan mereka.",
+    en: "Digital platform for invoice management and billing reminders, helping businesses automate their billing processes.",
+    es: "Plataforma digital para la gestión de facturas y recordatorios de facturación, ayudando a las empresas a automatizar sus procesos de facturación.",
+  },
+  "project.invoice.tech": {
+    id: "Node.js • React",
+    en: "Node.js • React",
+    es: "Node.js • React",
+  },
+
+  "project.viewdetails": {
+    id: "Lihat detail →",
+    en: "View details →",
+    es: "Ver detalles →",
+  },
 
   // ── Homepage: Stats ───────────────────────────────────
   "home.stat.projects": {

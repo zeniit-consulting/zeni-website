@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { projects } from "../data/projects";
 
 const services = [
   {
@@ -91,24 +92,7 @@ const testimonials = [
   },
 ];
 
-const tech = [
-  {
-    name: "React",
-    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
-  },
-  {
-    name: "Vue",
-    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12l10 10L22 12"/><path d="M2 7l10 10L22 7"/></svg>',
-  },
-  {
-    name: "Angular",
-    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>',
-  },
-  {
-    name: "Tailwind",
-    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12l10 10L22 12"/><path d="M2 7l10 10L22 7"/></svg>',
-  },
-];
+
 ---
 
 <BaseLayout
@@ -204,7 +188,7 @@ const tech = [
     </div>
   </section>
 
-  <section class="clients section section-alt" id="clients-section">
+  <section class="clients section insight-section" id="clients-section">
     <div class="container">
       <div class="section-header" data-aos="fade-up">
         <span class="section__label" data-i18n="home.clients.label"
@@ -243,7 +227,81 @@ const tech = [
     </div>
   </section>
 
-  <section class="section section--alt" id="services-section">
+  <!-- Project Showcase -->
+  <section class="projects section section--alt">
+    <div class="container">
+      <div class="section-header">
+        <span class="section__label" data-i18n="home.project.label"
+          >Our Work</span
+        >
+        <h2 class="section__title" data-i18n="home.project.title">
+          Projects we've delivered
+        </h2>
+        <p class="section__subtitle" data-i18n="home.project.subtitle">
+          Real solutions built for real businesses.
+        </p>
+      </div>
+
+      <div class="projects-grid">
+        {
+          projects.slice(0, 6).map((project) => (
+            <a
+              href={`/projects/${project.key}`}
+              class="project-card"
+              data-aos="fade-up"
+            >
+              <div class="project-image">
+                <img
+                  src={project.image}
+                  alt={`project.title.${project.key}`}
+                  data-i18n={`project.${project.key}.title`}
+                  loading="lazy"
+                />
+              </div>
+              <div class="project-content">
+                <span
+                  class="project-badge"
+                  data-i18n={`project.${project.key}.tech`}
+                >
+                  Laravel
+                </span>
+                <h2
+                  class="project-card__title"
+                  data-i18n={`project.${project.key}.title`}
+                >
+                  E-commerce Platform
+                </h2>
+                <p
+                  class="project-card__text"
+                  data-i18n={`project.${project.key}.description`}
+                >
+                  Integrated e-commerce solution, including catalog, shopping
+                  cart, and payment processing.
+                </p>
+                <span
+                  class="service-card__link"
+                  data-i18n="project.viewdetails"
+                >
+                  View details &rarr;
+                </span>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+      <div class="btn-view" data-aos="fade-up" data-aos-delay="350">
+        <a
+          href="/projects"
+          class="btn btn--primary btn--large"
+          data-i18n="projects.view.details"
+        >
+          View All Projects
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section insight-section" id="services-section">
     <div class="container">
       <div class="section-header" data-aos="fade-up">
         <span class="section__label" data-i18n="home.services.label"
@@ -865,9 +923,8 @@ const tech = [
     animation: scroll 25s linear infinite;
   }
   .tech__track {
-  animation: scroll 25s linear infinite reverse;
-}
-  
+    animation: scroll 25s linear infinite reverse;
+  }
 
   .tech__track:hover {
     animation-play-state: paused;
@@ -1321,6 +1378,111 @@ const tech = [
     to {
       transform: translatex(-50%);
     }
+  }
+
+  /* css projects */
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 35px;
+    margin-top: 50px;
+  }
+
+  .project-card {
+    background: #ffffff;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s ease;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .project-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+  }
+
+  .project-image {
+    overflow: hidden;
+    height: 240px;
+    position: relative;
+  }
+
+  .project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .project-card:hover .project-image img {
+    transform: scale(1.08);
+  }
+
+  .project-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.15), transparent);
+  }
+
+  .project-content {
+    padding: 28px;
+  }
+
+  .project-content h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 10px;
+    font-family: "Poppins", sans-serif;
+  }
+
+  .project-content p {
+    font-size: 15px;
+    color: #6b7280;
+    line-height: 1.6;
+    font-family: "Inter", sans-serif;
+  }
+
+  .project-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 5px;
+    width: 100%;
+    background: linear-gradient(90deg, #2563eb, #06b6d4);
+  }
+  .project-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    background: #eff6ff;
+    color: #2563eb;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+
+  .project-card__title {
+    font-size: 1.125rem;
+    margin-bottom: var(--space-sm);
+    color: var(--color-neutral-900);
+  }
+
+  .project-card__text {
+    font-size: 0.9375rem;
+    color: var(--color-neutral-600);
+    line-height: 1.6;
+    margin-bottom: var(--space-lg);
+    flex: 1;
+  }
+
+  .project-btn:hover {
+    letter-spacing: 1px;
   }
 
   @media (max-width: 1100px) {
