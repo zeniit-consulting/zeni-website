@@ -220,7 +220,7 @@ const testimonials = [
   </section>
 
   <!-- Services  -->
-  <section class="section insight-section" id="services-section">
+  <section class="section services insight-section" id="services-section">
     <div class="container">
       <div class="section-header" data-aos="fade-up">
         <span class="section__label" data-i18n="home.services.label"
@@ -335,7 +335,7 @@ const testimonials = [
 
       <div class="projects-grid">
         {
-          projects.slice(0, 6).map((project) => (
+          projects.slice(0, 4).map((project) => (
             <a
               href={`/projects/${project.key}`}
               class="project-card"
@@ -539,13 +539,7 @@ const testimonials = [
                   data-aos-delay={testimonial.delay}
                 >
                   <div class="testimonial-card__stars" aria-hidden="true">
-                    <>
-                      ⭐
-                      ⭐
-                      ⭐
-                      ⭐
-                      ⭐
-                    </>
+                    <>⭐ ⭐ ⭐ ⭐ ⭐</>
                   </div>
                   <p
                     class="testimonial-card__text"
@@ -576,13 +570,7 @@ const testimonials = [
                   data-aos-delay={testimonial.delay}
                 >
                   <div class="testimonial-card__stars" aria-hidden="true">
-                    <>
-                      ⭐
-                      ⭐
-                      ⭐
-                      ⭐
-                      ⭐
-                    </>
+                    <>⭐ ⭐ ⭐ ⭐ ⭐</>
                   </div>
                   <p
                     class="testimonial-card__text"
@@ -1044,6 +1032,10 @@ const testimonials = [
     }
   } */
 
+  .services .container {
+    max-width: 1400px; /* sebelumnya mungkin 1100–1200 */
+    margin: 0 auto;
+  }
   .services-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1249,11 +1241,10 @@ const testimonials = [
   }
 
   .testimonial-card {
-    display: flex;
-    flex-direction: column;
+    
     flex-shrink: 0;
     justify-content: space-between;
-   width: clamp(260px, 25vw, 320px);
+    width: clamp(240px, 80vw, 320px);
     padding: var(--space-lg);
     box-shadow: var(--shadow-sm);
   }
@@ -1334,7 +1325,7 @@ const testimonials = [
   .testimonials-track {
     display: flex;
     width: max-content;
-     gap: 3rem;
+    gap: 3rem;
     animation: scroll-left 30s linear infinite;
   }
   .testimonials-wrapper:hover .testimonials-track {
@@ -1368,6 +1359,26 @@ const testimonials = [
       transform: translateX(-50%);
     }
   }
+
+  .testimonials-track {
+  display: flex;
+  gap: 1.5rem;
+  width: max-content;
+  animation: scroll-left 30s linear infinite;
+}
+
+.testimonials-grid {
+  display: flex;
+  gap: 1.5rem;
+}
+
+@media (max-width: 640px) {
+  .testimonials-grid {
+    gap: 1rem;
+  }
+}
+
+
 
   /* == Vision & Mission */
   .vision-mission {
@@ -1710,11 +1721,14 @@ const testimonials = [
   }
 
   /* css projects */
-
+  .projects .container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
   .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 35px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
     margin-top: 50px;
   }
 
