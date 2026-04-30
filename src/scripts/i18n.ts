@@ -155,9 +155,9 @@ export const translations: Record<string, Record<Lang, string>> = {
 
   // ── Homepage: Feature cards ───────────────────────────
   "home.feature.web.title": {
-    id: "Pengembangan Web",
-    en: "Web Development",
-    es: "Desarrollo Web",
+    id: "Pengembangan Website",
+    en: "Website Development",
+    es: "Desarrollo de Sitios Web",
   },
   "home.feature.web.text": {
     id: "Aplikasi web kustom dengan arsitektur bersih—skalabel, mudah dikelola, dan sesuai kebutuhan. Tanpa kompromi solusi siap pakai.",
@@ -165,12 +165,12 @@ export const translations: Record<string, Record<Lang, string>> = {
     es: "Aplicaciones web personalizadas con arquitectura limpia—escalable, mantenible y adecuado. Sin compromisos de soluciones genéricas.",
   },
   "home.feature.mobile.title": {
-    id: "Pengembangan Aplikasi",
-    en: "Mobile Development",
+    id: "Pengembangan Aplikasi Mobile",
+    en: "Mobile App Development",
     es: "Desarrollo de Aplicaciones Móviles",
   },
   "home.feature.mobile.text": {
-    id: "Aplikasi seluler kustom dengan arsitektur bersih—skalabel, mudah dikelola, dan sesuai kebutuhan. Tanpa kompromi solusi siap pakai.",
+    id: "Aplikasi mobile kustom dengan arsitektur bersih—skalabel, mudah dikelola, dan sesuai kebutuhan. Tanpa kompromi solusi siap pakai.",
     en: "Custom mobile applications built with clean architecture—scalable, maintainable, and fit for purpose. No off-the-shelf compromises.",
     es: "Aplicaciones móviles personalizadas con arquitectura limpia—escalable, mantenible y adecuado. Sin compromisos de soluciones genéricas.",
   },
