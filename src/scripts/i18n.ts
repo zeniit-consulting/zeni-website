@@ -19,6 +19,27 @@ export const translations: Record<string, Record<Lang, string>> = {
   },
 
   // ── Mega menu ─────────────────────────────────────────
+  "mega.webdev": {
+    id: "Pengembangan Web",
+    en: "Web Development",
+    es: "Desarrollo Web",
+  },
+  "mega.webdev.subtitle": {
+    id: "Situs responsif & modern",
+    en: "Responsive & modern websites",
+    es: "Sitios web responsivos y modernos",
+  },
+  "mega.mobile": {
+    id: "Pengembangan Aplikasi Mobile",
+    en: "Mobile App Development",
+    es: "Desarrollo de Aplicaciones Móviles",
+  },
+  "mega.mobile.subtitle": {
+    id: "Aplikasi mobile yang inovatif",
+    en: "Innovative mobile applications",
+    es: "Aplicaciones móviles innovadoras",
+  },
+  
   "mega.development": {
     id: "Pengembangan Software",
     en: "Software Development",
