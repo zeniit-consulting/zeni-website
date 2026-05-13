@@ -1,0 +1,803 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+import { customerServices } from "../data/customerServices";
+
+const customerService = customerServices[0];
+
+const {
+  hero,
+  tabs,
+  implementation,
+  support,
+  accountManagement,
+  knowledgeCenter,
+  testimonials,
+  cta,
+} = customerService;
+
+const firstTestimonial = testimonials[0];
+const secondTestimonial = testimonials[1];
+const thirdTestimonial = testimonials[2];
+---
+
+<BaseLayout
+  title="Case Studies"
+  description="Real projects, real outcomes. How we help businesses build systems that scale."
+  noPadding
+>
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="page-hero__bg"></div>
+    <div class="container page-hero__inner">
+      <span
+        class="page-hero__badge"
+        data-aos="fade-up"
+        data-i18n="casestudies.hero.badge">In-Depth Analysis</span
+      >
+      <h1 data-aos="fade-up" data-i18n="casestudies.hero.title">
+        Case Studies
+      </h1>
+      <p
+        class="page-hero__sub"
+        data-aos="fade-up"
+        data-i18n="casestudies.hero.sub"
+      >
+        Real projects. Measurable outcomes. Trust through evidence.
+      </p>
+    </div>
+  </section>
+
+  <!-- content customer-service -->
+  <main class="customer-page">
+    <!-- HERO -->
+    <section class="customer-hero">
+      <div class="container">
+        <p class="eyebrow">{hero.eyebrow}</p>
+        <h1>{hero.title}</h1>
+        <p class="hero-description">{hero.description}</p>
+      </div>
+    </section>
+
+    <!-- TABS -->
+    <nav class="customer-tabs" aria-label="Customer service navigation">
+      <div class="container tabs-inner">
+        {
+          tabs.map((tab, index) => (
+            <a
+              href={`#${tab.id}`}
+              class={`tab-link ${index === 0 ? "active" : ""}`}
+              data-tab={tab.id}
+            >
+              {tab.label}
+            </a>
+          ))
+        }
+      </div>
+    </nav>
+
+    <!-- IMPLEMENTATION -->
+    <section id="implementation" class="customer-section">
+      <div class="container section-grid">
+        <article class="testimonial-card">
+          <div class="testimonial-image">
+            <img src={firstTestimonial.image} alt={firstTestimonial.company} />
+          </div>
+
+          <div class="testimonial-content">
+            <span class="company">{firstTestimonial.company}</span>
+            <blockquote>“{firstTestimonial.quote}”</blockquote>
+            <div>
+              <strong>{firstTestimonial.name}</strong>
+              <p>{firstTestimonial.role}</p>
+            </div>
+          </div>
+        </article>
+
+        <div class="section-content">
+          <p class="eyebrow">{implementation.eyebrow}</p>
+          <h2>{implementation.title}</h2>
+          <p>{implementation.description}</p>
+
+          <ul class="check-list">
+            {
+              implementation.points.map((point) => (
+                <li>
+                  <span>✓</span>
+                  {point}
+                </li>
+              ))
+            }
+          </ul>
+
+          <a href="/contact" class="primary-button">
+            {implementation.cta}
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CUSTOMER SUPPORT -->
+    <section id="support" class="customer-section">
+      <div class="container section-grid reverse-mobile">
+        <div class="section-content">
+          <p class="eyebrow">{support.eyebrow}</p>
+          <h2>{support.title}</h2>
+          <p>{support.description}</p>
+
+          <div class="accordion-list">
+            {
+              support.faqs.map((faq, index) => (
+                <details class="accordion-item" open={index === 0}>
+                  <summary>{faq.question}</summary>
+                  <p>{faq.answer}</p>
+                </details>
+              ))
+            }
+          </div>
+
+          <div class="button-row">
+            <a href="/contact" class="primary-button">WhatsApp Sales</a>
+            <a href="/contact" class="secondary-button"
+              >Hubungi Customer Support</a
+            >
+          </div>
+        </div>
+
+        <article class="testimonial-card">
+          <div class="testimonial-image">
+            <img
+              src={secondTestimonial.image}
+              alt={secondTestimonial.company}
+            />
+          </div>
+
+          <div class="testimonial-content">
+            <span class="company">{secondTestimonial.company}</span>
+            <blockquote>“{secondTestimonial.quote}”</blockquote>
+            <div>
+              <strong>{secondTestimonial.name}</strong>
+              <p>{secondTestimonial.role}</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ACCOUNT MANAGEMENT -->
+    <section id="account" class="customer-section">
+      <div class="container section-grid">
+        <article class="testimonial-card">
+          <div class="testimonial-image">
+            <img src={thirdTestimonial.image} alt={thirdTestimonial.company} />
+          </div>
+
+          <div class="testimonial-content">
+            <span class="company">{thirdTestimonial.company}</span>
+            <blockquote>“{thirdTestimonial.quote}”</blockquote>
+            <div>
+              <strong>{thirdTestimonial.name}</strong>
+              <p>{thirdTestimonial.role}</p>
+            </div>
+          </div>
+        </article>
+
+        <div class="section-content">
+          <p class="eyebrow">{accountManagement.eyebrow}</p>
+          <h2>{accountManagement.title}</h2>
+          <p>{accountManagement.description}</p>
+
+          <div class="accordion-list">
+            {
+              accountManagement.faqs.map((faq, index) => (
+                <details class="accordion-item" open={index === 0}>
+                  <summary>{faq.question}</summary>
+                  <p>{faq.answer}</p>
+                </details>
+              ))
+            }
+          </div>
+
+          <a href="/contact" class="primary-button " style="margin-top: 1.5rem;"> WhatsApp Sales </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- KNOWLEDGE CENTER -->
+    <section id="knowledge" class="customer-section knowledge-section">
+      <div class="container section-grid">
+        <div class="section-content">
+          <p class="eyebrow">{knowledgeCenter.eyebrow}</p>
+          <h2>{knowledgeCenter.title}</h2>
+          <p>{knowledgeCenter.description}</p>
+        </div>
+
+        <div class="knowledge-box">
+          <aside class="knowledge-menu">
+            <h3>Temukan panduan Anda berdasarkan kategori</h3>
+
+            {
+              knowledgeCenter.categories.map((category) => (
+                <div class="knowledge-menu-item">
+                  <strong>{category.title}</strong>
+                  <p>{category.description}</p>
+                </div>
+              ))
+            }
+          </aside>
+
+          <div class="knowledge-preview">
+            <div class="preview-icon">?</div>
+            <h3>Guidebook</h3>
+            <p>
+              Sekarang, untuk mendapat lebih banyak wawasan tentang penggunaan
+              sistem dan layanan customer support Anda.
+            </p>
+            <a href="/contact" class="primary-button">
+              Kunjungi pusat bantuan
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="customer-cta">
+      <div class="container">
+        <div class="cta-star">*</div>
+        <h2>{cta.title}</h2>
+        <p>{cta.description}</p>
+        <a href="/contact" class="primary-button"> Hubungi Kami </a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  /* ═══ PAGE HERO ═══ */
+  .page-hero {
+    position: relative;
+    padding: calc(4rem + var(--space-3xl)) 0 var(--space-3xl);
+    background: linear-gradient(
+      135deg,
+      var(--color-primary) 0%,
+      var(--color-primary-dark) 60%,
+      var(--color-primary-darker) 100%
+    );
+    overflow: hidden;
+  }
+
+  .page-hero__bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 60% 50% at 70% 30%,
+      rgba(255, 255, 255, 0.06) 0%,
+      transparent 60%
+    );
+    pointer-events: none;
+  }
+
+  .page-hero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 40rem;
+  }
+
+  .page-hero__badge {
+    display: inline-block;
+    padding: 0.375rem 1rem;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-full);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: var(--space-lg);
+  }
+
+  .page-hero h1 {
+    color: var(--color-white);
+    margin-bottom: var(--space-md);
+  }
+
+  .page-hero__sub {
+    font-size: 1.125rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* ════ CUSTOMER PAGE ═══ */
+
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  .customer-hero {
+    background: #ffffff;
+    padding: 96px 0 72px;
+    text-align: center;
+  }
+
+  .eyebrow {
+    margin: 0 0 12px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #5b5ff0;
+    letter-spacing: 0.02em;
+  }
+
+  .customer-hero h1 {
+    max-width: 760px;
+    margin: 0 auto;
+    font-size: clamp(32px, 5vw, 56px);
+    line-height: 1.12;
+    letter-spacing: -0.04em;
+    color: #111827;
+  }
+
+  .hero-description {
+    max-width: 680px;
+    margin: 20px auto 0;
+    color: #5b6475;
+    font-size: 17px;
+    line-height: 1.8;
+  }
+
+  .customer-tabs {
+    position: sticky;
+    top: 60px;
+    z-index: 50;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(16px);
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+  }
+
+  .tabs-inner {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 14px 0;
+  }
+
+  .tab-link {
+    flex: 0 0 auto;
+    text-decoration: none;
+    color: #2f3545;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 10px 16px;
+    border-radius: 999px;
+    transition:
+      background 0.25s ease,
+      color 0.25s ease,
+      transform 0.25s ease;
+  }
+
+  .tab-link:hover {
+    background: #eef0ff;
+    color: #4f46e5;
+    transform: translateY(-1px);
+  }
+
+  .tab-link.active {
+    background: #4f46e5;
+    color: #ffffff;
+    
+  }
+
+  .customer-section {
+    padding: 96px 0;
+    scroll-margin-top: 140px;
+  }
+
+  .section-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 72px;
+  }
+
+  .section-content h2 {
+    margin: 0;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: 1.15;
+    letter-spacing: -0.035em;
+    color: #111827;
+  }
+
+  .section-content > p:not(.eyebrow) {
+    margin: 18px 0 0;
+    color: #5b6475;
+    line-height: 1.8;
+    font-size: 16px;
+  }
+
+  .check-list {
+    display: grid;
+    gap: 12px;
+    padding: 0;
+    margin: 28px 0;
+    list-style: none;
+  }
+
+  .check-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: #374151;
+    line-height: 1.6;
+  }
+
+  .check-list span {
+    display: inline-flex;
+    width: 22px;
+    height: 22px;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 22px;
+    border-radius: 999px;
+    background: #22c55e;
+    color: white;
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  .primary-button,
+  .secondary-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 0 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 800;
+    text-decoration: none;
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease,
+      background 0.25s ease;
+  }
+
+  .primary-button {
+    color: #ffffff;
+    background: #4f46e5;
+    box-shadow: 0 12px 28px rgba(79, 70, 229, 0.22);
+		
+  }
+
+  .primary-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 38px rgba(79, 70, 229, 0.28);
+  }
+
+  .secondary-button {
+    color: #4f46e5;
+    background: #eef0ff;
+  }
+
+  .secondary-button:hover {
+    transform: translateY(-2px);
+    background: #e0e4ff;
+  }
+
+  .button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  .testimonial-card {
+    overflow: hidden;
+    border-radius: 18px;
+    background: #071d35;
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.14);
+  }
+
+  .testimonial-image {
+    height: 260px;
+    background: #dbe3ef;
+    overflow: hidden;
+  }
+
+  .testimonial-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .testimonial-content {
+    padding: 28px;
+    color: #ffffff;
+  }
+
+  .testimonial-content .company {
+    display: inline-block;
+    margin-bottom: 18px;
+    font-size: 22px;
+    font-weight: 900;
+  }
+
+  .testimonial-content blockquote {
+    margin: 0 0 24px;
+    font-size: clamp(20px, 3vw, 28px);
+    line-height: 1.28;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+
+  .testimonial-content strong {
+    display: block;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .testimonial-content p {
+    margin: 4px 0 0;
+    color: #b8c4d6;
+    font-size: 13px;
+  }
+
+  .accordion-list {
+    margin-top: 28px;
+    border: 1px solid #dfe4ee;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #ffffff;
+  }
+
+  .accordion-item {
+    border-bottom: 1px solid #e7ebf2;
+  }
+
+  .accordion-item:last-child {
+    border-bottom: 0;
+  }
+
+  .accordion-item summary {
+    cursor: pointer;
+    padding: 18px 20px;
+    font-weight: 800;
+    color: #1f2937;
+    list-style: none;
+  }
+
+  .accordion-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .accordion-item summary::after {
+    content: "+";
+    float: right;
+    color: #4f46e5;
+    font-weight: 900;
+  }
+
+  .accordion-item[open] summary::after {
+    content: "−";
+  }
+
+  .accordion-item p {
+    margin: 0;
+    padding: 0 20px 20px;
+    color: #5b6475;
+    line-height: 1.7;
+  }
+
+  .knowledge-section {
+    padding-bottom: 110px;
+  }
+
+  .knowledge-section .section-grid {
+    align-items: start;
+  }
+
+  .knowledge-box {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: 420px;
+    background: #ffffff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
+  }
+
+  .knowledge-menu {
+    background: #4f46e5;
+    color: #ffffff;
+    padding: 32px;
+  }
+
+  .knowledge-menu h3 {
+    margin: 0 0 28px;
+    font-size: 22px;
+    line-height: 1.3;
+    letter-spacing: -0.03em;
+  }
+
+  .knowledge-menu-item {
+    padding: 18px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+  }
+
+  .knowledge-menu-item strong {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 15px;
+  }
+
+  .knowledge-menu-item p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .knowledge-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+    text-align: center;
+  }
+
+  .preview-icon {
+    width: 86px;
+    height: 86px;
+    display: grid;
+    place-items: center;
+    margin-bottom: 22px;
+    border-radius: 24px;
+    background: #eef0ff;
+    color: #4f46e5;
+    font-size: 42px;
+    font-weight: 900;
+  }
+
+  .knowledge-preview h3 {
+    margin: 0;
+    font-size: 24px;
+    letter-spacing: -0.03em;
+  }
+
+  .knowledge-preview p {
+    max-width: 420px;
+    margin: 14px 0 24px;
+    color: #5b6475;
+    line-height: 1.7;
+  }
+
+  .customer-cta {
+    background: #ffffff;
+    padding: 90px 0;
+    text-align: center;
+  }
+
+  .cta-star {
+    margin-bottom: 20px;
+    color: #5b5ff0;
+    font-size: 58px;
+    line-height: 1;
+    font-weight: 900;
+  }
+
+  .customer-cta h2 {
+    margin: 0;
+    font-size: clamp(30px, 4vw, 46px);
+    line-height: 1.15;
+    letter-spacing: -0.04em;
+  }
+
+  .customer-cta p {
+    max-width: 620px;
+    margin: 18px auto 28px;
+    color: #5b6475;
+    line-height: 1.8;
+  }
+
+  @media (max-width: 900px) {
+    .customer-hero {
+      padding: 76px 0 56px;
+    }
+
+    .customer-section {
+      padding: 72px 0;
+    }
+
+    .section-grid {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+
+    .reverse-mobile .testimonial-card {
+      order: -1;
+    }
+
+    .knowledge-box {
+      grid-template-columns: 1fr;
+    }
+
+    .knowledge-menu {
+      padding: 28px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .container {
+      width: min(100% - 28px, 1120px);
+    }
+
+    .tabs-inner {
+      justify-content: flex-start;
+    }
+
+    .tab-link {
+      font-size: 13px;
+      padding: 9px 13px;
+    }
+
+    .testimonial-image {
+      height: 220px;
+    }
+
+    .testimonial-content {
+      padding: 22px;
+    }
+
+    .button-row {
+      flex-direction: column;
+    }
+
+    .primary-button,
+    .secondary-button {
+      width: 100%;
+    }
+
+    .knowledge-preview {
+      padding: 34px 22px;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const tabLinks = document.querySelectorAll(".tab-link");
+
+    const sections = document.querySelectorAll(
+      "#implementation, #support, #account, #knowledge",
+    );
+
+    const setActiveTab = (id) => {
+      tabLinks.forEach((link) => {
+        link.classList.toggle("active", link.dataset.tab === id);
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleSections = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+        if (visibleSections.length > 0) {
+          setActiveTab(visibleSections[0].target.id);
+        }
+      },
+      {
+        threshold: [0.2, 0.35, 0.5],
+        rootMargin: "-120px 0px -45% 0px",
+      },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+  });
+</script>
