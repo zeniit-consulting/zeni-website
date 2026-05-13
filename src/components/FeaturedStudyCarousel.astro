@@ -1,0 +1,223 @@
+---
+import { caseStudies } from "../data/caseStudies";
+import { Image } from "astro:assets";
+---
+
+<div class="featured-carousel-container">
+  <div class="featured-carousel">
+    {
+      caseStudies.map((study, index) => (
+        <article class="featured-study" data-index={index}>
+          <div
+            class="featured-study__image"
+            style="position: relative; overflow: hidden;"
+          >
+            <Image
+              src={study.image}
+              alt={study.title}
+              width={800}
+              height={500}
+              format="webp"
+              quality="high"
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition:
+                  "center",
+                zIndex: 1,
+              }}
+            />
+            <span
+              class="featured-study__category"
+              style="position: relative; z-index: 2;"
+            >
+              {study.category}
+            </span>
+          </div>
+          <div class="featured-study__body">
+            <h2>
+              {study.title.length > 50
+                ? study.title.slice(0, 50) + "..."
+                : study.title}
+            </h2>
+
+            <a
+              href={`/case-studies/${study.slug}`}
+              class="featured-study__link"
+            >
+              Baca studi kasus →
+            </a>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .featured-carousel-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+    user-select: none;
+  }
+
+  .featured-carousel {
+    position: relative;
+    width: 100%;
+    height: 520px;
+    overflow: hidden;
+    touch-action: pan-y pinch-zoom;
+    cursor: grab;
+  }
+
+  .featured-carousel:active {
+    cursor: grabbing;
+  }
+
+  /* FEATURED CARD */
+  .featured-study {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    border: 1px solid var(--color-neutral-200);
+    border-radius: 1.5rem;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    opacity: 0;
+    transform: translateX(100%) scale(0.95);
+    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, opacity;
+  }
+
+  .featured-study.active {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    z-index: 2;
+  }
+
+  .featured-study.prev {
+    opacity: 0;
+    transform: translateX(-100%) scale(0.95);
+    z-index: 1;
+  }
+
+  .featured-study.next {
+    opacity: 0;
+    transform: translateX(100%) scale(0.95);
+    z-index: 0;
+  }
+
+  .featured-study__image {
+    height: 280px;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: 1rem;
+    background-size: cover !important;
+    background-position: center !important;
+    transition: background-image 0.3s ease;
+  }
+
+  .featured-study__category {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-primary, #3b82f6);
+    backdrop-filter: blur(10px);
+  }
+
+  .featured-study__body {
+    padding: 1.75rem;
+  }
+
+  .featured-study__body h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: var(--color-neutral-900, #111827);
+  }
+
+  .featured-study__body p {
+    color: var(--color-neutral-600, #6b7280);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .featured-study__link {
+    display: inline-flex;
+    margin-top: 1.25rem;
+    color: var(--color-primary, #3b82f6);
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .featured-study__link:hover {
+    opacity: 0.8;
+  }
+
+  @keyframes swipeHintFade {
+    0%,
+    70% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  .swipe-hint svg {
+    animation: swipeArrow 1.5s ease-in-out infinite;
+  }
+
+  @keyframes swipeArrow {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(5px);
+    }
+  }
+
+  /* Reduced Motion */
+  @media (prefers-reduced-motion: reduce) {
+    .featured-study {
+      transition-duration: 0.01ms !important;
+      animation: none !important;
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .featured-carousel {
+      height: 500px;
+    }
+
+    .featured-study__image {
+      height: 240px;
+    }
+
+    .featured-study__body {
+      padding: 1.25rem;
+    }
+
+    .featured-study__body h2 {
+      font-size: 1.25rem;
+    }
+  }
+</style>
+
+<script>
+  import "../scripts/featured-study-carousel";
+</script>
