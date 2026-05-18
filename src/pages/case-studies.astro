@@ -113,24 +113,60 @@ import { Image } from "astro:assets";
 
       <!-- Filters -->
       <div class="case-filters">
-        <button class="case-filter active"> Semua </button>
+        <button
+          type="button"
+          class="case-filter active"
+          aria-pressed="true"
+          data-filter="all"
+        >
+          Semua
+        </button>
 
-        <button class="case-filter"> Automation </button>
+        <button
+          type="button"
+          class="case-filter"
+          aria-pressed="false"
+          data-filter="AUTOMATION SYSTEM"
+        >
+          Automation
+        </button>
 
-        <button class="case-filter"> Dashboard </button>
+        <button
+          type="button"
+          class="case-filter"
+          aria-pressed="false"
+          data-filter="INTERNAL DASHBOARD"
+        >
+          Dashboard
+        </button>
 
-        <button class="case-filter"> Integration </button>
+        <button
+          type="button"
+          class="case-filter"
+          aria-pressed="false"
+          data-filter="SYSTEM INTEGRATION"
+        >
+          Integration
+        </button>
 
-        <button class="case-filter"> AI Systems </button>
+        <button
+          type="button"
+          class="case-filter"
+          aria-pressed="false"
+          data-filter="AI AUTOMATION"
+        >
+          AI Systems
+        </button>
       </div>
 
       <!-- Grid -->
-      <div class="projects-grid">
+      <div class="projects-grid" id="caseGrid">
         {
-          caseStudies.slice(0, 3).map((study) => (
+          caseStudies.map((study, index) => (
             <a
               href={`/case-studies/${study.slug}`}
-              class="project-card"
+              class:list={["project-card", index >= 3 && "is-initial-hidden"]}  
+              data-category={study.category}
               data-aos="fade-up"
             >
               <div class="project-image">
@@ -139,18 +175,24 @@ import { Image } from "astro:assets";
                   alt={study.title}
                   width={400}
                   height={250}
-                  quality="mid"
+                  quality={60}
+                  widths={[320, 400, 640, 800]}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
                   decoding="async"
-                  loading="eager"
+                  loading="lazy"
+                  fetchpriority={index === 0 ? "high" : "auto"}
                 />
               </div>
+
               <div class="project-content">
                 <span class="project-badge">{study.category}</span>
+
                 <h3>
                   {study.title.length > 50
                     ? study.title.slice(0, 50) + "..."
                     : study.title}
                 </h3>
+
                 <span
                   class="service-card__link"
                   data-i18n="project.viewdetails"
@@ -165,7 +207,7 @@ import { Image } from "astro:assets";
     </div>
 
     <!-- Pagination -->
-    <div class="case-pagination">
+    <!-- <div class="case-pagination" id="casePagination">
       <button class="case-pagination__btn active"> 1 </button>
 
       <button class="case-pagination__btn"> 2 </button>
@@ -173,7 +215,7 @@ import { Image } from "astro:assets";
       <button class="case-pagination__btn"> 3 </button>
 
       <button class="case-pagination__btn"> → </button>
-    </div>
+    </div> -->
   </section>
 
   <!-- CTA -->
@@ -530,6 +572,18 @@ import { Image } from "astro:assets";
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
   }
 
+  .project-card.is-initial-hidden {
+    display: none;
+  }
+
+  .projects-grid.is-filtering .project-card.is-initial-hidden {
+    display: block;
+  }
+
+  .project-card.is-hidden {
+    display: none !important;
+  }
+
   .project-image {
     overflow: hidden;
     height: 240px;
@@ -609,7 +663,7 @@ import { Image } from "astro:assets";
 
   /* ═══ PAGINATION ═══ */
 
-  .case-pagination {
+  /* .case-pagination {
     display: flex;
 
     justify-content: center;
@@ -648,7 +702,7 @@ import { Image } from "astro:assets";
     border-color: var(--color-primary);
 
     color: white;
-  }
+  } */
 
   /* ═══ CTA ═══ */
 
@@ -913,3 +967,38 @@ import { Image } from "astro:assets";
     }
   }
 </style>
+
+<script>
+  const filterButtons =
+    document.querySelectorAll<HTMLButtonElement>(".case-filter");
+
+  const caseGrid = document.querySelector<HTMLElement>("#caseGrid");
+
+  const projectCards =
+    document.querySelectorAll<HTMLElement>("#caseGrid .project-card");
+
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const selectedFilter = button.dataset.filter ?? "all";
+      const isAll = selectedFilter === "all";
+
+      filterButtons.forEach((item) => {
+        const isActive = item === button;
+        item.classList.toggle("active", isActive);
+        item.setAttribute("aria-pressed", String(isActive));
+      });
+
+      caseGrid?.classList.toggle("is-filtering", !isAll);
+
+      projectCards.forEach((card) => {
+        const cardCategory = card.dataset.category ?? "";
+
+        const shouldShow = isAll || cardCategory === selectedFilter;
+
+        card.classList.toggle("is-hidden", !shouldShow);
+      });
+    });
+  });
+</script>
+
+
