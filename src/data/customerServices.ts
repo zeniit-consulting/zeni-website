@@ -181,6 +181,14 @@ export const customerServices: CustomerService[] = [
         role: "Head of HR",
         image: "/images/customer-service/testimonial-3.webp",
       },
+      {
+        company: "Support Team",
+        quote:
+          "Sistem support sangat membantu tim kami dalam menangani kebutuhan operasional dengan lebih cepat.",
+        name: "Indah Limasari Nabati Tawan",
+        role: "HRIS Supervisor",
+        image: "/images/customer-service/testimonial-4.webp",
+      },
     ],
     cta: {
       title: "Siap tingkatkan kualitas layanan pelanggan Anda?",
