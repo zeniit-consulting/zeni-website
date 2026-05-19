@@ -1,0 +1,25 @@
+---
+type Props = {
+  label?: string;
+  message?: string;
+  className?: string;
+};
+
+const {
+  label = "WhatsApp sekarang",
+  message = "Halo, saya ingin konsultasi pembuatan website.",
+  className = "",
+} = Astro.props as Props;
+
+const phoneNumber = "6285215644688";
+const href = `https://wa.me/628811841064?text=Halo%2C%20saya%20tertarik%20untuk%20konsultasi%20IT%20dengan%20Zeni%20Consulting.`;
+---
+
+<a
+  href={href}
+  class={`whatsapp-button ${className}`}
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  {label}
+</a>
