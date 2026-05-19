@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 import { customerServices } from "../data/customerServices";
+import WhatsAppButton from "../components/WhatsAppButton.astro";
 
 const customerService = customerServices[0];
 
@@ -138,7 +139,11 @@ const forthTestimonial = testimonials[3];
           </div>
 
           <div class="button-row">
-            <a href="/contact" class="primary-button">WhatsApp Sales</a>
+            <WhatsAppButton
+            label="WhatsApp sekarang"
+            message="Halo, saya tertarik membuat website untuk bisnis logistik."
+            className="btn btn--primary"
+          />
             <a href="/contact" class="secondary-button"
               >Hubungi Customer Support</a
             >
@@ -166,7 +171,7 @@ const forthTestimonial = testimonials[3];
     </section>
 
     <!-- ACCOUNT MANAGEMENT -->
-    <section id="account" class="customer-section">
+    <section id="account" class="account-management customer-section">
       <div class="container section-grid">
         <article class="testimonial-card">
           <div class="testimonial-image">
@@ -198,8 +203,13 @@ const forthTestimonial = testimonials[3];
               ))
             }
           </div>
-
-          <a href="/contact" class="primary-button " style="margin-top: 1.5rem;"> WhatsApp Sales </a>
+          <br>
+          <WhatsAppButton
+            label="WhatsApp sekarang"
+            message="Halo, saya tertarik membuat website untuk bisnis logistik."
+            className="btn btn--primary"
+            
+          />
         </div>
       </div>
     </section>
@@ -212,7 +222,11 @@ const forthTestimonial = testimonials[3];
           <h2>{knowledgeCenter.title}</h2>
           <p>{knowledgeCenter.description}</p>
           <div class="button-row">
-            <a href="/contact" class="primary-button">WhatsApp Sales</a>
+            <WhatsAppButton
+            label="WhatsApp sekarang"
+            message="Halo, saya tertarik membuat website untuk bisnis logistik."
+            className="btn btn--primary"
+          />
             <a href="/contact" class="secondary-button"
               >Hubungi Customer Support</a
             >
@@ -484,6 +498,7 @@ const forthTestimonial = testimonials[3];
     font-weight: 800;
   }
 
+  
   .primary-button,
   .secondary-button {
     display: inline-flex;
