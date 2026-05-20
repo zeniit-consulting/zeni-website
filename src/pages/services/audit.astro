@@ -43,13 +43,22 @@ import ServiceSidebar from '../../components/ServiceSidebar.astro';
   .svc-hero {
     position: relative;
     padding: calc(4rem + var(--space-3xl)) 0 var(--space-3xl);
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 60%, var(--color-primary-darker) 100%);
+    background: linear-gradient(
+      135deg,
+      var(--color-primary) 0%,
+      var(--color-primary-dark) 60%,
+      var(--color-primary-darker) 100%
+    );
     overflow: hidden;
   }
   .svc-hero__bg {
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse 60% 50% at 70% 30%, rgba(255,255,255,0.06) 0%, transparent 60%);
+    background: radial-gradient(
+      ellipse 60% 50% at 70% 30%,
+      rgba(255, 255, 255, 0.06) 0%,
+      transparent 60%
+    );
     pointer-events: none;
   }
   .svc-hero__inner {
@@ -63,7 +72,7 @@ import ServiceSidebar from '../../components/ServiceSidebar.astro';
     gap: 0.25rem;
     font-size: 0.875rem;
     font-weight: 500;
-    color: rgba(255,255,255,0.7);
+    color: rgba(255, 255, 255, 0.7);
     margin-bottom: var(--space-xl);
     transition: color var(--transition-fast);
   }
@@ -73,7 +82,7 @@ import ServiceSidebar from '../../components/ServiceSidebar.astro';
   .svc-hero__icon {
     width: 3.5rem;
     height: 3.5rem;
-    background: rgba(255,255,255,0.15);
+    background: rgba(255, 255, 255, 0.15);
     border-radius: var(--radius-lg);
     display: flex;
     align-items: center;
@@ -87,19 +96,48 @@ import ServiceSidebar from '../../components/ServiceSidebar.astro';
   }
   .svc-hero__sub {
     font-size: 1.125rem;
-    color: rgba(255,255,255,0.8);
+    color: rgba(255, 255, 255, 0.8);
     line-height: 1.7;
     margin: 0;
-  }
-  @media (max-width: 768px) {
-    .svc-hero {
-      padding: calc(4rem + var(--space-2xl)) 0 var(--space-2xl);
-    }
   }
 
   .service-layout {
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 40px;
+  }
+
+  /* ─── RESPONSIVE: Tablet ≤ 768px ─── */
+  @media (max-width: 768px) {
+    .svc-hero {
+      padding: calc(4rem + var(--space-2xl)) 0 var(--space-2xl);
+    }
+    .svc-hero__sub {
+      font-size: 1rem;
+    }
+
+    /* ✅ FIXED: layout stack jadi 1 kolom */
+    .service-layout {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+  }
+
+  /* ─── RESPONSIVE: Mobile ≤ 480px ─── */
+  @media (max-width: 480px) {
+    .svc-hero {
+      padding: calc(4rem + var(--space-xl)) 0 var(--space-xl);
+    }
+    .svc-hero__icon {
+      width: 2.75rem;
+      height: 2.75rem;
+    }
+    .svc-hero__back {
+      font-size: 0.8125rem;
+    }
+
+    .service-layout {
+      gap: 16px;
+    }
   }
 </style>

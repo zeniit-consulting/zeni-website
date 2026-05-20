@@ -177,6 +177,9 @@ import { projects } from "../data/projects";
   }
 
   /* ═══ SERVICES GRID ═══ */
+  .projects .container {
+    max-width: 83rem;
+  }
   .section-header {
     text-align: center;
     margin-bottom: var(--space-3xl);
@@ -184,8 +187,8 @@ import { projects } from "../data/projects";
 
   .services-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-lg);
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
   }
 
   .service-card {

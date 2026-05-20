@@ -116,14 +116,44 @@ import ServiceSidebar from "../../components/ServiceSidebar.astro";
     line-height: 1.7;
     margin: 0;
   }
+
+  .service-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+  }
+
+  /* ─── RESPONSIVE: Tablet ≤ 768px ─── */
   @media (max-width: 768px) {
     .svc-hero {
       padding: calc(4rem + var(--space-2xl)) 0 var(--space-2xl);
     }
+    .svc-hero__sub {
+      font-size: 1rem;
+    }
+
+    /* ✅ FIXED: layout stack jadi 1 kolom */
+    .service-layout {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
   }
-  .service-layout {
-    display:grid;
-    grid-template-columns: 2fr 1fr;
-    gap:40px;
+
+  /* ─── RESPONSIVE: Mobile ≤ 480px ─── */
+  @media (max-width: 480px) {
+    .svc-hero {
+      padding: calc(4rem + var(--space-xl)) 0 var(--space-xl);
+    }
+    .svc-hero__icon {
+      width: 2.75rem;
+      height: 2.75rem;
+    }
+    .svc-hero__back {
+      font-size: 0.8125rem;
+    }
+
+    .service-layout {
+      gap: 16px;
+    }
   }
 </style>
