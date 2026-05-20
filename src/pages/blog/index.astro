@@ -1,156 +1,1137 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { blogs } from "../../data/blogs";
+
+const heroBlog = blogs[0];
+const popularBlogs = blogs.slice(1, 5);
+const latestBlogs = blogs.slice(0, 9);
+const businessBlogs = blogs.slice(1, 7);
+const professionalBlogs = blogs.slice(2, 5);
+const professionalFeatured = blogs[0];
+
+const highlightedCategories = blogs.filter(
+  (blog, index, self) =>
+    index === self.findIndex((item) => item.category === blog.category),
+);
+
+const categoryHref = (category: string) =>
+  `/blog/category/${category.toLowerCase().replaceAll(" ", "-")}`;
 ---
 
-<BaseLayout title="Blog" description="Thought leadership and insights from Zeni Consulting on technology, strategy, and scaling systems." noPadding>
-
+<BaseLayout
+  title="Blog"
+  description="Thought leadership and insights from Zeni Consulting on technology, strategy, and scaling systems."
+  noPadding
+>
   <!-- Page Hero -->
   <section class="page-hero">
     <div class="page-hero__bg"></div>
     <div class="container page-hero__inner">
-      <span class="page-hero__badge" data-aos="fade-up" data-i18n="blog.hero.badge">Insights</span>
+      <span
+        class="page-hero__badge"
+        data-aos="fade-up"
+        data-i18n="blog.hero.badge">Insights</span
+      >
       <h1 data-aos="fade-up" data-i18n="blog.hero.title">Blog</h1>
-      <p class="page-hero__sub" data-aos="fade-up" data-i18n="blog.hero.sub">Insights on technology, strategy, and building systems that scale.</p>
+      <p class="page-hero__sub" data-aos="fade-up" data-i18n="blog.hero.sub">
+        Insights on technology, strategy, and building systems that scale.
+      </p>
     </div>
   </section>
 
-  <!-- Coming Soon -->
-  <section class="section">
-    <div class="container">
-      <div class="coming-card" data-aos="fade-up">
-        <div class="coming-card__icon">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+  <!-- Blogs -->
+  <section class="blog-page">
+    <section class="blog-main-section">
+      <div class="container blog-main-grid">
+        <div class="left-content">
+          <article class="hero-blog-card">
+            <a
+              href={`/blog/${heroBlog.slug}`}
+              class="hero-blog-card__media"
+              aria-label={`Baca ${heroBlog.title}`}
+            >
+              <img
+                src={heroBlog.image}
+                alt={heroBlog.title}
+                fetchpriority="high"
+              />
+            </a>
+            <div class="hero-blog-content">
+              <a
+                class="blog-category blog-category--inverse"
+                href={categoryHref(heroBlog.category)}
+              >
+                {heroBlog.category}
+              </a>
+              <a href={`/blog/${heroBlog.slug}`} class="hero-blog-title-link">
+                <h2>{heroBlog.title}</h2>
+              </a>
+              <p class="hero-blog-excerpt">{heroBlog.excerpt}</p>
+              <div class="blog-meta blog-meta--inverse">
+                <span>{heroBlog.date}</span>
+                <span>{heroBlog.readTime}</span>
+              </div>
+            </div>
+          </article>
+
+          <div class="section-heading">
+            <span>Curated reads</span>
+            <h2>Paling banyak dibaca</h2>
+          </div>
+
+          <div class="popular-list">
+            {
+              popularBlogs.map((blog) => (
+                <article class="popular-item">
+                  <a
+                    href={`/blog/${blog.slug}`}
+                    class="popular-item__media"
+                    aria-label={`Baca ${blog.title}`}
+                  >
+                    <img src={blog.image} alt={blog.title} loading="lazy" />
+                  </a>
+                  <div class="popular-item__content">
+                    <a class="blog-category" href={categoryHref(blog.category)}>
+                      {blog.category}
+                    </a>
+                    <a href={`/blog/${blog.slug}`} class="post-title-link">
+                      <h3>{blog.title}</h3>
+                    </a>
+                    <p class="post-excerpt">{blog.excerpt}</p>
+                    <div class="blog-meta">
+                      <span>{blog.date}</span>
+                      <span>{blog.readTime}</span>
+                      <span>{blog.author}</span>
+                    </div>
+                  </div>
+                </article>
+              ))
+            }
+          </div>
+
+          <div class="subscribe-strip">
+            <div>
+              <span>Newsletter</span>
+              <p>
+                Dapatkan akses eksklusif ke konten pilihan seputar bisnis dan
+                karier profesional.
+              </p>
+            </div>
+            <a href="#">Subscribe sekarang</a>
+          </div>
+
+          <section class="explore-section">
+            <div class="section-heading">
+              <span>Business playbook</span>
+              <h2>Eksplor Bisnis</h2>
+            </div>
+
+            <div class="explore-grid">
+              <div class="small-list">
+                {
+                  businessBlogs.slice(0, 3).map((blog) => (
+                    <article class="text-post">
+                      <a
+                        class="blog-category"
+                        href={categoryHref(blog.category)}
+                      >
+                        {blog.category}
+                      </a>
+                      <a href={`/blog/${blog.slug}`} class="post-title-link">
+                        <h3>{blog.title}</h3>
+                      </a>
+                      <div class="blog-meta">
+                        <span>{blog.date}</span>
+                        <span>{blog.readTime}</span>
+                      </div>
+                    </article>
+                  ))
+                }
+              </div>
+
+              <article class="middle-feature">
+                <a
+                  href={`/blog/${businessBlogs[3].slug}`}
+                  class="middle-feature__media"
+                  aria-label={`Baca ${businessBlogs[3].title}`}
+                >
+                  <img
+                    src={businessBlogs[3].image}
+                    alt={businessBlogs[3].title}
+                    loading="lazy"
+                  />
+                </a>
+                <a
+                  class="blog-category"
+                  href={categoryHref(businessBlogs[3].category)}
+                >
+                  {businessBlogs[3].category}
+                </a>
+                <a href={`/blog/${businessBlogs[3].slug}`} class="post-title-link">
+                  <h3>{businessBlogs[3].title}</h3>
+                </a>
+                <p class="post-excerpt">{businessBlogs[3].excerpt}</p>
+                <div class="blog-meta">
+                  <span>{businessBlogs[3].date}</span>
+                  <span>{businessBlogs[3].readTime}</span>
+                </div>
+              </article>
+
+              <div class="small-list">
+                {
+                  businessBlogs.slice(3, 6).map((blog) => (
+                    <article class="text-post">
+                      <a
+                        class="blog-category"
+                        href={categoryHref(blog.category)}
+                      >
+                        {blog.category}
+                      </a>
+                      <a href={`/blog/${blog.slug}`} class="post-title-link">
+                        <h3>{blog.title}</h3>
+                      </a>
+                      <div class="blog-meta">
+                        <span>{blog.date}</span>
+                        <span>{blog.readTime}</span>
+                      </div>
+                    </article>
+                  ))
+                }
+              </div>
+            </div>
+          </section>
         </div>
-        <h2 data-i18n="blog.coming.title">Content Coming Soon</h2>
-        <p data-i18n="blog.coming.text">We're preparing thought leadership content — insights, whitepapers, and practical guides for growing businesses.</p>
-        <p class="coming-card__highlight" data-i18n="blog.coming.notify">Want to be notified when we publish?</p>
-        <div class="coming-card__topics">
-          <span class="topic-tag" data-i18n="blog.topic.1">IT Strategy</span>
-          <span class="topic-tag" data-i18n="blog.topic.2">AI Automation</span>
-          <span class="topic-tag" data-i18n="blog.topic.3">Software Architecture</span>
-          <span class="topic-tag" data-i18n="blog.topic.4">Digital Transformation</span>
-          <span class="topic-tag" data-i18n="blog.topic.5">Technology Audit</span>
-        </div>
-        <a href="/contact" class="btn btn--primary" data-i18n="blog.coming.btn">Get in touch</a>
+
+        <aside class="latest-sidebar" aria-label="Artikel terbaru">
+          <div class="latest-sidebar__header">
+            <span>Fresh insights</span>
+            <h2>Terbaru</h2>
+          </div>
+
+          <div class="latest-list">
+            {
+              latestBlogs.map((blog) => (
+                <article class="latest-item">
+                  <a class="blog-category" href={categoryHref(blog.category)}>
+                    {blog.category}
+                  </a>
+                  <a href={`/blog/${blog.slug}`} class="post-title-link">
+                    <h3>{blog.title}</h3>
+                  </a>
+                  <div class="blog-meta">
+                    <span>{blog.date}</span>
+                    <span>{blog.readTime}</span>
+                  </div>
+                </article>
+              ))
+            }
+          </div>
+        </aside>
       </div>
-    </div>
-  </section>
+    </section>
 
+    <section class="highlight-section">
+      <div class="container">
+        <div class="section-heading section-heading--on-dark">
+          <span>Topic lanes</span>
+          <h2>Artikel sorotan</h2>
+        </div>
+
+        <div class="highlight-marquee" aria-label="Kategori artikel">
+          <div class="highlight-track">
+            {
+              [...highlightedCategories, ...highlightedCategories].map(
+                (blog) => (
+                  <article class="highlight-card">
+                    <a
+                      href={categoryHref(blog.category)}
+                      aria-label={`Lihat kategori ${blog.category}`}
+                    >
+                      <img src={blog.image} alt={blog.category} loading="lazy" />
+                      <div>
+                        <span>{blog.category}</span>
+                      </div>
+                    </a>
+                  </article>
+                ),
+              )
+            }
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="professional-section">
+      <div class="container professional-grid">
+        <div class="professional-list">
+          <div class="section-heading">
+            <span>Professional growth</span>
+            <h2>Eksplor Profesional</h2>
+          </div>
+
+          {
+            professionalBlogs.map((blog) => (
+              <article class="text-post">
+                <a class="blog-category" href={categoryHref(blog.category)}>
+                  {blog.category}
+                </a>
+                <a href={`/blog/${blog.slug}`} class="post-title-link">
+                  <h3>{blog.title}</h3>
+                </a>
+                <div class="blog-meta">
+                  <span>{blog.date}</span>
+                  <span>{blog.readTime}</span>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+
+        <article class="professional-feature">
+          <a
+            href={`/blog/${professionalFeatured.slug}`}
+            class="professional-feature__media"
+            aria-label={`Baca ${professionalFeatured.title}`}
+          >
+            <img
+              src={professionalFeatured.image}
+              alt={professionalFeatured.title}
+              loading="lazy"
+            />
+          </a>
+          <div>
+            <a
+              class="blog-category"
+              href={categoryHref(professionalFeatured.category)}
+            >
+              {professionalFeatured.category}
+            </a>
+            <a
+              href={`/blog/${professionalFeatured.slug}`}
+              class="post-title-link"
+            >
+              <h3>{professionalFeatured.title}</h3>
+            </a>
+            <p class="post-excerpt">{professionalFeatured.excerpt}</p>
+            <div class="blog-meta">
+              <span>{professionalFeatured.date}</span>
+              <span>{professionalFeatured.readTime}</span>
+            </div>
+          </div>
+        </article>
+
+        <div class="subscribe-card">
+          <div class="subscribe-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path
+                d="M4 6.5h16v11H4v-11Z"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linejoin="round"></path>
+              <path
+                d="m5 7.5 7 5 7-5"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"></path>
+            </svg>
+          </div>
+          <h3>Dapatkan kurasi artikel terbaru dari Zeni Consulting</h3>
+          <a href="#">Subscribe sekarang</a>
+        </div>
+      </div>
+    </section>
+  </section>
 </BaseLayout>
 
 <style>
-  /* ═══ PAGE HERO ═══ */
+  /* Page hero */
   .page-hero {
     position: relative;
     padding: calc(4rem + var(--space-3xl)) 0 var(--space-3xl);
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 60%, var(--color-primary-darker) 100%);
     overflow: hidden;
+    background:
+      linear-gradient(
+        135deg,
+        var(--color-primary) 0%,
+        var(--color-primary-dark) 58%,
+        var(--color-primary-darker) 100%
+      );
   }
 
   .page-hero__bg {
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse 60% 50% at 70% 30%, rgba(255,255,255,0.06) 0%, transparent 60%);
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), transparent);
     pointer-events: none;
   }
 
   .page-hero__inner {
     position: relative;
     z-index: 1;
-    max-width: 40rem;
+    max-width: 44rem;
   }
 
   .page-hero__badge {
-    display: inline-block;
-    padding: 0.375rem 1rem;
-    background: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: var(--radius-full);
-    font-size: 0.8125rem;
-    font-weight: 600;
-    color: rgba(255,255,255,0.9);
+    display: inline-flex;
+    align-items: center;
+    padding: 0.375rem 0.875rem;
     margin-bottom: var(--space-lg);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.14);
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 0.8125rem;
+    font-weight: 700;
   }
 
   .page-hero h1 {
-    color: var(--color-white);
     margin-bottom: var(--space-md);
+    color: var(--color-white);
+    font-size: 3.25rem;
+    letter-spacing: 0;
   }
 
   .page-hero__sub {
+    max-width: 38rem;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.82);
     font-size: 1.125rem;
-    color: rgba(255,255,255,0.8);
     line-height: 1.7;
+  }
+
+  /* Blog page */
+  .blog-page {
+    --blog-ink: #102033;
+    --blog-muted: #5d6b7c;
+    --blog-border: #dce6f0;
+    --blog-soft: #f5f9fd;
+    --blog-shadow: 0 18px 42px rgba(16, 32, 51, 0.08);
+
+    background:
+      linear-gradient(180deg, var(--color-white) 0%, var(--blog-soft) 45%, var(--color-white) 100%);
+    color: var(--blog-ink);
+    font-family: var(--font-body);
+  }
+
+  .blog-page :global(a) {
+    text-decoration: none;
+  }
+
+  .blog-page h2,
+  .blog-page h3 {
+    color: var(--blog-ink);
+    letter-spacing: 0;
+  }
+
+  .blog-main-section {
+    padding: 56px 0 64px;
+  }
+
+  .blog-main-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 330px;
+    gap: 40px;
+    align-items: start;
+  }
+
+  .left-content {
+    min-width: 0;
+  }
+
+  .section-heading {
+    margin: 36px 0 18px;
+  }
+
+  .section-heading span,
+  .latest-sidebar__header span,
+  .subscribe-strip span {
+    display: inline-flex;
+    margin-bottom: 8px;
+    color: var(--color-primary);
+    font-size: 0.78rem;
+    font-weight: 800;
+  }
+
+  .section-heading h2,
+  .latest-sidebar__header h2 {
+    margin: 0;
+    font-size: 1.625rem;
+    line-height: 1.25;
+  }
+
+  .section-heading--on-dark h2 {
+    color: var(--color-white);
+  }
+
+  .section-heading--on-dark span {
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  .blog-category {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    padding: 0.35rem 0.625rem;
+    border: 1px solid rgba(0, 96, 175, 0.14);
+    border-radius: var(--radius-full);
+    background: var(--color-primary-50);
+    color: var(--color-primary);
+    font-size: 0.75rem;
+    font-weight: 800;
+    line-height: 1;
+    transition:
+      background var(--transition-fast),
+      border-color var(--transition-fast),
+      color var(--transition-fast);
+  }
+
+  .blog-category:hover {
+    border-color: rgba(0, 96, 175, 0.28);
+    background: var(--color-primary-light);
+    color: var(--color-primary-dark);
+  }
+
+  .blog-category--inverse {
+    border-color: rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.14);
+    color: var(--color-white);
+  }
+
+  .blog-category--inverse:hover {
+    border-color: rgba(255, 255, 255, 0.36);
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--color-white);
+  }
+
+  .blog-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--blog-muted);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+  }
+
+  .blog-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .blog-meta span:not(:first-child)::before {
+    width: 4px;
+    height: 4px;
+    border-radius: var(--radius-full);
+    background: #b7c4d1;
+    content: "";
+  }
+
+  .blog-meta--inverse {
+    color: rgba(255, 255, 255, 0.82);
+  }
+
+  .blog-meta--inverse span:not(:first-child)::before {
+    background: rgba(255, 255, 255, 0.48);
+  }
+
+  .post-title-link h3,
+  .hero-blog-title-link h2 {
+    transition: color var(--transition-fast);
+  }
+
+  .post-title-link:hover h3,
+  .hero-blog-title-link:hover h2 {
+    color: var(--color-primary);
+  }
+
+  .post-excerpt {
+    color: var(--blog-muted);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
+
+  .hero-blog-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(340px, 0.9fr);
+    overflow: hidden;
+    border: 1px solid rgba(0, 96, 175, 0.14);
+    border-radius: var(--radius-md);
+    background: var(--color-primary);
+    box-shadow: var(--blog-shadow);
+  }
+
+  .hero-blog-card__media {
+    order: 2;
+    min-height: 100%;
+    overflow: hidden;
+  }
+
+  .hero-blog-card__media img {
+    width: 100%;
+    height: 100%;
+    min-height: 360px;
+    display: block;
+    object-fit: cover;
+  }
+
+  .hero-blog-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    padding: 44px;
+  }
+
+  .hero-blog-title-link h2 {
+    margin: 0;
+    color: var(--color-white);
+    font-size: 2rem;
+    line-height: 1.28;
+  }
+
+  .hero-blog-title-link:hover h2 {
+    color: rgba(255, 255, 255, 0.86);
+  }
+
+  .hero-blog-excerpt {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 0.98rem;
+    line-height: 1.75;
+  }
+
+  .popular-list {
+    display: grid;
+    gap: 16px;
+  }
+
+  .popular-item {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 20px;
+    padding: 14px;
+    border: 1px solid var(--blog-border);
+    border-radius: var(--radius-md);
+    background: var(--color-white);
+    transition:
+      transform var(--transition-base),
+      border-color var(--transition-base),
+      box-shadow var(--transition-base);
+  }
+
+  .popular-item:hover {
+    transform: translateY(-3px);
+    border-color: rgba(0, 96, 175, 0.22);
+    box-shadow: 0 18px 36px rgba(16, 32, 51, 0.08);
+  }
+
+  .popular-item__media {
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    background: var(--color-neutral-100);
+  }
+
+  .popular-item__media img {
+    width: 100%;
+    height: 100%;
+    min-height: 150px;
+    display: block;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+  }
+
+  .popular-item:hover .popular-item__media img,
+  .middle-feature:hover img,
+  .professional-feature:hover img,
+  .highlight-card:hover img {
+    transform: scale(1.04);
+  }
+
+  .popular-item__content {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 4px 4px 4px 0;
+  }
+
+  .popular-item h3,
+  .latest-item h3,
+  .text-post h3 {
+    margin: 0;
+    font-size: 1.0625rem;
+    line-height: 1.42;
+  }
+
+  .popular-item .post-excerpt {
+    display: -webkit-box;
+    overflow: hidden;
+    margin: 0;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .latest-sidebar {
+    position: sticky;
+    top: 88px;
+    padding: 24px;
+    border: 1px solid var(--blog-border);
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .latest-sidebar__header {
+    margin-bottom: 8px;
+  }
+
+  .latest-list {
+    display: grid;
+  }
+
+  .latest-item {
+    display: grid;
+    gap: 10px;
+    padding: 18px 0;
+    border-top: 1px solid var(--blog-border);
+  }
+
+  .latest-item:first-child {
+    border-top: 0;
+  }
+
+  .latest-item h3 {
+    font-size: 0.98rem;
+  }
+
+  .subscribe-strip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin: 28px 0 6px;
+    padding: 22px 24px;
+    border: 1px solid rgba(0, 96, 175, 0.14);
+    border-radius: var(--radius-md);
+    background:
+      linear-gradient(90deg, var(--color-primary-50), var(--color-white));
+  }
+
+  .subscribe-strip p {
+    max-width: 38rem;
+    margin: 0;
+    color: var(--blog-muted);
+    font-size: 0.9375rem;
+    line-height: 1.65;
+  }
+
+  .subscribe-strip a,
+  .subscribe-card a {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 0 1rem;
+    border-radius: var(--radius-md);
+    background: var(--color-primary);
+    color: var(--color-white);
+    font-size: 0.875rem;
+    font-weight: 800;
+    transition:
+      transform var(--transition-fast),
+      background var(--transition-fast),
+      box-shadow var(--transition-fast);
+    white-space: nowrap;
+  }
+
+  .subscribe-strip a:hover,
+  .subscribe-card a:hover {
+    transform: translateY(-1px);
+    background: var(--color-primary-dark);
+    color: var(--color-white);
+    box-shadow: 0 10px 22px rgba(0, 96, 175, 0.22);
+  }
+
+  .explore-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 1.2fr) minmax(0, 1fr);
+    gap: 28px;
+    align-items: start;
+  }
+
+  .small-list {
+    display: grid;
+  }
+
+  .text-post {
+    display: grid;
+    gap: 10px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--blog-border);
+  }
+
+  .text-post:first-child {
+    padding-top: 0;
+  }
+
+  .middle-feature,
+  .professional-feature {
+    overflow: hidden;
+    border: 1px solid var(--blog-border);
+    border-radius: var(--radius-md);
+    background: var(--color-white);
+    transition:
+      transform var(--transition-base),
+      border-color var(--transition-base),
+      box-shadow var(--transition-base);
+  }
+
+  .middle-feature {
+    display: grid;
+    gap: 13px;
+    padding: 14px;
+  }
+
+  .middle-feature:hover,
+  .professional-feature:hover {
+    transform: translateY(-3px);
+    border-color: rgba(0, 96, 175, 0.22);
+    box-shadow: 0 18px 36px rgba(16, 32, 51, 0.08);
+  }
+
+  .middle-feature__media,
+  .professional-feature__media {
+    display: block;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    background: var(--color-neutral-100);
+  }
+
+  .middle-feature img,
+  .professional-feature img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+  }
+
+  .middle-feature img {
+    aspect-ratio: 16 / 10;
+  }
+
+  .middle-feature h3 {
+    margin: 0;
+    font-size: 1.375rem;
+    line-height: 1.35;
+  }
+
+  .middle-feature .post-excerpt {
     margin: 0;
   }
 
-  /* ═══ COMING SOON CARD ═══ */
-  .coming-card {
-    max-width: 36rem;
-    margin: 0 auto;
-    text-align: center;
-    padding: var(--space-3xl) var(--space-xl);
+  .highlight-section {
+    padding: 60px 0;
+    overflow: hidden;
+    background: var(--color-neutral-900);
+  }
+
+  .highlight-marquee {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .highlight-track {
+    display: flex;
+    width: max-content;
+    gap: 18px;
+    animation: marquee 60s linear infinite;
+  }
+
+  .highlight-marquee:hover .highlight-track {
+    animation-play-state: paused;
+  }
+
+  .highlight-card {
+    width: 250px;
+    flex: 0 0 250px;
+  }
+
+  .highlight-card a {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--radius-md);
+    color: var(--color-white);
+    background: var(--color-neutral-800);
+  }
+
+  .highlight-card img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+  }
+
+  .highlight-card a::after {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to top, rgba(10, 18, 32, 0.92), rgba(10, 18, 32, 0.12));
+    content: "";
+  }
+
+  .highlight-card div {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    min-height: 100%;
+    align-items: flex-end;
+    padding: 18px;
+  }
+
+  .highlight-card span {
+    color: var(--color-white);
+    font-size: 0.9rem;
+    font-weight: 800;
+    line-height: 1.35;
+  }
+
+  .professional-section {
+    padding: 64px 0 88px;
     background: var(--color-white);
-    border: 1px solid var(--color-neutral-200);
-    border-radius: var(--radius-xl);
   }
 
-  .coming-card__icon {
-    width: 4.5rem;
-    height: 4.5rem;
-    background: var(--color-primary-light);
-    color: var(--color-primary);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto var(--space-xl);
+  .professional-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(340px, 1.25fr) minmax(260px, 0.85fr);
+    gap: 28px;
+    align-items: start;
   }
 
-  .coming-card h2 {
-    margin: 0 0 var(--space-md);
+  .professional-list .section-heading {
+    margin-top: 0;
+  }
+
+  .professional-feature {
+    display: grid;
+  }
+
+  .professional-feature img {
+    aspect-ratio: 16 / 10;
+  }
+
+  .professional-feature div {
+    display: grid;
+    gap: 13px;
+    padding: 20px;
+  }
+
+  .professional-feature h3 {
+    margin: 0;
     font-size: 1.5rem;
-    color: var(--color-neutral-900);
+    line-height: 1.34;
   }
 
-  .coming-card > p {
-    color: var(--color-neutral-600);
-    line-height: 1.7;
-    margin: 0 0 var(--space-md);
-    font-size: 0.9375rem;
+  .professional-feature .post-excerpt {
+    margin: 0;
   }
 
-  .coming-card__highlight {
-    font-weight: 600;
-    color: var(--color-neutral-800) !important;
-  }
-
-  .coming-card__topics {
+  .subscribe-card {
     display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-sm);
+    min-height: 292px;
+    flex-direction: column;
     justify-content: center;
-    margin: var(--space-xl) 0;
+    padding: 26px;
+    border-radius: var(--radius-md);
+    background:
+      linear-gradient(160deg, var(--color-primary), var(--color-primary-darker));
+    color: var(--color-white);
+    box-shadow: 0 20px 45px rgba(0, 96, 175, 0.18);
   }
 
-  .topic-tag {
-    padding: 0.375rem 0.875rem;
-    background: var(--color-primary-50);
+  .subscribe-card__icon {
+    display: grid;
+    width: 44px;
+    height: 44px;
+    margin-bottom: 18px;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.12);
+    color: var(--color-white);
+  }
+
+  .subscribe-card__icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .subscribe-card h3 {
+    margin: 0 0 24px;
+    color: var(--color-white);
+    font-size: 1.125rem;
+    line-height: 1.55;
+  }
+
+  .subscribe-card a {
+    width: fit-content;
+    background: var(--color-white);
     color: var(--color-primary);
-    font-size: 0.8125rem;
-    font-weight: 600;
-    border-radius: var(--radius-full);
-    border: 1px solid var(--color-primary-light);
   }
 
-  /* ═══ RESPONSIVE ═══ */
-  @media (max-width: 768px) {
+  .subscribe-card a:hover {
+    background: var(--color-primary-50);
+    color: var(--color-primary-dark);
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .highlight-track {
+      animation: none;
+    }
+
+    .popular-item,
+    .middle-feature,
+    .professional-feature,
+    .subscribe-strip a,
+    .subscribe-card a,
+    .popular-item__media img,
+    .middle-feature img,
+    .professional-feature img,
+    .highlight-card img {
+      transition: none;
+    }
+  }
+
+  @media (max-width: 1080px) {
+    .blog-main-grid,
+    .professional-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .latest-sidebar {
+      position: static;
+    }
+  }
+
+  @media (max-width: 860px) {
     .page-hero {
       padding: calc(4rem + var(--space-2xl)) 0 var(--space-2xl);
     }
 
-    .coming-card {
-      padding: var(--space-2xl) var(--space-lg);
+    .page-hero h1 {
+      font-size: 2.625rem;
+    }
+
+    .blog-main-section,
+    .professional-section {
+      padding: 44px 0 64px;
+    }
+
+    .hero-blog-card,
+    .popular-item,
+    .explore-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-blog-card__media {
+      order: 0;
+    }
+
+    .hero-blog-card__media img {
+      min-height: 280px;
+      aspect-ratio: 16 / 10;
+    }
+
+    .hero-blog-content {
+      padding: 30px;
+    }
+
+    .popular-item__media img {
+      min-height: 230px;
+      aspect-ratio: 16 / 9;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .page-hero h1 {
+      font-size: 2.25rem;
+    }
+
+    .page-hero__sub {
+      font-size: 1rem;
+    }
+
+    .section-heading {
+      margin: 30px 0 16px;
+    }
+
+    .section-heading h2,
+    .latest-sidebar__header h2 {
+      font-size: 1.375rem;
+    }
+
+    .hero-blog-content,
+    .latest-sidebar,
+    .subscribe-strip,
+    .subscribe-card {
+      padding: 22px;
+    }
+
+    .hero-blog-title-link h2 {
+      font-size: 1.55rem;
+    }
+
+    .subscribe-strip {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .subscribe-strip a,
+    .subscribe-card a {
+      width: 100%;
+    }
+
+    .popular-item {
+      padding: 12px;
+    }
+
+    .popular-item__content {
+      padding: 2px;
+    }
+
+    .highlight-section {
+      padding: 48px 0;
+    }
+
+    .highlight-card {
+      width: 220px;
+      flex-basis: 220px;
+    }
+
+    .professional-section {
+      padding-bottom: 72px;
     }
   }
 </style>

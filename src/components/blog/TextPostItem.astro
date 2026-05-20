@@ -1,0 +1,196 @@
+---
+import type { Blog } from "../../data/blogs";
+
+type Props = {
+  blog: Blog;
+};
+
+const { blog } = Astro.props as Props;
+
+const categoryHref = (category: string) =>
+  `/blog/category/${category.toLowerCase().replaceAll(" ", "-")}`;
+---
+
+<article class="text-post-card">
+  <a
+    href={`/blog/${blog.slug}`}
+    class="text-post-image"
+    aria-label={`Baca ${blog.title}`}
+  >
+    <img src={blog.image} alt={blog.title} loading="lazy" />
+  </a>
+
+  <div class="text-post-content">
+    <a href={categoryHref(blog.category)} class="text-post-category">
+      {blog.category}
+    </a>
+
+    <h3>
+      <a href={`/blog/${blog.slug}`}>{blog.title}</a>
+    </h3>
+
+    <p>{blog.excerpt}</p>
+
+    <div class="text-post-meta">
+      <span>{blog.author}</span>
+      <span>{blog.date}</span>
+      <span>{blog.readTime}</span>
+    </div>
+  </div>
+</article>
+
+<style>
+  .text-post-card {
+    display: flex;
+    height: 100%;
+    min-width: 0;
+    overflow: hidden;
+    flex-direction: column;
+    border: 1px solid #dce6f0;
+    border-radius: var(--radius-md);
+    background: var(--color-white);
+    box-shadow: var(--shadow-sm);
+    transition:
+      transform var(--transition-base),
+      box-shadow var(--transition-base),
+      border-color var(--transition-base);
+  }
+
+  .text-post-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(0, 96, 175, 0.22);
+    box-shadow: 0 18px 36px rgba(16, 32, 51, 0.08);
+  }
+
+  .text-post-image {
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+    background: var(--color-neutral-100);
+  }
+
+  .text-post-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+  }
+
+  .text-post-card:hover .text-post-image img {
+    transform: scale(1.04);
+  }
+
+  .text-post-content {
+    display: flex;
+    min-width: 0;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 20px;
+  }
+
+  .text-post-category {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    padding: 0.35rem 0.625rem;
+    border: 1px solid rgba(0, 96, 175, 0.14);
+    border-radius: var(--radius-full);
+    background: var(--color-primary-50);
+    color: var(--color-primary);
+    font-size: 0.75rem;
+    font-weight: 800;
+    line-height: 1;
+    text-decoration: none;
+    transition:
+      background var(--transition-fast),
+      border-color var(--transition-fast),
+      color var(--transition-fast);
+  }
+
+  .text-post-category:hover {
+    border-color: rgba(0, 96, 175, 0.28);
+    background: var(--color-primary-light);
+    color: var(--color-primary-dark);
+  }
+
+  .text-post-content h3 {
+    margin: 0;
+    color: #102033;
+    font-size: 1.0625rem;
+    line-height: 1.42;
+    letter-spacing: 0;
+  }
+
+  .text-post-content h3 a {
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .text-post-content h3 a:hover {
+    color: var(--color-primary);
+  }
+
+  .text-post-content p {
+    display: -webkit-box;
+    overflow: hidden;
+    margin: 0;
+    color: #5d6b7c;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+
+  .text-post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: auto;
+    padding-top: 6px;
+    color: #5d6b7c;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+  }
+
+  .text-post-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .text-post-meta span:not(:first-child)::before {
+    width: 4px;
+    height: 4px;
+    border-radius: var(--radius-full);
+    background: #b7c4d1;
+    content: "";
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .text-post-card,
+    .text-post-image img,
+    .text-post-category,
+    .text-post-content h3 a {
+      transition: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .text-post-content {
+      padding: 18px;
+    }
+
+    .text-post-content h3 {
+      font-size: 1rem;
+    }
+
+    .text-post-content p {
+      font-size: 0.9rem;
+    }
+  }
+</style>
