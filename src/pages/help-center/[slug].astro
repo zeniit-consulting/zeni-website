@@ -1,0 +1,690 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import WhatsAppButton from "../../components/WhatsAppButton.astro";
+import { helpCategories } from "../../data/helpCenter";
+
+type HelpArticle = {
+  id?: string;
+  title: string;
+  content: string;
+  link?: {
+    label: string;
+    href: string;
+  };
+};
+
+type HelpCategory = {
+  slug: string;
+  title: string;
+  description: string;
+  articles: HelpArticle[];
+};
+
+export function getStaticPaths() {
+  return helpCategories.map((category) => ({
+    params: {
+      slug: category.slug,
+    },
+    props: {
+      category,
+    },
+  }));
+}
+
+const { category } = Astro.props as { category: HelpCategory };
+
+const legacyArticleId = (article: HelpArticle) =>
+  article.title.toLowerCase().replaceAll(" ", "-");
+
+const articleId = (article: HelpArticle) =>
+  article.id ?? legacyArticleId(article);
+
+const articles = category.articles.map((article, index) => ({
+  ...article,
+  anchorId: articleId(article),
+  legacyAnchorId: legacyArticleId(article),
+  number: String(index + 1).padStart(2, "0"),
+}));
+
+const relatedCategories = helpCategories
+  .filter((item) => item.slug !== category.slug)
+  .slice(0, 3);
+---
+
+<BaseLayout title={category.title} description={category.description} noPadding>
+  <div class="help-detail-page">
+    <section class="help-detail-hero">
+      <div class="help-detail-hero__pattern" aria-hidden="true"></div>
+
+      <div class="container help-detail-hero__layout">
+        <div class="help-detail-hero__content">
+          <a href="/help-center" class="help-back">
+            <span aria-hidden="true">&larr;</span>
+            Kembali ke Pusat Bantuan
+          </a>
+
+         
+          <h1>{category.title}</h1>
+          <p>{category.description}</p>
+        </div>
+
+        <aside class="help-detail-hero__panel" aria-label="Ringkasan kategori">
+          <span class="help-panel__label">Ringkasan</span>
+
+          <div class="help-metric">
+            <strong>{articles.length}</strong>
+            <span>Artikel bantuan</span>
+          </div>
+
+          <div class="help-metric">
+            <strong>24/7</strong>
+            <span>Akses panduan</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="help-detail-section">
+      <div class="container help-detail-layout">
+        <aside class="help-detail-sidebar" aria-label="Navigasi artikel">
+          <div class="help-sidebar-card">
+            <span class="help-sidebar-card__label">Daftar artikel</span>
+            <h2>{category.title}</h2>
+
+            <nav>
+              {
+                articles.map((article) => (
+                  <a href={`#${article.anchorId}`}>
+                    <span>{article.number}</span>
+                    {article.title}
+                  </a>
+                ))
+              }
+            </nav>
+          </div>
+
+          {
+            relatedCategories.length > 0 && (
+              <div class="help-sidebar-card help-sidebar-card--soft">
+                <span class="help-sidebar-card__label">Kategori lainnya</span>
+                <div class="help-related-list">
+                  {relatedCategories.map((item) => (
+                    <a href={`/help-center/${item.slug}`}>
+                      <strong>{item.title}</strong>
+                      <span>{item.articles.length} artikel</span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )
+          }
+        </aside>
+
+        <div class="help-detail-content">
+          <div class="help-content-header">
+            <span class="help-eyebrow">Panduan detail</span>
+            <h2>Artikel dalam kategori ini</h2>
+            <p>
+              Ikuti panduan berikut untuk memahami konteks layanan, proses, dan
+              dukungan yang tersedia dari Zeni Consulting.
+            </p>
+          </div>
+
+          <div class="help-article-list">
+            {
+              articles.map((article) => (
+                <article class="help-article" id={article.anchorId}>
+                  {article.legacyAnchorId !== article.anchorId && (
+                    <span
+                      class="help-article__legacy-anchor"
+                      id={article.legacyAnchorId}
+                      aria-hidden="true"
+                    />
+                  )}
+
+                  <div class="help-article__meta">
+                    <span>{article.number}</span>
+                    <strong>Panduan bantuan</strong>
+                  </div>
+
+                  <h2>{article.title}</h2>
+                  <p>{article.content}</p>
+
+                  {article.link && (
+                    <a class="help-article__link" href={article.link.href}>
+                      {article.link.label}
+                      <span aria-hidden="true">&rarr;</span>
+                    </a>
+                  )}
+                </article>
+              ))
+            }
+          </div>
+
+          <section class="help-detail-cta">
+            <div>
+              <span class="help-eyebrow">Butuh arahan langsung?</span>
+              <h2>Konsultasikan kebutuhan Anda dengan tim kami.</h2>
+              <p>
+                Jika jawaban di atas belum cukup spesifik, tim Zeni Consulting
+                siap membantu memberi arahan awal sesuai konteks bisnis Anda.
+              </p>
+            </div>
+
+            <WhatsAppButton
+              label="Hubungi Kami"
+              className="help-detail-cta__button"
+            />
+          </section>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .help-detail-page {
+    --help-border: rgba(148, 163, 184, 0.26);
+    --help-ink: #102033;
+    --help-muted: #5d6b7c;
+    --help-soft: #f6f9fc;
+    --help-shadow: 0 18px 42px rgba(15, 23, 42, 0.08);
+
+    overflow: hidden;
+    background:
+      linear-gradient(180deg, var(--color-white) 0%, var(--help-soft) 48%, var(--color-white) 100%);
+    color: var(--help-ink);
+  }
+
+  .help-detail-page h1,
+  .help-detail-page h2,
+  .help-detail-page h3 {
+    color: var(--help-ink);
+    letter-spacing: 0;
+  }
+
+  .help-eyebrow {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    margin-bottom: 0.875rem;
+    color: var(--color-primary);
+    font-size: 0.8125rem;
+    font-weight: 800;
+    letter-spacing: 0;
+  }
+
+  .help-detail-hero {
+    position: relative;
+    padding: calc(4rem + 4.25rem) 0 4.25rem;
+    background:
+      linear-gradient(135deg, var(--color-primary-50) 0%, #ffffff 52%, #eef6fc 100%);
+  }
+
+  .help-detail-hero__pattern {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0, 96, 175, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 96, 175, 0.06) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.88), transparent 82%);
+    pointer-events: none;
+  }
+
+  .help-detail-hero__layout {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 3rem;
+    align-items: end;
+  }
+
+  .help-detail-hero__content {
+    max-width: 46rem;
+  }
+
+  .help-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--color-primary);
+    font-size: 0.9375rem;
+    font-weight: 800;
+    text-decoration: none;
+    transition:
+      color var(--transition-fast),
+      transform var(--transition-fast);
+  }
+
+  .help-back:hover {
+    transform: translateX(-2px);
+    color: var(--color-primary-dark);
+  }
+
+  .help-detail-hero h1 {
+    max-width: 43rem;
+    margin: 0 0 1rem;
+    font-size: 3.25rem;
+    line-height: 1.12;
+  }
+
+  .help-detail-hero p {
+    max-width: 40rem;
+    margin: 0;
+    color: var(--help-muted);
+    font-size: 1.0625rem;
+    line-height: 1.75;
+  }
+
+  .help-detail-hero__panel {
+    display: grid;
+    gap: 0.875rem;
+    padding: 1.25rem;
+    border: 1px solid rgba(0, 96, 175, 0.16);
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.86);
+    box-shadow: var(--help-shadow);
+    backdrop-filter: blur(14px);
+  }
+
+  .help-panel__label {
+    display: inline-flex;
+    color: var(--color-primary);
+    font-size: 0.8125rem;
+    font-weight: 800;
+  }
+
+  .help-metric {
+    display: grid;
+    gap: 0.25rem;
+    padding: 1rem;
+    border: 1px solid var(--help-border);
+    border-radius: var(--radius-md);
+    background: var(--color-white);
+  }
+
+  .help-metric strong {
+    color: var(--color-primary);
+    font-size: 1.75rem;
+    line-height: 1;
+  }
+
+  .help-metric span {
+    color: var(--help-muted);
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+
+  .help-detail-section {
+    padding: 4.5rem 0 5.5rem;
+  }
+
+  .help-detail-layout {
+    display: grid;
+    grid-template-columns: minmax(240px, 300px) minmax(0, 1fr);
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  .help-detail-sidebar {
+    position: sticky;
+    top: 5.5rem;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .help-sidebar-card {
+    padding: 1.25rem;
+    border: 1px solid var(--help-border);
+    border-radius: var(--radius-md);
+    background: var(--color-white);
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+  }
+
+  .help-sidebar-card--soft {
+    background:
+      linear-gradient(135deg, var(--color-primary-50) 0%, #ffffff 100%);
+  }
+
+  .help-sidebar-card__label {
+    display: inline-flex;
+    margin-bottom: 0.75rem;
+    color: var(--color-primary);
+    font-size: 0.75rem;
+    font-weight: 800;
+  }
+
+  .help-sidebar-card h2 {
+    margin: 0 0 1rem;
+    font-size: 1.125rem;
+    line-height: 1.35;
+  }
+
+  .help-sidebar-card nav {
+    display: grid;
+    gap: 0.625rem;
+  }
+
+  .help-sidebar-card nav a {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.75rem;
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    color: var(--help-muted);
+    font-size: 0.9rem;
+    font-weight: 700;
+    line-height: 1.45;
+    text-decoration: none;
+    transition:
+      background var(--transition-fast),
+      border-color var(--transition-fast),
+      color var(--transition-fast),
+      transform var(--transition-fast);
+  }
+
+  .help-sidebar-card nav a:hover {
+    transform: translateX(2px);
+    border-color: rgba(0, 96, 175, 0.18);
+    background: var(--color-primary-50);
+    color: var(--color-primary);
+  }
+
+  .help-sidebar-card nav span {
+    display: grid;
+    width: 1.875rem;
+    height: 1.875rem;
+    place-items: center;
+    border-radius: var(--radius-md);
+    background: var(--color-neutral-100);
+    color: var(--help-muted);
+    font-size: 0.75rem;
+    font-weight: 800;
+  }
+
+  .help-related-list {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .help-related-list a {
+    display: grid;
+    gap: 0.25rem;
+    padding: 0.875rem;
+    border: 1px solid var(--help-border);
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.76);
+    text-decoration: none;
+    transition:
+      transform var(--transition-fast),
+      border-color var(--transition-fast),
+      box-shadow var(--transition-fast);
+  }
+
+  .help-related-list a:hover {
+    transform: translateY(-2px);
+    border-color: rgba(0, 96, 175, 0.28);
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.07);
+  }
+
+  .help-related-list strong {
+    color: var(--help-ink);
+    font-size: 0.9375rem;
+    line-height: 1.35;
+  }
+
+  .help-related-list span {
+    color: var(--help-muted);
+    font-size: 0.8125rem;
+    font-weight: 700;
+  }
+
+  .help-detail-content {
+    min-width: 0;
+  }
+
+  .help-content-header {
+    max-width: 42rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .help-content-header h2 {
+    margin: 0 0 0.75rem;
+    font-size: 2rem;
+    line-height: 1.25;
+  }
+
+  .help-content-header p {
+    color: var(--help-muted);
+    line-height: 1.75;
+  }
+
+  .help-article-list {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .help-article {
+    position: relative;
+    scroll-margin-top: 6rem;
+    padding: 1.5rem;
+    border: 1px solid var(--help-border);
+    border-radius: var(--radius-md);
+    background: var(--color-white);
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+    transition:
+      transform var(--transition-base),
+      border-color var(--transition-base),
+      box-shadow var(--transition-base);
+  }
+
+  .help-article:hover {
+    transform: translateY(-3px);
+    border-color: rgba(0, 96, 175, 0.24);
+    box-shadow: var(--help-shadow);
+  }
+
+  .help-article__legacy-anchor {
+    position: absolute;
+    top: -6rem;
+  }
+
+  .help-article__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    margin-bottom: 1rem;
+  }
+
+  .help-article__meta span {
+    display: grid;
+    width: 2.25rem;
+    height: 2.25rem;
+    place-items: center;
+    border-radius: var(--radius-md);
+    background: var(--color-primary-50);
+    color: var(--color-primary);
+    font-size: 0.8125rem;
+    font-weight: 800;
+  }
+
+  .help-article__meta strong {
+    color: var(--help-muted);
+    font-size: 0.8125rem;
+    font-weight: 800;
+  }
+
+  .help-article h2 {
+    margin: 0 0 0.875rem;
+    font-size: 1.375rem;
+    line-height: 1.35;
+  }
+
+  .help-article p {
+    max-width: 48rem;
+    margin: 0;
+    color: var(--help-muted);
+    line-height: 1.8;
+  }
+
+  .help-article__link {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 1.25rem;
+    color: var(--color-primary);
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .help-article__link span {
+    transition: transform var(--transition-fast);
+  }
+
+  .help-article__link:hover span {
+    transform: translateX(3px);
+  }
+
+  .help-detail-cta {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 2rem;
+    align-items: center;
+    margin-top: 1.5rem;
+    padding: 2rem;
+    border: 1px solid rgba(0, 96, 175, 0.18);
+    border-radius: var(--radius-md);
+    background:
+      linear-gradient(135deg, var(--color-primary-50) 0%, #ffffff 58%, #eef6fc 100%);
+    box-shadow: 0 18px 42px rgba(15, 23, 42, 0.07);
+  }
+
+  .help-detail-cta h2 {
+    margin: 0 0 0.75rem;
+    font-size: 1.625rem;
+    line-height: 1.32;
+  }
+
+  .help-detail-cta p {
+    max-width: 42rem;
+    margin: 0;
+    color: var(--help-muted);
+    line-height: 1.75;
+  }
+
+  :global(.help-detail-cta__button) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 1.25rem;
+    border-radius: var(--radius-md);
+    background: var(--color-primary);
+    color: var(--color-white);
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow: 0 14px 28px rgba(0, 96, 175, 0.2);
+    transition:
+      transform var(--transition-fast),
+      background var(--transition-fast),
+      box-shadow var(--transition-fast);
+    white-space: nowrap;
+  }
+
+  :global(.help-detail-cta__button:hover) {
+    transform: translateY(-2px);
+    background: var(--color-primary-dark);
+    color: var(--color-white);
+    box-shadow: 0 18px 34px rgba(0, 96, 175, 0.24);
+  }
+
+  .help-back:focus-visible,
+  .help-sidebar-card a:focus-visible,
+  .help-related-list a:focus-visible,
+  .help-article__link:focus-visible,
+  :global(.help-detail-cta__button:focus-visible) {
+    outline: 3px solid rgba(0, 96, 175, 0.22);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .help-back,
+    .help-sidebar-card nav a,
+    .help-related-list a,
+    .help-article,
+    .help-article__link span,
+    :global(.help-detail-cta__button) {
+      transition: none;
+    }
+  }
+
+  @media (max-width: 1080px) {
+    .help-detail-hero__layout,
+    .help-detail-layout,
+    .help-detail-cta {
+      grid-template-columns: 1fr;
+    }
+
+    .help-detail-sidebar {
+      position: static;
+    }
+
+    .help-detail-hero__panel {
+      max-width: 38rem;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .help-detail-hero {
+      padding: calc(4rem + 3rem) 0 3.5rem;
+    }
+
+    .help-detail-hero__layout,
+    .help-detail-layout {
+      gap: 2rem;
+    }
+
+    .help-detail-hero h1 {
+      font-size: 2.5rem;
+    }
+
+    .help-detail-hero p {
+      font-size: 1rem;
+    }
+
+    .help-detail-section {
+      padding: 3.5rem 0 4rem;
+    }
+
+    .help-content-header h2 {
+      font-size: 1.625rem;
+    }
+
+    .help-detail-cta h2 {
+      font-size: 1.5rem;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .help-detail-hero h1 {
+      font-size: 2.125rem;
+    }
+
+    .help-detail-hero__panel,
+    .help-sidebar-card,
+    .help-article,
+    .help-detail-cta {
+      padding: 1.25rem;
+    }
+
+    :global(.help-detail-cta__button) {
+      width: 100%;
+    }
+  }
+</style>
