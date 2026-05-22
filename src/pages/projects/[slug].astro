@@ -1,19 +1,43 @@
 ---
+export const prerender = false;
+
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import ServiceDetail from "../../components/ServiceDetail.astro";
 import ServiceSidebar from "../../components/ServiceSidebar.astro";
-import { projects } from "../../data/projects";
+import { getServiceBySlug } from "../../lib/api";
 import { t } from "../../scripts/i18n";
 
-export async function getStaticPaths() {
-  return projects.map((project) => ({
-    params: { slug: project.slug },
-    props: { project },
-  }));
+
+
+const { slug } = Astro.params;
+
+if (!slug) {
+  return Astro.redirect("/404");
 }
 
-const { project } = Astro.props;
-const lang = Astro.currentLocale || "en";
+const serviceResponse = await getServiceBySlug(slug);
+const service = serviceResponse.data;
+
+
+
+
+
+
+
+const formatTech = (tech: string) => {
+  const labels: Record<string, string> = {
+    astro: "Astro",
+    laravel: "Laravel",
+    nextjs: "Next.js",
+    tailwind: "Tailwind CSS",
+    react: "React",
+    vue: "Vue",
+    wordpress: "WordPress",
+    other: "Other",
+  };
+
+  return labels[tech] ?? tech;
+};
 ---
 
 <BaseLayout
@@ -25,13 +49,12 @@ const lang = Astro.currentLocale || "en";
     <div class="svc-hero__bg"></div>
     <div class="container svc-hero__inner">
       <a
-        href="/projects"
+        href="/portfolio"
         class="svc-hero__back"
-        data-i18n="projects.detail.back">&larr; All Projects</a
+        >&larr; Kembali ke Portfolio</a
       >
-      <h1 data-i18n={`project.${project.key}.title`}></h1>
-      <p class="svc-hero__sub" data-i18n={`project.${project.key}.description`}>
-      </p>
+      <h1>{service.title}</h1>
+      
     </div>
   </section>
   <section class="section">
@@ -40,18 +63,30 @@ const lang = Astro.currentLocale || "en";
         <!-- left -->
         <div class="project-main">
           <div class="project-image">
-            <img
-              src={project.image}
-              alt={t(`project.${project.key}.title`)}
-              loading="lazy"
-            />
+            {
+              service.image_url && (
+                <img
+                  src={service.image_url}
+                  alt={service.title}
+                  class="service-detail__image"
+                  loading="lazy"
+                />
+              )
+            }
           </div>
           <div class="project-content">
-            <span
-              class="project-badge"
-              data-i18n={`project.${project.key}.tech`}></span>
-            <h2 data-i18n={`project.${project.key}.title`}></h2>
-            <p data-i18n={`project.${project.key}.description`}></p>
+            {
+              service.techs && service.techs.length > 0 && (
+                <div class="project-badges">
+                  {service.techs.map((tech) => (
+                    <span class="project-badge">{formatTech(tech)}</span>
+                  ))}
+                </div>
+              )
+            }
+
+            <h2 >{service.title}</h2>
+            <p >{service.description}</p>
           </div>
         </div>
         <!-- RIGHT -->
@@ -283,7 +318,19 @@ const lang = Astro.currentLocale || "en";
     font-size: 13px;
     font-weight: 600;
     margin-bottom: 14px;
+    width: fit-content;
+  white-space: nowrap;
   }
+
+  .project-badges {
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  gap: 0.5rem;
+  justify-content: start;
+  align-items: center;
+}
+
+
 
   /* ═══ PROCESS ═══ */
   .process-row {
@@ -370,7 +417,6 @@ const lang = Astro.currentLocale || "en";
   /* ─── RESPONSIVE ─────────────────────────────────────────────── */
 
   @media (max-width: 768px) {
-   
     .svc-hero {
       padding: calc(4rem + var(--space-2xl)) 0 var(--space-2xl);
     }
@@ -378,19 +424,16 @@ const lang = Astro.currentLocale || "en";
       font-size: 1rem;
     }
 
-    
     .service-layout {
       grid-template-columns: 1fr;
       gap: 24px;
     }
 
-    
     .process-row {
       grid-template-columns: repeat(2, 1fr);
       gap: var(--space-lg);
     }
 
-  
     .project-content h2 {
       font-size: 20px;
     }
@@ -402,9 +445,7 @@ const lang = Astro.currentLocale || "en";
     }
   }
 
- 
   @media (max-width: 480px) {
-   
     .svc-hero {
       padding: calc(4rem + var(--space-xl)) 0 var(--space-xl);
     }
@@ -413,20 +454,17 @@ const lang = Astro.currentLocale || "en";
       height: 2.75rem;
     }
 
-    
     .process-row {
       grid-template-columns: 1fr;
       gap: var(--space-md);
     }
 
-    
     .process-item__number {
       width: 2.5rem;
       height: 2.5rem;
       font-size: 1rem;
     }
 
-   
     .project-content {
       padding: 16px;
     }
@@ -438,7 +476,6 @@ const lang = Astro.currentLocale || "en";
       padding: 5px 11px;
     }
 
-   
     .services-cta__inner p {
       font-size: 1rem;
     }
