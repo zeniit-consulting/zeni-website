@@ -1,35 +1,56 @@
 ---
 import TextPostItem from "../../../components/blog/TextPostItem.astro";
-import { blogs } from "../../../data/blogs";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { getBlogs } from "../../../lib/api";
+import { slugify } from "../../../lib/utils"; 
 
-const allCategories = [...new Set(blogs.map((blog) => blog.category))];
+// Tidak perlu getStaticPaths() lagi
+export const prerender = false;
 
-const categoryHref = (category: string) =>
-  `/blog/category/${category.toLowerCase().replaceAll(" ", "-")}`;
 
-export function getStaticPaths() {
-  const categories = [...new Set(blogs.map((blog) => blog.category))];
 
-  return categories.map((category) => ({
-    params: {
-      category: category.toLowerCase().replaceAll(" ", "-"),
-    },
-    props: {
-      category,
-    },
-  }));
+const categoryHref = (category?: string | null) =>
+  category ? `/blog/category/${slugify(category)}` : "/blog";
+
+
+const { category } = Astro.params;
+
+const blogsResponse = await getBlogs();
+const blogs = blogsResponse.data ?? [];
+const publishedBlogs = blogs.filter((blog) => blog.is_published);
+
+const categoryBlogs = publishedBlogs.filter(
+  (blog) => slugify(blog.category) === slugify(category)
+);
+
+
+if (categoryBlogs.length === 0) {
+  return Astro.redirect("/blog");
 }
 
-const { category } = Astro.props;
+const allCategories = [
+  ...new Set(
+    publishedBlogs
+      .map((blog) => blog.category)
+      .filter((cat): cat is string => Boolean(cat))
+  ),
+];
 
-const categoryBlogs = blogs.filter((blog) => blog.category === category);
-const otherCategories = allCategories.filter((item) => item !== category);
+const seen = new Set<string>();
+const otherCategories = allCategories.filter((item) => {
+  const slug = slugify(item);
+  if (slug === slugify(category) || seen.has(slug)) return false;
+  seen.add(slug);
+  return true;
+});
+
+const categoryLabel =
+  categoryBlogs[0]?.category ?? category;
 ---
 
 <BaseLayout
-  title={`${category} Blog`}
-  description={`Kumpulan artikel seputar ${category} dari Zeni Consulting.`}
+  title={`${categoryLabel} Blog`}
+  description={`Kumpulan artikel seputar ${categoryLabel} dari Zeni Consulting.`}
   noPadding
 >
   <!-- Page Hero -->
@@ -56,15 +77,15 @@ const otherCategories = allCategories.filter((item) => item !== category);
           <span aria-hidden="true">/</span>
           <a href="/blog">Blog</a>
           <span aria-hidden="true">/</span>
-          <span>{category}</span>
+          <span>{categoryLabel}</span>
         </nav>
 
         <div class="category-hero__content">
           <div>
             <span class="category-eyebrow">Topic library</span>
-            <h1>{category}</h1>
+            <h1>{categoryLabel}</h1>
             <p>
-              Kumpulan insight pilihan seputar {category} untuk membantu tim
+              Kumpulan insight pilihan seputar {categoryLabel} untuk membantu tim
               bisnis dan teknologi mengambil keputusan yang lebih rapi.
             </p>
           </div>

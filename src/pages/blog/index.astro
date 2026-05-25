@@ -1,22 +1,47 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { blogs } from "../../data/blogs";
+import { getBlogs } from "../../lib/api";
 
-const heroBlog = blogs[0];
-const popularBlogs = blogs.slice(1, 5);
-const latestBlogs = blogs.slice(0, 9);
-const businessBlogs = blogs.slice(1, 7);
-const professionalBlogs = blogs.slice(2, 5);
-const professionalFeatured = blogs[0];
+const blogsResponse = await getBlogs();
+const blogs = blogsResponse.data ?? [];
 
-const highlightedCategories = blogs.filter(
+const publishedBlogs = blogs.filter((blog) => blog.is_published);
+
+const heroBlog = publishedBlogs[0] ?? null;
+const popularBlogs = publishedBlogs.slice(1, 5);
+const latestBlogs = publishedBlogs.slice(0, 9);
+const businessBlogs = publishedBlogs.slice(1, 7);
+const professionalBlogs = publishedBlogs.slice(2, 5);
+const professionalFeatured = publishedBlogs[0] ?? null;
+const middleBusinessBlog = businessBlogs[3] ?? null;
+
+const highlightedCategories = publishedBlogs.filter(
   (blog, index, self) =>
+    blog.category &&
     index === self.findIndex((item) => item.category === blog.category),
 );
 
-const categoryHref = (category: string) =>
-  `/blog/category/${category.toLowerCase().replaceAll(" ", "-")}`;
----
+const slugify = (value: string) =>
+  value
+    .toLowerCase()
+    .trim()
+    .replace(/&/g, "and")
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9-]/g, "");
+
+const categoryHref = (category?: string | null) =>
+  category ? `/blog/category/${slugify(category)}` : "/blog";
+
+const formatDate = (dateString?: string | null) => {
+  if (!dateString) return "Draft";
+
+  return new Date(dateString).toLocaleDateString("id-ID", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+};
+---b
 
 <BaseLayout
   title="Blog"
@@ -44,35 +69,51 @@ const categoryHref = (category: string) =>
     <section class="blog-main-section">
       <div class="container blog-main-grid">
         <div class="left-content">
-          <article class="hero-blog-card">
-            <a
-              href={`/blog/${heroBlog.slug}`}
-              class="hero-blog-card__media"
-              aria-label={`Baca ${heroBlog.title}`}
-            >
-              <img
-                src={heroBlog.image}
-                alt={heroBlog.title}
-                fetchpriority="high"
-              />
-            </a>
-            <div class="hero-blog-content">
-              <a
-                class="blog-category blog-category--inverse"
-                href={categoryHref(heroBlog.category)}
-              >
-                {heroBlog.category}
-              </a>
-              <a href={`/blog/${heroBlog.slug}`} class="hero-blog-title-link">
-                <h2>{heroBlog.title}</h2>
-              </a>
-              <p class="hero-blog-excerpt">{heroBlog.excerpt}</p>
-              <div class="blog-meta blog-meta--inverse">
-                <span>{heroBlog.date}</span>
-                <span>{heroBlog.readTime}</span>
-              </div>
-            </div>
-          </article>
+          {
+            heroBlog && (
+              <article class="hero-blog-card">
+                <a
+                  href={`/blog/${heroBlog.slug}`}
+                  class="hero-blog-card__media"
+                  aria-label={`Baca ${heroBlog.title}`}
+                >
+                  <img
+                    src={heroBlog.thumbnail_url}
+                    alt={heroBlog.title}
+                    loading="lazy"
+                  />
+                </a>
+                <div class="hero-blog-content">
+                  <a
+                    class="blog-category blog-category--inverse"
+                    href={categoryHref(heroBlog.category)}
+                  >
+                    {heroBlog.category}
+                  </a>
+
+                  <a
+                    href={`/blog/${heroBlog.slug}`}
+                    class="hero-blog-title-link"
+                  >
+                    <h2>{heroBlog.title}</h2>
+                  </a>
+                  <p class="hero-blog-excerpt">{heroBlog.excerpt}</p>
+
+                  <div class="blog-meta blog-meta--inverse">
+                    <span>
+                      {heroBlog.published_at
+                        ? formatDate(heroBlog.published_at)
+                        : "Draft"}
+                    </span>
+                    {heroBlog.read_time && (
+                      <span>{heroBlog.read_time} min read</span>
+                    )}
+                    {heroBlog.author && <span>{heroBlog.author}</span>}
+                  </div>
+                </div>
+              </article>
+            )
+          }
 
           <div class="section-heading">
             <span>Curated reads</span>
@@ -88,19 +129,34 @@ const categoryHref = (category: string) =>
                     class="popular-item__media"
                     aria-label={`Baca ${blog.title}`}
                   >
-                    <img src={blog.image} alt={blog.title} loading="lazy" />
+                    <img
+                      src={blog.thumbnail_url}
+                      alt={blog.title}
+                      loading="lazy"
+                    />
                   </a>
                   <div class="popular-item__content">
-                    <a class="blog-category" href={categoryHref(blog.category)}>
-                      {blog.category}
-                    </a>
+                    {blog.category && (
+                      <a
+                        class="blog-category"
+                        href={categoryHref(blog.category)}
+                      >
+                        {blog.category}
+                      </a>
+                    )}
                     <a href={`/blog/${blog.slug}`} class="post-title-link">
                       <h3>{blog.title}</h3>
                     </a>
                     <p class="post-excerpt">{blog.excerpt}</p>
                     <div class="blog-meta">
-                      <span>{blog.date}</span>
-                      <span>{blog.readTime}</span>
+                      <span>
+                        {blog.published_at
+                          ? formatDate(blog.published_at)
+                          : "Draft"}
+                      </span>
+                      <span>
+                        {blog.read_time ? `${blog.read_time} min read` : ""}
+                      </span>
                       <span>{blog.author}</span>
                     </div>
                   </div>
@@ -131,68 +187,114 @@ const categoryHref = (category: string) =>
                 {
                   businessBlogs.slice(0, 3).map((blog) => (
                     <article class="text-post">
-                      <a
-                        class="blog-category"
-                        href={categoryHref(blog.category)}
-                      >
-                        {blog.category}
-                      </a>
+                      {blog.category && (
+                        <a
+                          class="blog-category"
+                          href={categoryHref(blog.category)}
+                        >
+                          {blog.category}
+                        </a>
+                      )}
                       <a href={`/blog/${blog.slug}`} class="post-title-link">
                         <h3>{blog.title}</h3>
                       </a>
                       <div class="blog-meta">
-                        <span>{blog.date}</span>
-                        <span>{blog.readTime}</span>
+                        <span>
+                          {blog.published_at
+                            ? formatDate(blog.published_at)
+                            : "Draft"}
+                        </span>
+                        <span>
+                          {blog.read_time ? `${blog.read_time} min read` : ""}
+                        </span>
+                        <span>{blog.author}</span>
                       </div>
                     </article>
                   ))
                 }
               </div>
 
-              <article class="middle-feature">
-                <a
-                  href={`/blog/${businessBlogs[3].slug}`}
-                  class="middle-feature__media"
-                  aria-label={`Baca ${businessBlogs[3].title}`}
-                >
-                  <img
-                    src={businessBlogs[3].image}
-                    alt={businessBlogs[3].title}
-                    loading="lazy"
-                  />
-                </a>
-                <a
-                  class="blog-category"
-                  href={categoryHref(businessBlogs[3].category)}
-                >
-                  {businessBlogs[3].category}
-                </a>
-                <a href={`/blog/${businessBlogs[3].slug}`} class="post-title-link">
-                  <h3>{businessBlogs[3].title}</h3>
-                </a>
-                <p class="post-excerpt">{businessBlogs[3].excerpt}</p>
-                <div class="blog-meta">
-                  <span>{businessBlogs[3].date}</span>
-                  <span>{businessBlogs[3].readTime}</span>
-                </div>
-              </article>
+              {
+                middleBusinessBlog && (
+                  <article class="middle-feature">
+                    <a
+                      href={`/blog/${middleBusinessBlog.slug}`}
+                      class="middle-feature__media"
+                      aria-label={`Baca ${middleBusinessBlog.title}`}
+                    >
+                      {middleBusinessBlog.thumbnail_url && (
+                        <img
+                          src={middleBusinessBlog.thumbnail_url}
+                          alt={middleBusinessBlog.title}
+                          loading="lazy"
+                        />
+                      )}
+                    </a>
+
+                    {middleBusinessBlog.category && (
+                      <a
+                        class="blog-category"
+                        href={categoryHref(middleBusinessBlog.category)}
+                      >
+                        {middleBusinessBlog.category}
+                      </a>
+                    )}
+
+                    <a
+                      href={`/blog/${middleBusinessBlog.slug}`}
+                      class="post-title-link"
+                    >
+                      <h3>{middleBusinessBlog.title}</h3>
+                    </a>
+
+                    {middleBusinessBlog.excerpt && (
+                      <p class="post-excerpt">{middleBusinessBlog.excerpt}</p>
+                    )}
+
+                    <div class="blog-meta">
+                      <span>
+                        {middleBusinessBlog.published_at
+                          ? formatDate(middleBusinessBlog.published_at)
+                          : "Draft"}
+                      </span>
+
+                      {middleBusinessBlog.read_time && (
+                        <span>{middleBusinessBlog.read_time} min read</span>
+                      )}
+
+                      {middleBusinessBlog.author && (
+                        <span>{middleBusinessBlog.author}</span>
+                      )}
+                    </div>
+                  </article>
+                )
+              }
 
               <div class="small-list">
                 {
                   businessBlogs.slice(3, 6).map((blog) => (
                     <article class="text-post">
-                      <a
-                        class="blog-category"
-                        href={categoryHref(blog.category)}
-                      >
-                        {blog.category}
-                      </a>
+                      {blog.category && (
+                        <a
+                          class="blog-category"
+                          href={categoryHref(blog.category)}
+                        >
+                          {blog.category}
+                        </a>
+                      )}
                       <a href={`/blog/${blog.slug}`} class="post-title-link">
                         <h3>{blog.title}</h3>
                       </a>
                       <div class="blog-meta">
-                        <span>{blog.date}</span>
-                        <span>{blog.readTime}</span>
+                        <span>
+                          {blog.published_at
+                            ? formatDate(blog.published_at)
+                            : "Draft"}
+                        </span>
+                        <span>
+                          {blog.read_time ? `${blog.read_time} min read` : ""}
+                        </span>
+                        <span>{blog.author}</span>
                       </div>
                     </article>
                   ))
@@ -212,15 +314,24 @@ const categoryHref = (category: string) =>
             {
               latestBlogs.map((blog) => (
                 <article class="latest-item">
-                  <a class="blog-category" href={categoryHref(blog.category)}>
-                    {blog.category}
-                  </a>
+                  {blog.category && (
+                    <a class="blog-category" href={categoryHref(blog.category)}>
+                      {blog.category}
+                    </a>
+                  )}
                   <a href={`/blog/${blog.slug}`} class="post-title-link">
                     <h3>{blog.title}</h3>
                   </a>
                   <div class="blog-meta">
-                    <span>{blog.date}</span>
-                    <span>{blog.readTime}</span>
+                    <span>
+                      {blog.published_at
+                        ? formatDate(blog.published_at)
+                        : "Draft"}
+                    </span>
+                    <span>
+                      {blog.read_time ? `${blog.read_time} min read` : ""}
+                    </span>
+                    <span>{blog.author}</span>
                   </div>
                 </article>
               ))
@@ -247,7 +358,11 @@ const categoryHref = (category: string) =>
                       href={categoryHref(blog.category)}
                       aria-label={`Lihat kategori ${blog.category}`}
                     >
-                      <img src={blog.image} alt={blog.category} loading="lazy" />
+                      <img
+                        src={blog.thumbnail_url}
+                        alt={blog.category}
+                        loading="lazy"
+                      />
                       <div>
                         <span>{blog.category}</span>
                       </div>
@@ -272,53 +387,83 @@ const categoryHref = (category: string) =>
           {
             professionalBlogs.map((blog) => (
               <article class="text-post">
-                <a class="blog-category" href={categoryHref(blog.category)}>
-                  {blog.category}
-                </a>
+                {blog.category && (
+                  <a class="blog-category" href={categoryHref(blog.category)}>
+                    {blog.category}
+                  </a>
+                )}
                 <a href={`/blog/${blog.slug}`} class="post-title-link">
                   <h3>{blog.title}</h3>
                 </a>
                 <div class="blog-meta">
-                  <span>{blog.date}</span>
-                  <span>{blog.readTime}</span>
+                  <span>
+                    {blog.published_at
+                      ? formatDate(blog.published_at)
+                      : "Draft"}
+                  </span>
+                  <span>
+                    {blog.read_time ? `${blog.read_time} min read` : ""}
+                  </span>
+                  <span>{blog.author}</span>
                 </div>
               </article>
             ))
           }
         </div>
 
-        <article class="professional-feature">
-          <a
-            href={`/blog/${professionalFeatured.slug}`}
-            class="professional-feature__media"
-            aria-label={`Baca ${professionalFeatured.title}`}
-          >
-            <img
-              src={professionalFeatured.image}
-              alt={professionalFeatured.title}
-              loading="lazy"
-            />
-          </a>
-          <div>
-            <a
-              class="blog-category"
-              href={categoryHref(professionalFeatured.category)}
-            >
-              {professionalFeatured.category}
-            </a>
-            <a
-              href={`/blog/${professionalFeatured.slug}`}
-              class="post-title-link"
-            >
-              <h3>{professionalFeatured.title}</h3>
-            </a>
-            <p class="post-excerpt">{professionalFeatured.excerpt}</p>
-            <div class="blog-meta">
-              <span>{professionalFeatured.date}</span>
-              <span>{professionalFeatured.readTime}</span>
-            </div>
-          </div>
-        </article>
+        {
+          professionalFeatured && (
+            <article class="professional-feature">
+              <a
+                href={`/blog/${professionalFeatured.slug}`}
+                class="professional-feature__media"
+                aria-label={`Baca ${professionalFeatured.title}`}
+              >
+                {professionalFeatured.thumbnail_url && (
+                  <img
+                    src={professionalFeatured.thumbnail_url}
+                    alt={professionalFeatured.title}
+                    loading="lazy"
+                  />
+                )}
+              </a>
+
+              <div>
+                {professionalFeatured.category && (
+                  <a
+                    class="blog-category"
+                    href={categoryHref(professionalFeatured.category)}
+                  >
+                    {professionalFeatured.category}
+                  </a>
+                )}
+
+                <a
+                  href={`/blog/${professionalFeatured.slug}`}
+                  class="post-title-link"
+                >
+                  <h3>{professionalFeatured.title}</h3>
+                </a>
+
+                {professionalFeatured.excerpt && (
+                  <p class="post-excerpt">{professionalFeatured.excerpt}</p>
+                )}
+
+                <div class="blog-meta">
+                  <span>{formatDate(professionalFeatured.published_at)}</span>
+
+                  {professionalFeatured.read_time && (
+                    <span>{professionalFeatured.read_time} min read</span>
+                  )}
+
+                  {professionalFeatured.author && (
+                    <span>{professionalFeatured.author}</span>
+                  )}
+                </div>
+              </div>
+            </article>
+          )
+        }
 
         <div class="subscribe-card">
           <div class="subscribe-card__icon" aria-hidden="true">
@@ -350,23 +495,26 @@ const categoryHref = (category: string) =>
     position: relative;
     padding: calc(4rem + var(--space-3xl)) 0 var(--space-3xl);
     overflow: hidden;
-    background:
-      linear-gradient(
-        135deg,
-        var(--color-primary) 0%,
-        var(--color-primary-dark) 58%,
-        var(--color-primary-darker) 100%
-      );
+    background: linear-gradient(
+      135deg,
+      var(--color-primary) 0%,
+      var(--color-primary-dark) 58%,
+      var(--color-primary-darker) 100%
+    );
   }
 
   .page-hero__bg {
     position: absolute;
     inset: 0;
-    background-image:
+    background-thumbnail_url:
       linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
       linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
     background-size: 48px 48px;
-    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), transparent);
+    mask-thumbnail_url: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.85),
+      transparent
+    );
     pointer-events: none;
   }
 
@@ -412,8 +560,12 @@ const categoryHref = (category: string) =>
     --blog-soft: #f5f9fd;
     --blog-shadow: 0 18px 42px rgba(16, 32, 51, 0.08);
 
-    background:
-      linear-gradient(180deg, var(--color-white) 0%, var(--blog-soft) 45%, var(--color-white) 100%);
+    background: linear-gradient(
+      180deg,
+      var(--color-white) 0%,
+      var(--blog-soft) 45%,
+      var(--color-white) 100%
+    );
     color: var(--blog-ink);
     font-family: var(--font-body);
   }
@@ -720,8 +872,11 @@ const categoryHref = (category: string) =>
     padding: 22px 24px;
     border: 1px solid rgba(0, 96, 175, 0.14);
     border-radius: var(--radius-md);
-    background:
-      linear-gradient(90deg, var(--color-primary-50), var(--color-white));
+    background: linear-gradient(
+      90deg,
+      var(--color-primary-50),
+      var(--color-white)
+    );
   }
 
   .subscribe-strip p {
@@ -887,8 +1042,11 @@ const categoryHref = (category: string) =>
   .highlight-card a::after {
     position: absolute;
     inset: 0;
-    background:
-      linear-gradient(to top, rgba(10, 18, 32, 0.92), rgba(10, 18, 32, 0.12));
+    background: linear-gradient(
+      to top,
+      rgba(10, 18, 32, 0.92),
+      rgba(10, 18, 32, 0.12)
+    );
     content: "";
   }
 
@@ -915,7 +1073,10 @@ const categoryHref = (category: string) =>
 
   .professional-grid {
     display: grid;
-    grid-template-columns: minmax(0, 0.85fr) minmax(340px, 1.25fr) minmax(260px, 0.85fr);
+    grid-template-columns: minmax(0, 0.85fr) minmax(340px, 1.25fr) minmax(
+        260px,
+        0.85fr
+      );
     gap: 28px;
     align-items: start;
   }
@@ -955,8 +1116,11 @@ const categoryHref = (category: string) =>
     justify-content: center;
     padding: 26px;
     border-radius: var(--radius-md);
-    background:
-      linear-gradient(160deg, var(--color-primary), var(--color-primary-darker));
+    background: linear-gradient(
+      160deg,
+      var(--color-primary),
+      var(--color-primary-darker)
+    );
     color: var(--color-white);
     box-shadow: 0 20px 45px rgba(0, 96, 175, 0.18);
   }

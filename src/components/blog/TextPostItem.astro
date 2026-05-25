@@ -1,5 +1,6 @@
 ---
-import type { Blog } from "../../data/blogs";
+import { slugify } from "../../lib/utils"; 
+import type { Blog } from "../../lib/api";  
 
 type Props = {
   blog: Blog;
@@ -7,34 +8,51 @@ type Props = {
 
 const { blog } = Astro.props as Props;
 
-const categoryHref = (category: string) =>
-  `/blog/category/${category.toLowerCase().replaceAll(" ", "-")}`;
+const categoryHref = (category?: string | null) =>
+  category ? `/blog/category/${slugify(category)}` : "/blog"; 
+
+  const formatDate = (dateString?: string | null) => {
+  if (!dateString) return "Draft";
+
+  return new Date(dateString).toLocaleDateString("id-ID", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+};
 ---
 
 <article class="text-post-card">
-  <a
+  <a 
     href={`/blog/${blog.slug}`}
     class="text-post-image"
     aria-label={`Baca ${blog.title}`}
   >
-    <img src={blog.image} alt={blog.title} loading="lazy" />
+    <img
+      src={blog.thumbnail_url ?? "/images/placeholder.jpg"}  
+      alt={blog.title}
+      loading="lazy"
+    />
   </a>
 
   <div class="text-post-content">
-    <a href={categoryHref(blog.category)} class="text-post-category">
-      {blog.category}
-    </a>
+    {
+      blog.category && (  
+        <a href={categoryHref(blog.category)} class="text-post-category">
+          {blog.category}
+        </a>
+      )
+    }
 
     <h3>
       <a href={`/blog/${blog.slug}`}>{blog.title}</a>
     </h3>
 
-    <p>{blog.excerpt}</p>
+    {blog.excerpt && <p>{blog.excerpt}</p>}
 
     <div class="text-post-meta">
-      <span>{blog.author}</span>
-      <span>{blog.date}</span>
-      <span>{blog.readTime}</span>
+      <span>{blog.published_at ? formatDate(blog.published_at) : "Draft"}</span>
+      <span>{blog.read_time}min read</span> 
     </div>
   </div>
 </article>

@@ -42,6 +42,7 @@ export type Blog = {
   content: string | null;
   category: string | null;
   author: string | null;
+  read_time: number | null;
   is_published: boolean;
   published_at: string | null;
   meta_title: string | null;
