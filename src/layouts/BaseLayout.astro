@@ -1,6 +1,10 @@
 ---
-import '../styles/global.css';
-import 'aos/dist/aos.css';
+import "../styles/global.css";
+import "aos/dist/aos.css";
+import { getSiteSettings } from "../lib/api";
+
+const siteSettingsResponse = await getSiteSettings();
+const siteSettings = siteSettingsResponse.data;
 
 interface Props {
   title: string;
@@ -8,7 +12,11 @@ interface Props {
   noPadding?: boolean;
 }
 
-const { title, description = "Solusi IT strategis untuk bisnis yang berkembang. Zeni Consulting membantu Anda membangun sistem yang skalabel.", noPadding = false } = Astro.props;
+const {
+  title,
+  description = "Solusi IT strategis untuk bisnis yang berkembang. Zeni Consulting membantu Anda membangun sistem yang skalabel.",
+  noPadding = false,
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -20,58 +28,127 @@ const { title, description = "Solusi IT strategis untuk bisnis yang berkembang. 
     <link rel="icon" type="image/png" href="/images/sq.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <title>{title} | Zeni Consulting</title>
     <!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1905413929976635');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1905413929976635&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
+    <script>
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod
+            ? n.callMethod.apply(n, arguments)
+            : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = "2.0";
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(
+        window,
+        document,
+        "script",
+        "https://connect.facebook.net/en_US/fbevents.js",
+      );
+      fbq("init", "1905413929976635");
+      fbq("track", "PageView");
+    </script>
+    <noscript
+      ><img
+        height="1"
+        width="1"
+        style="display:none"
+        src="https://www.facebook.com/tr?id=1905413929976635&ev=PageView&noscript=1"
+      /></noscript
+    >
+    <!-- End Meta Pixel Code -->
   </head>
   <body>
     <!-- Header -->
     <header class="header" id="site-header">
       <div class="header__inner">
         <a href="/" class="header__logo">
-          <img src="/images/sq.png" alt="Zeni Consulting" class="header__logo-img" />
+          <img
+            src="/images/sq.png"
+            alt="Zeni Consulting"
+            class="header__logo-img"
+          />
         </a>
 
         <nav class="header__nav" id="main-nav">
           <a href="/" class="header__link" data-i18n="nav.home">Beranda</a>
-          <a href="/about" class="header__link" data-i18n="nav.about">Tentang Kami</a>
+          <a href="/about" class="header__link" data-i18n="nav.about"
+            >Tentang Kami</a
+          >
           <div class="header__dropdown">
-            <button class="header__link header__dropdown-trigger" type="button" id="services-trigger">
+            <button
+              class="header__link header__dropdown-trigger"
+              type="button"
+              id="services-trigger"
+            >
               <span data-i18n="nav.services">Layanan</span>
-              <svg class="header__dropdown-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <svg
+                class="header__dropdown-arrow"
+                width="12"
+                height="12"
+                viewBox="0 0 12 12"
+                fill="none"
+              >
+                <path
+                  d="M3 4.5L6 7.5L9 4.5"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
               </svg>
             </button>
             <div class="header__mega" id="services-mega" aria-hidden="true">
               <div class="header__mega-inner">
                 <a href="/services/web-development" class="header__mega-item">
                   <span class="header__mega-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><line x1="4" y1="10" x2="20" y2="10"/></svg>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      ><path
+                        d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"
+                      ></path><line x1="4" y1="10" x2="20" y2="10"></line></svg
+                    >
                   </span>
                   <div>
                     <strong data-i18n="mega.webdev">Pengembangan Web</strong>
-                    <span data-i18n="mega.webdev.subtitle">Situs responsif & modern</span>
+                    <span data-i18n="mega.webdev.subtitle"
+                      >Situs responsif & modern</span
+                    >
                   </div>
                 </a>
-                <a href="/services/mobile-development" class="header__mega-item">
+                <a
+                  href="/services/mobile-development"
+                  class="header__mega-item"
+                >
                   <span class="header__mega-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      ><rect x="7" y="2" width="10" height="20" rx="2"
+                      ></rect><line x1="12" y1="18" x2="12.01" y2="18"
+                      ></line></svg
+                    >
                   </span>
                   <div>
                     <strong data-i18n="mega.mobile">Aplikasi Mobile</strong>
@@ -80,10 +157,21 @@ src="https://www.facebook.com/tr?id=1905413929976635&ev=PageView&noscript=1"
                 </a>
                 <a href="/services/development" class="header__mega-item">
                   <span class="header__mega-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      ><polyline points="16 18 22 12 16 6"></polyline><polyline
+                        points="8 6 2 12 8 18"></polyline></svg
+                    >
                   </span>
                   <div>
-                    <strong data-i18n="mega.development">Pengembangan Software</strong>
+                    <strong data-i18n="mega.development"
+                      >Pengembangan Software</strong
+                    >
                     <span>Aplikasi kustom & skalabel</span>
                   </div>
                 </a>
@@ -98,7 +186,17 @@ src="https://www.facebook.com/tr?id=1905413929976635&ev=PageView&noscript=1"
                 </a> -->
                 <a href="/services/consulting" class="header__mega-item">
                   <span class="header__mega-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      ><path d="M12 20h9"></path><path
+                        d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"
+                      ></path></svg
+                    >
                   </span>
                   <div>
                     <strong data-i18n="mega.consulting">Konsultasi IT</strong>
@@ -118,24 +216,52 @@ src="https://www.facebook.com/tr?id=1905413929976635&ev=PageView&noscript=1"
             </div>
           </div>
           <!-- <a href="/portfolio" class="header__link" data-i18n="nav.portfolio">Portofolio</a> -->
-          <a href="/portfolio" class="header__link" data-i18n="nav.portfolio">Portofolio</a>
-          <a href="/case-studies" class="header__link" data-i18n="nav.casestudies">Studi Kasus</a>
+          <a href="/portfolio" class="header__link" data-i18n="nav.portfolio"
+            >Portofolio</a
+          >
+          <a
+            href="/case-studies"
+            class="header__link"
+            data-i18n="nav.casestudies">Studi Kasus</a
+          >
         </nav>
 
         <div class="header__actions">
           <div class="lang-selector">
-            <button class="lang-selector__trigger" type="button" id="lang-trigger">
+            <button
+              class="lang-selector__trigger"
+              type="button"
+              id="lang-trigger"
+            >
               <span id="lang-current">ID</span>
-              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"
+                ><path
+                  d="M3 4.5L6 7.5L9 4.5"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path></svg
+              >
             </button>
             <div class="lang-selector__menu" id="lang-menu" aria-hidden="true">
-              <button class="lang-option lang-option--active" data-lang="id">Indonesia</button>
+              <button class="lang-option lang-option--active" data-lang="id"
+                >Indonesia</button
+              >
               <button class="lang-option" data-lang="en">English</button>
               <button class="lang-option" data-lang="es">Espanol</button>
             </div>
           </div>
-          <a href="/contact" class="btn btn--primary btn--small header__cta" data-i18n="nav.book">Konsultasi Gratis</a>
-          <button class="header__hamburger" type="button" aria-label="Toggle menu" id="hamburger-btn">
+          <a
+            href="/contact"
+            class="btn btn--primary btn--small header__cta"
+            data-i18n="nav.book">Konsultasi Gratis</a
+          >
+          <button
+            class="header__hamburger"
+            type="button"
+            aria-label="Toggle menu"
+            id="hamburger-btn"
+          >
             <span></span>
             <span></span>
             <span></span>
@@ -157,17 +283,67 @@ src="https://www.facebook.com/tr?id=1905413929976635&ev=PageView&noscript=1"
       <div class="container">
         <div class="footer__top">
           <div class="footer__brand">
-            <a href="/" class="footer__logo">
-              <img src="/images/sq.png" alt="Zeni Consulting" class="footer__logo-img" />
+            <!-- <a href="/" class="footer__logo">
+              <img
+                src="/images/sq.png"
+                alt="Zeni Consulting"
+                class="footer__logo-img"
+              />
+            </a> -->
+            <a href="/" class="footer-logo">
+              {
+                siteSettings?.logo_url ? (
+                  <img
+                    src={siteSettings.logo_url}
+                    alt={siteSettings.company_name}
+                    class="footer__logo-img"
+                  />
+                ) : (
+                  <span>{siteSettings?.company_name ?? "Zeni Consulting"}</span>
+                )
+              }
             </a>
-            <p class="footer__desc" data-i18n="footer.tagline">Solusi IT strategis untuk bisnis yang berkembang</p>
+            <!-- <p class="footer__desc" data-i18n="footer.tagline">Solusi IT strategis untuk bisnis yang berkembang</p> -->
+            <p class="footer__desc">{siteSettings?.tagline}</p>
             <div class="footer__social">
-              <a href="https://linkedin.com/company/zeniconsulting" target="_blank" rel="noopener" aria-label="LinkedIn">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-              </a>
-              <a href="https://instagram.com/zeniconsulting" target="_blank" rel="noopener" aria-label="Instagram">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-              </a>
+              {
+                siteSettings?.instagram_url && (
+                  <a
+                    href={siteSettings.linkedin_url}
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="LinkedIn"
+                  >
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                    </svg>
+                  </a>
+                )
+              }
+              {
+                siteSettings?.instagram_url && (
+                  <a
+                    href={siteSettings.instagram_url}
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="Instagram"
+                  >
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                    </svg>
+                  </a>
+                )
+              }
             </div>
           </div>
 
@@ -183,14 +359,27 @@ src="https://www.facebook.com/tr?id=1905413929976635&ev=PageView&noscript=1"
             </div>
             <div class="footer__col">
               <h4 data-i18n="footer.servicesLabel">Layanan</h4>
-              <a href="/services/development" data-i18n="mega.development">Pengembangan Software</a>
-              <a href="/services/hardware" data-i18n="mega.hardware">Instalasi Hardware</a>
-              <a href="/services/consulting" data-i18n="mega.consulting">Konsultasi IT</a>
-              <a href="/services/automation" data-i18n="mega.automation">Otomasi AI Bisnis</a>
+              <a href="/services/development" data-i18n="mega.development"
+                >Pengembangan Software</a
+              >
+              <a href="/services/hardware" data-i18n="mega.hardware"
+                >Instalasi Hardware</a
+              >
+              <a href="/services/consulting" data-i18n="mega.consulting"
+                >Konsultasi IT</a
+              >
+              <a href="/services/automation" data-i18n="mega.automation"
+                >Otomasi AI Bisnis</a
+              >
             </div>
             <div class="footer__col">
               <h4 data-i18n="footer.connect">Hubungi</h4>
-              <a href="https://wa.me/6285710999144?text=Halo%2C%20saya%20tertarik%20untuk%20konsultasi%20IT%20dengan%20Zeni%20Consulting." target="_blank" rel="noopener" onclick="fbq('track', 'Lead')">
+              <a
+                href="https://wa.me/6285710999144?text=Halo%2C%20saya%20tertarik%20untuk%20konsultasi%20IT%20dengan%20Zeni%20Consulting."
+                target="_blank"
+                rel="noopener"
+                onclick="fbq('track', 'Lead')"
+              >
                 <span data-i18n="footer.whatsapp">WhatsApp</span>
               </a>
               <a href="mailto:hello@zeniconsulting.com">
@@ -204,111 +393,147 @@ src="https://www.facebook.com/tr?id=1905413929976635&ev=PageView&noscript=1"
         </div>
 
         <div class="footer__bottom">
-          <p data-i18n="footer.copyright">&copy; {new Date().getFullYear()} PT Numa Teknologi Nusantara. Hak cipta dilindungi.</p>
+          <p data-i18n="footer.copyright">
+            &copy; {new Date().getFullYear()} PT Numa Teknologi Nusantara. Hak cipta
+            dilindungi.
+          </p>
         </div>
       </div>
     </footer>
 
     <!-- Floating WhatsApp -->
-    <a href="https://wa.me/628811841064?text=Halo%2C%20saya%20tertarik%20untuk%20konsultasi%20IT%20dengan%20Zeni%20Consulting." class="whatsapp-float" target="_blank" rel="noopener" aria-label="Chat WhatsApp">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <a
+      href="https://wa.me/628811841064?text=Halo%2C%20saya%20tertarik%20untuk%20konsultasi%20IT%20dengan%20Zeni%20Consulting."
+      class="whatsapp-float"
+      target="_blank"
+      rel="noopener"
+      aria-label="Chat WhatsApp"
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="white"
+        ><path
+          d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+        ></path></svg
+      >
     </a>
 
     <script>
-      import { getLang, setLang, applyTranslations, type Lang } from '../scripts/i18n';
-      document.addEventListener('DOMContentLoaded', () => {
+      import {
+        getLang,
+        setLang,
+        applyTranslations,
+        type Lang,
+      } from "../scripts/i18n";
+      document.addEventListener("DOMContentLoaded", () => {
         // AOS
         const initAOS = () => {
-          import('aos')
-            .then(({ default: AOS }) => AOS.init({ duration: 600, once: true, offset: 50 }))
+          import("aos")
+            .then(({ default: AOS }) =>
+              AOS.init({ duration: 600, once: true, offset: 50 }),
+            )
             .catch(() => {});
         };
-        const win = window as Window & { requestIdleCallback?: (cb: IdleRequestCallback) => number };
-        if (typeof win.requestIdleCallback === 'function') win.requestIdleCallback(initAOS);
-        else win.addEventListener('load', initAOS);
+        const win = window as Window & {
+          requestIdleCallback?: (cb: IdleRequestCallback) => number;
+        };
+        if (typeof win.requestIdleCallback === "function")
+          win.requestIdleCallback(initAOS);
+        else win.addEventListener("load", initAOS);
 
         // i18n
         const savedLang = getLang();
-        const langCurrent = document.getElementById('lang-current');
+        const langCurrent = document.getElementById("lang-current");
         if (langCurrent) langCurrent.textContent = savedLang.toUpperCase();
-        document.querySelectorAll('.lang-option').forEach(b => {
-          b.classList.toggle('lang-option--active', b.getAttribute('data-lang') === savedLang);
+        document.querySelectorAll(".lang-option").forEach((b) => {
+          b.classList.toggle(
+            "lang-option--active",
+            b.getAttribute("data-lang") === savedLang,
+          );
         });
         applyTranslations(savedLang);
 
         // Mega menu toggle
-        const trigger = document.getElementById('services-trigger');
-        const mega = document.getElementById('services-mega');
+        const trigger = document.getElementById("services-trigger");
+        const mega = document.getElementById("services-mega");
         if (trigger && mega) {
-          trigger.addEventListener('click', (e) => {
+          trigger.addEventListener("click", (e) => {
             e.preventDefault();
-            const open = mega.getAttribute('aria-hidden') === 'false';
-            mega.setAttribute('aria-hidden', open ? 'true' : 'false');
-            mega.classList.toggle('header__mega--open', !open);
-            trigger.classList.toggle('header__dropdown-trigger--active', !open);
+            const open = mega.getAttribute("aria-hidden") === "false";
+            mega.setAttribute("aria-hidden", open ? "true" : "false");
+            mega.classList.toggle("header__mega--open", !open);
+            trigger.classList.toggle("header__dropdown-trigger--active", !open);
           });
         }
 
         // Hamburger
-        const hamburger = document.getElementById('hamburger-btn');
-        const nav = document.getElementById('main-nav');
-        const overlay = document.getElementById('mobile-overlay');
+        const hamburger = document.getElementById("hamburger-btn");
+        const nav = document.getElementById("main-nav");
+        const overlay = document.getElementById("mobile-overlay");
         if (hamburger && nav && overlay) {
           const toggleMenu = () => {
-            const isOpen = nav.classList.contains('header__nav--open');
-            nav.classList.toggle('header__nav--open', !isOpen);
-            hamburger.classList.toggle('header__hamburger--active', !isOpen);
-            overlay.classList.toggle('mobile-overlay--active', !isOpen);
-            document.body.style.overflow = isOpen ? '' : 'hidden';
+            const isOpen = nav.classList.contains("header__nav--open");
+            nav.classList.toggle("header__nav--open", !isOpen);
+            hamburger.classList.toggle("header__hamburger--active", !isOpen);
+            overlay.classList.toggle("mobile-overlay--active", !isOpen);
+            document.body.style.overflow = isOpen ? "" : "hidden";
           };
-          hamburger.addEventListener('click', toggleMenu);
-          overlay.addEventListener('click', toggleMenu);
-          nav.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-              if (nav.classList.contains('header__nav--open')) toggleMenu();
+          hamburger.addEventListener("click", toggleMenu);
+          overlay.addEventListener("click", toggleMenu);
+          nav.querySelectorAll("a").forEach((link) => {
+            link.addEventListener("click", () => {
+              if (nav.classList.contains("header__nav--open")) toggleMenu();
             });
           });
         }
 
         // Language selector
-        const langTrigger = document.getElementById('lang-trigger');
-        const langMenu = document.getElementById('lang-menu');
+        const langTrigger = document.getElementById("lang-trigger");
+        const langMenu = document.getElementById("lang-menu");
         if (langTrigger && langMenu && langCurrent) {
-          langTrigger.addEventListener('click', () => {
-            const open = langMenu.getAttribute('aria-hidden') === 'false';
-            langMenu.setAttribute('aria-hidden', open ? 'true' : 'false');
-            langMenu.classList.toggle('lang-selector__menu--open', !open);
+          langTrigger.addEventListener("click", () => {
+            const open = langMenu.getAttribute("aria-hidden") === "false";
+            langMenu.setAttribute("aria-hidden", open ? "true" : "false");
+            langMenu.classList.toggle("lang-selector__menu--open", !open);
           });
-          langMenu.querySelectorAll('.lang-option').forEach(btn => {
-            btn.addEventListener('click', () => {
-              const lang = (btn.getAttribute('data-lang') || 'id') as Lang;
+          langMenu.querySelectorAll(".lang-option").forEach((btn) => {
+            btn.addEventListener("click", () => {
+              const lang = (btn.getAttribute("data-lang") || "id") as Lang;
               langCurrent.textContent = lang.toUpperCase();
               setLang(lang);
               applyTranslations(lang);
-              langMenu.querySelectorAll('.lang-option').forEach(b => b.classList.remove('lang-option--active'));
-              btn.classList.add('lang-option--active');
-              langMenu.setAttribute('aria-hidden', 'true');
-              langMenu.classList.remove('lang-selector__menu--open');
+              langMenu
+                .querySelectorAll(".lang-option")
+                .forEach((b) => b.classList.remove("lang-option--active"));
+              btn.classList.add("lang-option--active");
+              langMenu.setAttribute("aria-hidden", "true");
+              langMenu.classList.remove("lang-selector__menu--open");
             });
           });
-          document.addEventListener('click', (e) => {
+          document.addEventListener("click", (e) => {
             const target = e.target as Node | null;
-            if (target && !langTrigger.contains(target) && !langMenu.contains(target)) {
-              langMenu.setAttribute('aria-hidden', 'true');
-              langMenu.classList.remove('lang-selector__menu--open');
+            if (
+              target &&
+              !langTrigger.contains(target) &&
+              !langMenu.contains(target)
+            ) {
+              langMenu.setAttribute("aria-hidden", "true");
+              langMenu.classList.remove("lang-selector__menu--open");
             }
           });
         }
 
         // Header scroll effect
-        const header = document.getElementById('site-header');
+        const header = document.getElementById("site-header");
         if (header) {
           let lastScroll = 0;
-          window.addEventListener('scroll', () => {
-            const currentScroll = window.scrollY;
-            header.classList.toggle('header--scrolled', currentScroll > 20);
-            lastScroll = currentScroll;
-          }, { passive: true });
+          window.addEventListener(
+            "scroll",
+            () => {
+              const currentScroll = window.scrollY;
+              header.classList.toggle("header--scrolled", currentScroll > 20);
+              lastScroll = currentScroll;
+            },
+            { passive: true },
+          );
         }
       });
     </script>
@@ -327,7 +552,9 @@ src="https://www.facebook.com/tr?id=1905413929976635&ev=PageView&noscript=1"
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid transparent;
-    transition: border-color var(--transition-base), box-shadow var(--transition-base);
+    transition:
+      border-color var(--transition-base),
+      box-shadow var(--transition-base);
   }
 
   .header--scrolled {
@@ -412,7 +639,10 @@ src="https://www.facebook.com/tr?id=1905413929976635&ev=PageView&noscript=1"
     padding: var(--space-lg);
     opacity: 0;
     visibility: hidden;
-    transition: opacity var(--transition-base), visibility var(--transition-base), transform var(--transition-base);
+    transition:
+      opacity var(--transition-base),
+      visibility var(--transition-base),
+      transform var(--transition-base);
     pointer-events: none;
   }
 
@@ -516,7 +746,10 @@ src="https://www.facebook.com/tr?id=1905413929976635&ev=PageView&noscript=1"
     opacity: 0;
     visibility: hidden;
     transform: translateY(-4px);
-    transition: opacity var(--transition-fast), visibility var(--transition-fast), transform var(--transition-fast);
+    transition:
+      opacity var(--transition-fast),
+      visibility var(--transition-fast),
+      transform var(--transition-fast);
     z-index: 120;
   }
 
@@ -571,7 +804,9 @@ src="https://www.facebook.com/tr?id=1905413929976635&ev=PageView&noscript=1"
     height: 2px;
     background: var(--color-neutral-800);
     border-radius: 2px;
-    transition: transform var(--transition-slow), opacity var(--transition-slow);
+    transition:
+      transform var(--transition-slow),
+      opacity var(--transition-slow);
   }
 
   .header__hamburger--active span:nth-child(1) {
@@ -700,7 +935,7 @@ src="https://www.facebook.com/tr?id=1905413929976635&ev=PageView&noscript=1"
     right: 1.5rem;
     width: 56px;
     height: 56px;
-    background: #25D366;
+    background: #25d366;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -708,7 +943,9 @@ src="https://www.facebook.com/tr?id=1905413929976635&ev=PageView&noscript=1"
     color: white;
     box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
     z-index: 999;
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    transition:
+      transform var(--transition-fast),
+      box-shadow var(--transition-fast);
   }
 
   .whatsapp-float:hover {
