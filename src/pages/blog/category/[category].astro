@@ -3,6 +3,7 @@ import TextPostItem from "../../../components/blog/TextPostItem.astro";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { getBlogs } from "../../../lib/api";
 import { slugify } from "../../../lib/utils"; 
+import { formatCategory } from "../../../lib/formatCategory"; 
 
 // Tidak perlu getStaticPaths() lagi
 export const prerender = false;
@@ -77,13 +78,13 @@ const categoryLabel =
           <span aria-hidden="true">/</span>
           <a href="/blog">Blog</a>
           <span aria-hidden="true">/</span>
-          <span>{categoryLabel}</span>
+          <span>{formatCategory(categoryLabel)}</span>
         </nav>
 
         <div class="category-hero__content">
           <div>
             <span class="category-eyebrow">Topic library</span>
-            <h1>{categoryLabel}</h1>
+            <h1>{formatCategory(categoryLabel)}</h1>
             <p>
               Kumpulan insight pilihan seputar {categoryLabel} untuk membantu tim
               bisnis dan teknologi mengambil keputusan yang lebih rapi.
@@ -106,7 +107,7 @@ const categoryLabel =
           <div class="category-pills" aria-label="Kategori lainnya">
             {
               otherCategories.slice(0, 6).map((item) => (
-                <a href={categoryHref(item)}>{item}</a>
+                <a href={categoryHref(item)}>{formatCategory(item)}</a>
               ))
             }
           </div>

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { formatCategory } from "../../lib/formatCategory";
 import { getBlogs } from "../../lib/api";
 
 const blogsResponse = await getBlogs();
@@ -41,7 +42,9 @@ const formatDate = (dateString?: string | null) => {
     year: "numeric",
   });
 };
----b
+
+
+---
 
 <BaseLayout
   title="Blog"
@@ -88,7 +91,7 @@ const formatDate = (dateString?: string | null) => {
                     class="blog-category blog-category--inverse"
                     href={categoryHref(heroBlog.category)}
                   >
-                    {heroBlog.category}
+                    {formatCategory(heroBlog.category)}
                   </a>
 
                   <a
@@ -141,7 +144,7 @@ const formatDate = (dateString?: string | null) => {
                         class="blog-category"
                         href={categoryHref(blog.category)}
                       >
-                        {blog.category}
+                        {formatCategory(blog.category)}
                       </a>
                     )}
                     <a href={`/blog/${blog.slug}`} class="post-title-link">
@@ -316,7 +319,7 @@ const formatDate = (dateString?: string | null) => {
                 <article class="latest-item">
                   {blog.category && (
                     <a class="blog-category" href={categoryHref(blog.category)}>
-                      {blog.category}
+                      {formatCategory(blog.category)}
                     </a>
                   )}
                   <a href={`/blog/${blog.slug}`} class="post-title-link">
@@ -389,7 +392,7 @@ const formatDate = (dateString?: string | null) => {
               <article class="text-post">
                 {blog.category && (
                   <a class="blog-category" href={categoryHref(blog.category)}>
-                    {blog.category}
+                    {formatCategory(blog.category)}
                   </a>
                 )}
                 <a href={`/blog/${blog.slug}`} class="post-title-link">
@@ -434,7 +437,7 @@ const formatDate = (dateString?: string | null) => {
                     class="blog-category"
                     href={categoryHref(professionalFeatured.category)}
                   >
-                    {professionalFeatured.category}
+                    {formatCategory(professionalFeatured.category)}
                   </a>
                 )}
 

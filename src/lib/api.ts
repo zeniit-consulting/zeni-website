@@ -1,4 +1,7 @@
-const API_BASE_URL = import.meta.env.PUBLIC_API_BASE_URL;
+const API_BASE_URL = (
+  import.meta.env.PUBLIC_API_BASE_URL ??
+  "https://backoffice.zeniconsulting.com/api"
+).replace(/\/$/, "");
 
 async function fetchApi<T>(endpoint: string): Promise<T> {
   const response = await fetch(`${API_BASE_URL}${endpoint}`, {
@@ -7,11 +10,23 @@ async function fetchApi<T>(endpoint: string): Promise<T> {
     },
   });
 
+  const text = await response.text();
+
   if (!response.ok) {
-    throw new Error(`Failed to fetch API: ${endpoint}`);
+    console.error("API Error:", text);
+
+    throw new Error(
+      `Failed to fetch API: ${endpoint} (${response.status})`
+    );
   }
 
-  return response.json();
+  try {
+    return JSON.parse(text);
+  } catch (error) {
+    console.error("Invalid JSON response:", text);
+
+    throw new Error(`Invalid JSON response from API: ${endpoint}`);
+  }
 }
 
 export type ApiResponse<T> = {
@@ -86,6 +101,10 @@ export async function getServiceBySlug(slug: string) {
 export async function getBlogs() {
   return fetchApi<ApiResponse<Blog[]>>("/blogs");
 }
+
+// export async function getBlogBySlug(slug: string) {
+//   return fetchApi<ApiResponse<Blog>>(`/blogs/${slug}`);
+// }
 
 export async function getSiteSettings() {
   return fetchApi<ApiResponse<SiteSetting | null>>("/site-settings");

@@ -1,6 +1,7 @@
 ---
 import { slugify } from "../../lib/utils"; 
 import type { Blog } from "../../lib/api";  
+import { formatCategory } from "../../lib/formatCategory";  
 
 type Props = {
   blog: Blog;
@@ -39,7 +40,7 @@ const categoryHref = (category?: string | null) =>
     {
       blog.category && (  
         <a href={categoryHref(blog.category)} class="text-post-category">
-          {blog.category}
+          {formatCategory(blog.category)}
         </a>
       )
     }

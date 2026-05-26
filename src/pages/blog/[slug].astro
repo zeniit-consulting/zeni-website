@@ -2,10 +2,10 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getBlogs } from "../../lib/api";
 import { slugify } from "../../lib/utils";
+import { formatCategory } from "../../lib/formatCategory";
 
 // SSR — data selalu fresh dari API
 export const prerender = false;
-
 
 
 const categoryHref = (category?: string | null) =>
@@ -83,7 +83,7 @@ const finalRelatedBlogs =
           {
             blog.category && (
               <a href={categoryHref(blog.category)}>
-                {blog.category}
+               {formatCategory(blog.category)}
               </a>
             )
           }
@@ -95,7 +95,7 @@ const finalRelatedBlogs =
         {
           blog.category && (
             <a href={categoryHref(blog.category)} class="detail-category">
-              {blog.category}
+             {formatCategory(blog.category)}
             </a>
           )
         }
@@ -149,10 +149,10 @@ const finalRelatedBlogs =
 
           <!-- ✅ Render HTML content langsung dari API -->
           {
-            blog.content && (
-              <div class="content-body" set:html={blog.content} />
-            )
-          }
+  blog.content && (
+    <div class="content-body" set:html={blog.content} />
+  )
+}
         </article>
 
         <!-- Related Sidebar -->
@@ -185,7 +185,7 @@ const finalRelatedBlogs =
                         class="related-card__category"
                         href={categoryHref(item.category)}
                       >
-                        {item.category}
+                       {formatCategory(item.category)}
                       </a>
                     )}
                     <h3>
@@ -616,6 +616,112 @@ const finalRelatedBlogs =
     background: #b7c4d1;
     content: "";
   }
+
+  
+
+  .content-body {
+    color: #374151;
+    line-height: 1.75;
+    font-size: 1rem;
+  }
+
+  .content-body h1,
+  .content-body h2,
+  .content-body h3,
+  .content-body h4 {
+    font-weight: 700;
+    color: #111827;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .content-body h1 { font-size: 2rem; }
+  .content-body h2 { font-size: 1.5rem; }
+  .content-body h3 { font-size: 1.25rem; }
+  .content-body h4 { font-size: 1.1rem; }
+
+  .content-body p {
+    margin-bottom: 1rem;
+  }
+
+  .content-body ul,
+  .content-body ol {
+    margin: 1rem 0 1rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .content-body ul { list-style: disc; }
+  .content-body ol { list-style: decimal; }
+
+  .content-body li {
+    line-height: 1.7;
+  }
+
+  .content-body strong {
+    font-weight: 700;
+    color: #111827;
+  }
+
+  .content-body em {
+    font-style: italic;
+  }
+
+  .content-body a {
+    color: #2563eb;
+    text-decoration: underline;
+  }
+
+  .content-body a:hover {
+    color: #1d4ed8;
+  }
+
+  .content-body blockquote {
+    border-left: 4px solid #e5e7eb;
+    padding: 0.5rem 0 0.5rem 1rem;
+    margin: 1.5rem 0;
+    color: #6b7280;
+    font-style: italic;
+    background: #f9fafb;
+    border-radius: 0 0.25rem 0.25rem 0;
+  }
+
+  .content-body img {
+    max-width: 100%;
+    border-radius: 0.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .content-body hr {
+    border: none;
+    border-top: 1px solid #e5e7eb;
+    margin: 2rem 0;
+  }
+
+  .content-body pre {
+    background: #1f2937;
+    color: #f9fafb;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+  }
+
+  .content-body code {
+    background: #f3f4f6;
+    color: #ef4444;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+  }
+
+  .content-body pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+  }
+
 
   @media (prefers-reduced-motion: reduce) {
     .breadcrumb a,
