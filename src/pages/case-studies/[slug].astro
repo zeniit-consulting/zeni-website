@@ -1,4 +1,5 @@
 ---
+import type { CaseStudy } from "../../data/caseStudies";
 import { caseStudies } from "../../data/caseStudies";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
@@ -13,7 +14,13 @@ export function getStaticPaths() {
   }));
 }
 
-const { study } = Astro.props;
+const { study: propsStudy } = Astro.props as { study?: CaseStudy };
+const { slug } = Astro.params as { slug?: string };
+const study = propsStudy ?? caseStudies.find((item) => item.slug === slug);
+
+if (!study) {
+  return Astro.redirect("/case-studies");
+}
 ---
 
 <BaseLayout
