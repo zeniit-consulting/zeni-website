@@ -2,47 +2,50 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import WhatsAppButton from "../../components/WhatsAppButton.astro";
 import { helpCategories } from "../../data/helpCenter";
+import { translations, type Lang } from "../../scripts/i18n";
+
+const lang = (Astro.currentLocale ?? "id") as Lang;
+const t = (key: string): string => translations[key]?.[lang] ?? key;
 
 type HelpArticle = {
   id?: string;
-  title: string;
-  content: string;
+  titleKey: string;
+  contentKey: string;
   link?: {
-    label: string;
+    labelKey: string;
     href: string;
   };
 };
 
 type HelpCategory = {
   slug: string;
-  title: string;
-  description: string;
+  titleKey: string;
+  descriptionKey: string;
   articles: HelpArticle[];
 };
 
 export function getStaticPaths() {
   return helpCategories.map((category) => ({
-    params: {
-      slug: category.slug,
-    },
-    props: {
-      category,
-    },
+    params: { slug: category.slug },
+    props: { category },
   }));
 }
 
-const { category } = Astro.props as { category: HelpCategory };
+// ✅ sama persis polanya kayak case-studies
+const { category: propsCategory } = Astro.props as { category?: HelpCategory };
+const { slug } = Astro.params as { slug?: string };
+const category = propsCategory ?? helpCategories.find((item) => item.slug === slug) as HelpCategory | undefined;
 
-const legacyArticleId = (article: HelpArticle) =>
-  article.title.toLowerCase().replaceAll(" ", "-");
+if (!category) {
+  return Astro.redirect("/help-center");
+}
 
 const articleId = (article: HelpArticle) =>
-  article.id ?? legacyArticleId(article);
+  article.id ?? `article-${article.titleKey.split(".").pop()}`;
 
 const articles = category.articles.map((article, index) => ({
   ...article,
   anchorId: articleId(article),
-  legacyAnchorId: legacyArticleId(article),
   number: String(index + 1).padStart(2, "0"),
 }));
 
@@ -51,34 +54,43 @@ const relatedCategories = helpCategories
   .slice(0, 3);
 ---
 
-<BaseLayout title={category.title} description={category.description} noPadding>
+<BaseLayout
+  title={t(category.titleKey)}
+  description={t(category.descriptionKey)}
+  noPadding
+>
   <div class="help-detail-page">
     <section class="help-detail-hero">
       <div class="help-detail-hero__pattern" aria-hidden="true"></div>
 
       <div class="container help-detail-hero__layout">
         <div class="help-detail-hero__content">
-          <a href="/help-center" class="help-back">
+          <a href="/help-center" class="help-back" data-i18n="helpcenter.detail.back">
             <span aria-hidden="true">&larr;</span>
             Kembali ke Pusat Bantuan
           </a>
 
-         
-          <h1>{category.title}</h1>
-          <p>{category.description}</p>
+          <h1 data-i18n={category.titleKey}>
+            {t(category.titleKey)}
+          </h1>
+          <p data-i18n={category.descriptionKey}>
+            {t(category.descriptionKey)}
+          </p>
         </div>
 
         <aside class="help-detail-hero__panel" aria-label="Ringkasan kategori">
-          <span class="help-panel__label">Ringkasan</span>
+          <span class="help-panel__label" data-i18n="helpcenter.detail.summary">
+            Ringkasan
+          </span>
 
           <div class="help-metric">
             <strong>{articles.length}</strong>
-            <span>Artikel bantuan</span>
+            <span data-i18n="helpcenter.detail.articles">Artikel bantuan</span>
           </div>
 
           <div class="help-metric">
             <strong>24/7</strong>
-            <span>Akses panduan</span>
+            <span data-i18n="helpcenter.detail.access">Akses panduan</span>
           </div>
         </aside>
       </div>
@@ -88,92 +100,111 @@ const relatedCategories = helpCategories
       <div class="container help-detail-layout">
         <aside class="help-detail-sidebar" aria-label="Navigasi artikel">
           <div class="help-sidebar-card">
-            <span class="help-sidebar-card__label">Daftar artikel</span>
-            <h2>{category.title}</h2>
+            <span class="help-sidebar-card__label" data-i18n="helpcenter.detail.articlelist">
+              Daftar artikel
+            </span>
+            <h2 data-i18n={category.titleKey}>
+              {t(category.titleKey)}
+            </h2>
 
             <nav>
-              {
-                articles.map((article) => (
-                  <a href={`#${article.anchorId}`}>
-                    <span>{article.number}</span>
-                    {article.title}
-                  </a>
-                ))
-              }
+              {articles.map((article) => (
+                <a href={`#${article.anchorId}`} data-i18n={article.titleKey}>
+                  <span>{article.number}</span>
+                  {t(article.titleKey)}
+                </a>
+              ))}
             </nav>
           </div>
 
-          {
-            relatedCategories.length > 0 && (
-              <div class="help-sidebar-card help-sidebar-card--soft">
-                <span class="help-sidebar-card__label">Kategori lainnya</span>
-                <div class="help-related-list">
-                  {relatedCategories.map((item) => (
-                    <a href={`/help-center/${item.slug}`}>
-                      <strong>{item.title}</strong>
-                      <span>{item.articles.length} artikel</span>
-                    </a>
-                  ))}
-                </div>
+          {relatedCategories.length > 0 && (
+            <div class="help-sidebar-card help-sidebar-card--soft">
+              <span
+                class="help-sidebar-card__label"
+                data-i18n="helpcenter.detail.othercategories"
+              >
+                Kategori lainnya
+              </span>
+              <div class="help-related-list">
+                {relatedCategories.map((item) => (
+                  <a href={`/help-center/${item.slug}`}>
+                    <strong data-i18n={item.titleKey}>
+                      {t(item.titleKey)}
+                    </strong>
+                    <span>
+                      {item.articles.length}
+                      <span data-i18n="helpcenter.detail.articles"> artikel</span>
+                    </span>
+                  </a>
+                ))}
               </div>
-            )
-          }
+            </div>
+          )}
         </aside>
 
         <div class="help-detail-content">
           <div class="help-content-header">
-            <span class="help-eyebrow">Panduan detail</span>
-            <h2>Artikel dalam kategori ini</h2>
-            <p>
+            <span class="help-eyebrow" data-i18n="helpcenter.detail.eyebrow">
+              Panduan detail
+            </span>
+            <h2 data-i18n="helpcenter.detail.contenttitle">
+              Artikel dalam kategori ini
+            </h2>
+            <p data-i18n="helpcenter.detail.contentdesc">
               Ikuti panduan berikut untuk memahami konteks layanan, proses, dan
               dukungan yang tersedia dari Zeni Consulting.
             </p>
           </div>
 
           <div class="help-article-list">
-            {
-              articles.map((article) => (
-                <article class="help-article" id={article.anchorId}>
-                  {article.legacyAnchorId !== article.anchorId && (
-                    <span
-                      class="help-article__legacy-anchor"
-                      id={article.legacyAnchorId}
-                      aria-hidden="true"
-                    />
-                  )}
+            {articles.map((article) => (
+              <article class="help-article" id={article.anchorId}>
+                <div class="help-article__meta">
+                  <span>{article.number}</span>
+                  <strong data-i18n="helpcenter.detail.guidelabel">
+                    Panduan bantuan
+                  </strong>
+                </div>
 
-                  <div class="help-article__meta">
-                    <span>{article.number}</span>
-                    <strong>Panduan bantuan</strong>
-                  </div>
+                <h2 data-i18n={article.titleKey}>
+                  {t(article.titleKey)}
+                </h2>
+                <p data-i18n={article.contentKey}>
+                  {t(article.contentKey)}
+                </p>
 
-                  <h2>{article.title}</h2>
-                  <p>{article.content}</p>
-
-                  {article.link && (
-                    <a class="help-article__link" href={article.link.href}>
-                      {article.link.label}
-                      <span aria-hidden="true">&rarr;</span>
-                    </a>
-                  )}
-                </article>
-              ))
-            }
+                {article.link && (
+                  <a
+                    class="help-article__link"
+                    href={article.link.href}
+                    data-i18n={article.link.labelKey}
+                  >
+                    {t(article.link.labelKey)}
+                    <span aria-hidden="true">&rarr;</span>
+                  </a>
+                )}
+              </article>
+            ))}
           </div>
 
           <section class="help-detail-cta">
             <div>
-              <span class="help-eyebrow">Butuh arahan langsung?</span>
-              <h2>Konsultasikan kebutuhan Anda dengan tim kami.</h2>
-              <p>
+              <span class="help-eyebrow" data-i18n="helpcenter.detail.cta.eyebrow">
+                Butuh arahan langsung?
+              </span>
+              <h2 data-i18n="helpcenter.detail.cta.title">
+                Konsultasikan kebutuhan Anda dengan tim kami.
+              </h2>
+              <p data-i18n="helpcenter.detail.cta.description">
                 Jika jawaban di atas belum cukup spesifik, tim Zeni Consulting
                 siap membantu memberi arahan awal sesuai konteks bisnis Anda.
               </p>
             </div>
 
             <WhatsAppButton
-              label="Hubungi Kami"
+              label={t("helpcenter.detail.cta.button")}
               className="help-detail-cta__button"
+              data-i18n="helpcenter.detail.cta.button"
             />
           </section>
         </div>

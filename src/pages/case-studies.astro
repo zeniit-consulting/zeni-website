@@ -37,11 +37,11 @@ import { Image } from "astro:assets";
     <div class="container featured-hero__grid">
       <!-- LEFT -->
       <div class="featured-hero__content">
-        <span class="featured-hero__eyebrow"> Klien kami </span>
+        <span data-i18n="casestudies.featured-hero.eyebrow" class="featured-hero__eyebrow"> Klien kami </span>
 
-        <h1>Berkembang bersama bisnis modern di Indonesia</h1>
+        <h1 data-i18n="casestudies.featured-hero.title">Berkembang bersama bisnis modern di Indonesia</h1>
 
-        <p class="featured-hero__desc">
+        <p data-i18n="casestudies.featured-hero.description" class="featured-hero__desc">
           Kami membantu perusahaan membangun sistem, automasi, dan infrastruktur
           digital yang scalable untuk operasional yang lebih efisien.
         </p>
@@ -65,28 +65,28 @@ import { Image } from "astro:assets";
   <section class="stats-section">
     <div class="container">
       <div class="stats-section__header">
-        <h2>Berkembang bersama Zeni Consulting</h2>
+        <h2 data-i18n="casestudies.stasts.title">Berkembang bersama Zeni Consulting</h2>
 
-        <p>
+        <p data-i18n="casestudies.stasts.description">
           Solusi teknologi yang membantu bisnis bekerja lebih cepat dan efisien.
         </p>
       </div>
 
       <div class="stats-grid">
         <div class="stats-card">
-          <span class="stats-card__label"> Project Selesai </span>
+          <span data-i18n="casestudies.stasts.label.1" class="stats-card__label"> Project Selesai </span>
 
           <strong> 15+ </strong>
         </div>
 
         <div class="stats-card">
-          <span class="stats-card__label"> Sistem Dibangun </span>
+          <span data-i18n="casestudies.stasts.label.2" class="stats-card__label"> Sistem Dibangun </span>
 
           <strong> 30+ </strong>
         </div>
 
         <div class="stats-card">
-          <span class="stats-card__label"> Kepuasan Klien </span>
+          <span data-i18n="casestudies.stasts.label.3" class="stats-card__label"> Kepuasan Klien </span>
 
           <strong> 98% </strong>
         </div>
@@ -100,12 +100,12 @@ import { Image } from "astro:assets";
       <!-- Header -->
       <div class="case-grid-header">
         <div>
-          <span class="case-grid-header__eyebrow"> Case Studies </span>
+          <span data-i18n="casestudies.eyebrow" class="case-grid-header__eyebrow"> Case Studies </span>
 
-          <h2>Solusi nyata untuk bisnis modern</h2>
+          <h2 data-i18n="casestudies.title">Solusi nyata untuk bisnis modern</h2>
         </div>
 
-        <p>
+        <p data-i18n="casestudies.description">
           Studi kasus pilihan dari project yang kami kerjakan untuk membantu
           bisnis berkembang lebih cepat dan efisien.
         </p>
@@ -118,6 +118,7 @@ import { Image } from "astro:assets";
           class="case-filter active"
           aria-pressed="true"
           data-filter="all"
+          data-i18n="casestudies.filters.all"
         >
           Semua
         </button>
@@ -127,6 +128,7 @@ import { Image } from "astro:assets";
           class="case-filter"
           aria-pressed="false"
           data-filter="AUTOMATION SYSTEM"
+           data-i18n="casestudies.filters.automation"
         >
           Automation
         </button>
@@ -136,6 +138,7 @@ import { Image } from "astro:assets";
           class="case-filter"
           aria-pressed="false"
           data-filter="INTERNAL DASHBOARD"
+           data-i18n="casestudies.filters.dashboard"
         >
           Dashboard
         </button>
@@ -145,6 +148,7 @@ import { Image } from "astro:assets";
           class="case-filter"
           aria-pressed="false"
           data-filter="SYSTEM INTEGRATION"
+           data-i18n="casestudies.filters.integration"
         >
           Integration
         </button>
@@ -154,6 +158,7 @@ import { Image } from "astro:assets";
           class="case-filter"
           aria-pressed="false"
           data-filter="AI AUTOMATION"
+           data-i18n="casestudies.filters.aisystems"
         >
           AI Systems
         </button>
@@ -185,9 +190,9 @@ import { Image } from "astro:assets";
               </div>
 
               <div class="project-content">
-                <span class="project-badge">{study.category}</span>
+                <span data-i18n={`casestudies.${study.key}.category`} class="project-badge">AUTOMATION SYSTEM</span>
 
-                <h3>
+                <h3 data-i18n={`casestudies.${study.key}.title`} class="project-card__title">
                   {study.title.length > 50
                     ? study.title.slice(0, 50) + "..."
                     : study.title}
@@ -224,22 +229,22 @@ import { Image } from "astro:assets";
       <div class="cta-box">
         <!-- LEFT -->
         <div class="cta-box__content">
-          <span class="cta-box__badge"> LET'S WORK TOGETHER </span>
+          <span data-i18n="casestudies.cta-section.badge" class="cta-box__badge"> LET'S WORK TOGETHER </span>
 
-          <h2>Build Smarter Systems For Your Growing Business</h2>
+          <h2 data-i18n="casestudies.cta-section.title">Build Smarter Systems For Your Growing Business</h2>
 
-          <p>
+          <p data-i18n="casestudies.cta-section.text">
             We help companies streamline operations, automate workflows, and
             create scalable digital systems for long-term growth.
           </p>
 
           <div class="cta-box__actions">
             <a href="/contact" class="cta-btn cta-btn--primary">
-              Start Consultation
+              <span data-i18n="casestudies.cta-section.btn-start">Start Consultation</span>
             </a>
 
             <a href="/services" class="cta-btn cta-btn--secondary">
-              Explore Services
+              <span data-i18n="casestudies.cta-section.btn-service">Explore Our Services</span>
             </a>
           </div>
         </div>

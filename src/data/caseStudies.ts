@@ -12,6 +12,7 @@ export type CaseStudy = {
 
   title: string;
   client: string;
+  key: string;
   category: string;
   image: string;
   excerpt: string;
@@ -29,13 +30,13 @@ export type CaseStudy = {
   }[];
 
   sidebar: {
-    label: string;
-    value: string;
+    labelKey: string;
+    valueKey: string;
   }[];
 
   sections: {
-    title: string;
-    content: string[];
+    titleKey: string;
+    contentKeys: string[];
     image?: string;
   }[];
 };
@@ -61,7 +62,7 @@ export const caseStudies: CaseStudy[] = [
       "Nusa Logistics tingkatkan visibilitas pengiriman dan percepat reporting operasional dengan sistem automation wwkwkwkwkwkwk eurueyrueyrueyriueyuryueyrueiyruieyruiyeuriyeuiyrueiyuiyruiyeui",
 
     client: "Supply Chain & Logistics",
-
+    key: "automation-system",
     category: "AUTOMATION SYSTEM",
 
     image: "/images/studycase/logistics.webp",
@@ -94,383 +95,334 @@ export const caseStudies: CaseStudy[] = [
 
     sidebar: [
       {
-        label: "Perusahaan",
-        value: "Nusa Logistics",
+        labelKey: "nusa.sidebar.company.label",
+        valueKey: "nusa.sidebar.company.value",
       },
       {
-        label: "Industri",
-        value: "Supply Chain & Logistics",
+        labelKey: "nusa.sidebar.industry.label",
+        valueKey: "nusa.sidebar.industry.value",
       },
       {
-        label: "Ukuran Perusahaan",
-        value: "50–200 karyawan",
+        labelKey: "nusa.sidebar.size.label",
+        valueKey: "nusa.sidebar.size.value",
       },
       {
-        label: "Tahun Berdiri",
-        value: "2018",
+        labelKey: "nusa.sidebar.founded.label",
+        valueKey: "nusa.sidebar.founded.value",
       },
       {
-        label: "Produk yang Digunakan",
-        value: "Workflow Automation, Operational Dashboard",
+        labelKey: "nusa.sidebar.product.label",
+        valueKey: "nusa.sidebar.product.value",
       },
     ],
 
     sections: [
       {
-        title: "Tentang Perusahaan",
-        content: [
-          "Nusa Logistics adalah perusahaan logistik yang membantu bisnis mengelola distribusi barang, monitoring pengiriman, dan koordinasi operasional lintas tim.",
-          "Seiring meningkatnya volume pengiriman, perusahaan membutuhkan sistem yang lebih rapi untuk memantau status pengiriman, menyusun laporan, dan memberikan informasi operasional secara real-time.",
-        ],
+        titleKey: "nusa.about.title",
+        contentKeys: ["nusa.about.p1", "nusa.about.p2"],
       },
       {
-        title: "Tantangan Bisnis",
-        content: [
-          "Sebelumnya, proses tracking pengiriman masih dilakukan secara manual melalui spreadsheet dan komunikasi antar tim. Hal ini membuat data sering tidak sinkron dan membutuhkan waktu lebih lama untuk diperbarui.",
-          "Tim operasional juga membutuhkan waktu tambahan untuk membuat laporan harian karena informasi tersebar di beberapa sumber yang berbeda.",
-        ],
+        titleKey: "nusa.challenge.title",
+        contentKeys: ["nusa.challenge.p1", "nusa.challenge.p2"],
         image: "/images/studycase/logistics.webp",
       },
       {
-        title: "Zeni Consulting sebagai solusi",
-        content: [
-          "Sistem automation dibangun untuk menghubungkan proses tracking, alert operasional, dan reporting ke dalam satu dashboard terpusat.",
-          "Dengan sistem ini, tim dapat melihat status pengiriman, menerima notifikasi penting, dan menghasilkan laporan tanpa harus mengumpulkan data secara manual.",
-        ],
+        titleKey: "nusa.solution.title",
+        contentKeys: ["nusa.solution.p1", "nusa.solution.p2"],
         image: "/images/studycase/logistics.webp",
       },
       {
-        title: "Hasil",
-        content: [
-          "Setelah sistem diterapkan, waktu reporting berkurang hingga 70% dan visibilitas pengiriman meningkat secara signifikan.",
-          "Tim operasional dapat bekerja lebih cepat, lebih terorganisir, dan memiliki data yang lebih akurat untuk mendukung pengambilan keputusan.",
-        ],
+        titleKey: "nusa.result.title",
+        contentKeys: ["nusa.result.p1", "nusa.result.p2"],
       },
     ],
   },
 
   {
-  slug: "multi-branch-pos-integration",
+    slug: "multi-branch-pos-integration",
 
-  company: {
-    name: "Rasa Group",
-    logoText: "RASA GROUP",
-    industry: "Retail & F&B",
-    size: "100–300 employees",
-    founded: "2016",
-    productsUsed: [
-      "POS Integration",
-      "Inventory Sync",
-      "Operational Dashboard",
+    company: {
+      name: "Rasa Group",
+      logoText: "RASA GROUP",
+      industry: "Retail & F&B",
+      size: "100–300 employees",
+      founded: "2016",
+      productsUsed: [
+        "POS Integration",
+        "Inventory Sync",
+        "Operational Dashboard",
+      ],
+    },
+
+    title:
+      "Rasa Group tingkatkan akurasi stok dan sinkronisasi penjualan multi-cabang dengan sistem POS terintegrasi",
+
+    client: "Retail & F&B",
+    key: "system-integration",
+    category: "SYSTEM INTEGRATION",
+
+    image: "/images/studycase/pos.webp",
+
+    excerpt:
+      "Sistem integrasi POS membantu Rasa Group menyatukan data penjualan, stok, dan performa cabang secara real-time.",
+
+    testimonial: {
+      quote:
+        "Sebelumnya kami sering membutuhkan waktu lama untuk mencocokkan data penjualan dan stok antar cabang. Setelah sistem ini berjalan, semua data lebih mudah dipantau.",
+      person: "Branch Operations Lead",
+      position: "Rasa Group",
+      avatar: "/images/studycase/pos.webp",
+    },
+
+    stats: [
+      {
+        value: "95%",
+        label: "akurasi stok meningkat",
+      },
+      {
+        value: "2x",
+        label: "monitoring cabang lebih cepat",
+      },
+      {
+        value: "100%",
+        label: "data POS tersinkronisasi",
+      },
+    ],
+
+    sidebar: [
+      {
+        labelKey: "rasa.sidebar.company.label",
+        valueKey: "rasa.sidebar.company.value",
+      },
+      {
+        labelKey: "rasa.sidebar.industry.label",
+        valueKey: "rasa.sidebar.industry.value",
+      },
+      {
+        labelKey: "rasa.sidebar.size.label",
+        valueKey: "rasa.sidebar.size.value",
+      },
+      {
+        labelKey: "rasa.sidebar.founded.label",
+        valueKey: "rasa.sidebar.founded.value",
+      },
+      {
+        labelKey: "rasa.sidebar.product.label",
+        valueKey: "rasa.sidebar.product.value",
+      },
+    ],
+
+    sections: [
+      {
+        titleKey: "rasa.about.title",
+        contentKeys: ["rasa.about.p1", "rasa.about.p2"],
+      },
+      {
+        titleKey: "rasa.challenge.title",
+        contentKeys: ["rasa.challenge.p1", "rasa.challenge.p2"],
+        image: "/images/studycase/pos.webp",
+      },
+      {
+        titleKey: "rasa.solution.title",
+        contentKeys: ["rasa.solution.p1", "rasa.solution.p2"],
+        image: "/images/studycase/pos.webp",
+      },
+      {
+        titleKey: "rasa.result.title",
+        contentKeys: ["rasa.result.p1", "rasa.result.p2"],
+      },
     ],
   },
 
-  title:
-    "Rasa Group tingkatkan akurasi stok dan sinkronisasi penjualan multi-cabang dengan sistem POS terintegrasi",
+  {
+    slug: "recruitment-management-dashboard",
 
-  client: "Retail & F&B",
-
-  category: "SYSTEM INTEGRATION",
-
-  image: "/images/studycase/pos.webp",
-
-  excerpt:
-    "Sistem integrasi POS membantu Rasa Group menyatukan data penjualan, stok, dan performa cabang secara real-time.",
-
-  testimonial: {
-    quote:
-      "Sebelumnya kami sering membutuhkan waktu lama untuk mencocokkan data penjualan dan stok antar cabang. Setelah sistem ini berjalan, semua data lebih mudah dipantau.",
-    person: "Branch Operations Lead",
-    position: "Rasa Group",
-    avatar: "/images/studycase/pos.webp",
-  },
-
-  stats: [
-    {
-      value: "95%",
-      label: "akurasi stok meningkat",
-    },
-    {
-      value: "2x",
-      label: "monitoring cabang lebih cepat",
-    },
-    {
-      value: "100%",
-      label: "data POS tersinkronisasi",
-    },
-  ],
-
-  sidebar: [
-    {
-      label: "Perusahaan",
-      value: "Rasa Group",
-    },
-    {
-      label: "Industri",
-      value: "Retail & F&B",
-    },
-    {
-      label: "Ukuran Perusahaan",
-      value: "100–300 karyawan",
-    },
-    {
-      label: "Tahun Berdiri",
-      value: "2016",
-    },
-    {
-      label: "Produk yang Digunakan",
-      value: "POS Integration, Inventory Sync, Operational Dashboard",
-    },
-  ],
-
-  sections: [
-    {
-      title: "Tentang Perusahaan",
-      content: [
-        "Rasa Group adalah bisnis retail dan F&B yang mengelola beberapa cabang dengan kebutuhan operasional harian yang tinggi.",
-        "Dengan jumlah transaksi yang terus meningkat, perusahaan membutuhkan sistem yang mampu menyatukan data penjualan, stok, dan performa cabang dalam satu platform yang mudah dipantau.",
+    company: {
+      name: "Talenta People",
+      logoText: "TALENTA PEOPLE",
+      industry: "Human Resources",
+      size: "50–150 employees",
+      founded: "2019",
+      productsUsed: [
+        "Recruitment Dashboard",
+        "Applicant Tracking",
+        "Interview Scheduling",
       ],
     },
-    {
-      title: "Tantangan Bisnis",
-      content: [
-        "Sebelumnya, data penjualan dan stok dari setiap cabang masih direkap secara terpisah. Hal ini membuat proses pengecekan stok dan laporan penjualan membutuhkan waktu lebih lama.",
-        "Perbedaan data antar cabang juga membuat tim operasional sulit mendapatkan gambaran kondisi bisnis secara real-time.",
-      ],
-      image: "/images/studycase/pos.webp",
-    },
-    {
-      title: "Zeni Consulting sebagai solusi",
-      content: [
-        "Sistem POS terintegrasi dikembangkan untuk menyatukan data transaksi, stok barang, dan laporan cabang ke dalam satu dashboard terpusat.",
-        "Dengan integrasi ini, tim dapat memantau performa cabang, melihat pergerakan stok, dan membuat keputusan operasional dengan data yang lebih akurat.",
-      ],
-      image: "/images/studycase/pos.webp",
-    },
-    {
-      title: "Hasil",
-      content: [
-        "Setelah sistem diterapkan, akurasi stok meningkat hingga 95% dan proses monitoring cabang menjadi dua kali lebih cepat.",
-        "Tim manajemen dapat melihat kondisi operasional secara real-time tanpa harus menunggu rekap manual dari setiap cabang.",
-      ],
-    },
-  ],
-},
 
-{
-  slug: "recruitment-management-dashboard",
+    title:
+      "Talenta People sederhanakan proses rekrutmen dan monitoring kandidat dengan dashboard internal",
 
-  company: {
-    name: "Talenta People",
-    logoText: "TALENTA PEOPLE",
-    industry: "Human Resources",
-    size: "50–150 employees",
-    founded: "2019",
-    productsUsed: [
-      "Recruitment Dashboard",
-      "Applicant Tracking",
-      "Interview Scheduling",
+    client: "Human Resources",
+    key: "internal-dashboard",
+    category: "INTERNAL DASHBOARD",
+
+    image: "/images/studycase/recruitment.webp",
+
+    excerpt:
+      "Dashboard rekrutmen membantu tim HR mengelola kandidat, jadwal interview, dan status hiring dalam satu sistem terpusat.",
+
+    testimonial: {
+      quote:
+        "Proses hiring sebelumnya tersebar di spreadsheet dan chat. Dengan dashboard ini, status kandidat jauh lebih mudah dipantau oleh seluruh tim.",
+      person: "HR Manager",
+      position: "Talenta People",
+      avatar: "/images/studycase/recruitment.webp",
+    },
+
+    stats: [
+      {
+        value: "60%",
+        label: "proses administrasi berkurang",
+      },
+      {
+        value: "2x",
+        label: "tracking kandidat lebih cepat",
+      },
+      {
+        value: "100%",
+        label: "pipeline rekrutmen terpusat",
+      },
+    ],
+
+    sidebar: [
+      {
+        labelKey: "talenta.sidebar.company.label",
+        valueKey: "talenta.sidebar.company.value",
+      },
+      {
+        labelKey: "talenta.sidebar.industry.label",
+        valueKey: "talenta.sidebar.industry.value",
+      },
+      {
+        labelKey: "talenta.sidebar.size.label",
+        valueKey: "talenta.sidebar.size.value",
+      },
+      {
+        labelKey: "talenta.sidebar.founded.label",
+        valueKey: "talenta.sidebar.founded.value",
+      },
+      {
+        labelKey: "talenta.sidebar.product.label",
+        valueKey: "talenta.sidebar.product.value",
+      },
+    ],
+
+    sections: [
+      {
+        titleKey: "talenta.about.title",
+        contentKeys: ["talenta.about.p1", "talenta.about.p2"],
+      },
+      {
+        titleKey: "talenta.challenge.title",
+        contentKeys: ["talenta.challenge.p1", "talenta.challenge.p2"],
+        image: "/images/studycase/recruitment.webp",
+      },
+      {
+        titleKey: "talenta.solution.title",
+        contentKeys: ["talenta.solution.p1", "talenta.solution.p2"],
+        image: "/images/studycase/recruitment.webp",
+      },
+      {
+        titleKey: "talenta.result.title",
+        contentKeys: ["talenta.result.p1", "talenta.result.p2"],
+      },
     ],
   },
 
-  title:
-    "Talenta People sederhanakan proses rekrutmen dan monitoring kandidat dengan dashboard internal",
+  {
+    slug: "ai-customer-support-assistant",
 
-  client: "Human Resources",
+    company: {
+      name: "SupportHub Indonesia",
+      logoText: "SUPPORTHUB",
+      industry: "Customer Service",
+      size: "30–100 employees",
+      founded: "2020",
+      productsUsed: [
+        "AI Support Assistant",
+        "WhatsApp Integration",
+        "Knowledge Base Automation",
+      ],
+    },
 
-  category: "INTERNAL DASHBOARD",
+    title:
+      "SupportHub Indonesia percepat respon pelanggan dengan AI assistant terintegrasi WhatsApp",
 
-  image: "/images/studycase/recruitment.webp",
+    client: "Customer Service",
+    key: "ai-automation",
+    category: "AI AUTOMATION",
 
-  excerpt:
-    "Dashboard rekrutmen membantu tim HR mengelola kandidat, jadwal interview, dan status hiring dalam satu sistem terpusat.",
+    image: "/images/studycase/customer-support.webp",
 
-  testimonial: {
-    quote:
-      "Proses hiring sebelumnya tersebar di spreadsheet dan chat. Dengan dashboard ini, status kandidat jauh lebih mudah dipantau oleh seluruh tim.",
-    person: "HR Manager",
-    position: "Talenta People",
-    avatar: "/images/studycase/recruitment.webp",
+    excerpt:
+      "AI assistant membantu tim support menjawab pertanyaan berulang, mengakses knowledge base, dan mempercepat respon pelanggan.",
+
+    testimonial: {
+      quote:
+        "Pertanyaan pelanggan yang berulang sekarang bisa ditangani lebih cepat. Tim support kami bisa fokus ke kasus yang lebih penting.",
+      person: "Customer Support Lead",
+      position: "SupportHub Indonesia",
+      avatar: "/images/studycase/customer-support.webp",
+    },
+
+    stats: [
+      {
+        value: "45%",
+        label: "beban pertanyaan repetitif berkurang",
+      },
+      {
+        value: "2.5x",
+        label: "respon awal lebih cepat",
+      },
+      {
+        value: "24/7",
+        label: "dukungan otomatis tersedia",
+      },
+    ],
+
+    sidebar: [
+  {
+    labelKey: "supporthub.sidebar.company.label",
+    valueKey: "supporthub.sidebar.company.value",
   },
+  {
+    labelKey: "supporthub.sidebar.industry.label",
+    valueKey: "supporthub.sidebar.industry.value",
+  },
+  {
+    labelKey: "supporthub.sidebar.size.label",
+    valueKey: "supporthub.sidebar.size.value",
+  },
+  {
+    labelKey: "supporthub.sidebar.founded.label",
+    valueKey: "supporthub.sidebar.founded.value",
+  },
+  {
+    labelKey: "supporthub.sidebar.product.label",
+    valueKey: "supporthub.sidebar.product.value",
+  },
+],
 
-  stats: [
-    {
-      value: "60%",
-      label: "proses administrasi berkurang",
-    },
-    {
-      value: "2x",
-      label: "tracking kandidat lebih cepat",
-    },
-    {
-      value: "100%",
-      label: "pipeline rekrutmen terpusat",
-    },
-  ],
-
-  sidebar: [
-    {
-      label: "Perusahaan",
-      value: "Talenta People",
-    },
-    {
-      label: "Industri",
-      value: "Human Resources",
-    },
-    {
-      label: "Ukuran Perusahaan",
-      value: "50–150 karyawan",
-    },
-    {
-      label: "Tahun Berdiri",
-      value: "2019",
-    },
-    {
-      label: "Produk yang Digunakan",
-      value: "Recruitment Dashboard, Applicant Tracking",
-    },
-  ],
-
-  sections: [
-    {
-      title: "Tentang Perusahaan",
-      content: [
-        "Talenta People adalah perusahaan yang membantu bisnis mengelola kebutuhan sumber daya manusia, termasuk proses rekrutmen dan manajemen kandidat.",
-        "Seiring meningkatnya kebutuhan hiring, tim HR membutuhkan sistem yang lebih rapi untuk memantau kandidat, jadwal interview, dan status setiap proses rekrutmen.",
-      ],
-    },
-    {
-      title: "Tantangan Bisnis",
-      content: [
-        "Sebelumnya, proses rekrutmen masih banyak bergantung pada spreadsheet, chat internal, dan update manual dari beberapa anggota tim.",
-        "Kondisi ini membuat status kandidat sulit dipantau secara konsisten dan meningkatkan risiko informasi terlewat selama proses hiring.",
-      ],
-      image: "/images/studycase/recruitment.webp",
-    },
-    {
-      title: "Zeni Consulting sebagai solusi",
-      content: [
-        "Dashboard rekrutmen dibangun untuk membantu tim HR mengelola kandidat, melihat pipeline hiring, dan mengatur jadwal interview dalam satu sistem.",
-        "Setiap kandidat dapat dipantau berdasarkan status, tahapan seleksi, dan catatan internal sehingga koordinasi tim menjadi lebih terstruktur.",
-      ],
-      image: "/images/studycase/recruitment.webp",
-    },
-    {
-      title: "Hasil",
-      content: [
-        "Setelah dashboard digunakan, proses administrasi rekrutmen berkurang hingga 60% dan tracking kandidat menjadi dua kali lebih cepat.",
-        "Tim HR dapat bekerja lebih terorganisir dan memiliki visibilitas yang lebih baik terhadap seluruh pipeline rekrutmen.",
-      ],
-    },
-  ],
-},
-
-{
-  slug: "ai-customer-support-assistant",
-
-  company: {
-    name: "SupportHub Indonesia",
-    logoText: "SUPPORTHUB",
-    industry: "Customer Service",
-    size: "30–100 employees",
-    founded: "2020",
-    productsUsed: [
-      "AI Support Assistant",
-      "WhatsApp Integration",
-      "Knowledge Base Automation",
+    sections: [
+      {
+        titleKey: "supporthub.about.title",
+        contentKeys: ["supporthub.about.p1", "supporthub.about.p2"],
+      },
+      {
+        titleKey: "supporthub.challenge.title",
+        contentKeys: ["supporthub.challenge.p1", "supporthub.challenge.p2"],
+        image: "/images/studycase/customer-support.webp",
+      },
+      {
+        titleKey: "supporthub.solution.title",
+        contentKeys: ["supporthub.solution.p1", "supporthub.solution.p2"],
+        image: "/images/studycase/customer-support.webp",
+      },
+      {
+        titleKey: "supporthub.result.title",
+        contentKeys: ["supporthub.result.p1", "supporthub.result.p2"],
+      },
     ],
   },
-
-  title:
-    "SupportHub Indonesia percepat respon pelanggan dengan AI assistant terintegrasi WhatsApp",
-
-  client: "Customer Service",
-
-  category: "AI AUTOMATION",
-
-  image: "/images/studycase/customer-support.webp",
-
-  excerpt:
-    "AI assistant membantu tim support menjawab pertanyaan berulang, mengakses knowledge base, dan mempercepat respon pelanggan.",
-
-  testimonial: {
-    quote:
-      "Pertanyaan pelanggan yang berulang sekarang bisa ditangani lebih cepat. Tim support kami bisa fokus ke kasus yang lebih penting.",
-    person: "Customer Support Lead",
-    position: "SupportHub Indonesia",
-    avatar: "/images/studycase/customer-support.webp",
-  },
-
-  stats: [
-    {
-      value: "45%",
-      label: "beban pertanyaan repetitif berkurang",
-    },
-    {
-      value: "2.5x",
-      label: "respon awal lebih cepat",
-    },
-    {
-      value: "24/7",
-      label: "dukungan otomatis tersedia",
-    },
-  ],
-
-  sidebar: [
-    {
-      label: "Perusahaan",
-      value: "SupportHub Indonesia",
-    },
-    {
-      label: "Industri",
-      value: "Customer Service",
-    },
-    {
-      label: "Ukuran Perusahaan",
-      value: "30–100 karyawan",
-    },
-    {
-      label: "Tahun Berdiri",
-      value: "2020",
-    },
-    {
-      label: "Produk yang Digunakan",
-      value: "AI Support Assistant, WhatsApp Integration",
-    },
-  ],
-
-  sections: [
-    {
-      title: "Tentang Perusahaan",
-      content: [
-        "SupportHub Indonesia membantu bisnis mengelola layanan pelanggan melalui berbagai channel komunikasi digital.",
-        "Dengan meningkatnya volume pertanyaan pelanggan, perusahaan membutuhkan solusi yang mampu membantu tim support menjawab pertanyaan berulang secara lebih cepat dan konsisten.",
-      ],
-    },
-    {
-      title: "Tantangan Bisnis",
-      content: [
-        "Tim support sering menerima pertanyaan yang sama setiap hari, mulai dari informasi layanan, status pesanan, hingga panduan penggunaan produk.",
-        "Banyaknya pertanyaan repetitif membuat waktu respon menjadi lebih lambat dan mengurangi fokus tim terhadap kasus pelanggan yang lebih kompleks.",
-      ],
-      image: "/images/studycase/customer-support.webp",
-    },
-    {
-      title: "Zeni Consulting sebagai solusi",
-      content: [
-        "AI assistant dikembangkan dan diintegrasikan dengan WhatsApp serta knowledge base internal untuk membantu menjawab pertanyaan pelanggan secara otomatis.",
-        "Sistem ini dirancang untuk memahami pertanyaan umum, memberikan jawaban berdasarkan data internal, dan membantu mengarahkan pelanggan ke informasi yang relevan.",
-      ],
-      image: "/images/studycase/customer-support.webp",
-    },
-    {
-      title: "Hasil",
-      content: [
-        "Setelah AI assistant digunakan, beban pertanyaan repetitif berkurang hingga 45% dan respon awal pelanggan menjadi 2.5 kali lebih cepat.",
-        "Tim support dapat lebih fokus menangani kasus yang membutuhkan perhatian manusia, sementara pertanyaan umum tetap terlayani secara konsisten.",
-      ],
-    },
-  ],
-},
-
 ];

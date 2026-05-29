@@ -1,12 +1,16 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import { helpCategories, popularQuestions } from "../data/helpCenter";
-import WhatsAppButton from "../components/WhatsAppButton.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { helpCategories, popularQuestions } from "../../data/helpCenter";
+import WhatsAppButton from "../../components/WhatsAppButton.astro";
+import { translations, type Lang } from "../../scripts/i18n";
 
 const totalArticles = helpCategories.reduce(
   (total, category) => total + category.articles.length,
   0,
 );
+
+const lang = (Astro.currentLocale ?? "id") as Lang;
+const t = (key: string): string => translations[key]?.[lang] ?? key;
 ---
 
 <BaseLayout
@@ -20,9 +24,13 @@ const totalArticles = helpCategories.reduce(
 
       <div class="container help-hero__layout">
         <div class="help-hero__content">
-          <span class="help-eyebrow">Pusat Bantuan</span>
-          <h1>Temukan jawaban untuk kebutuhan digital Anda.</h1>
-          <p>
+          <span class="help-eyebrow" data-i18n="helpcenter.hero.eyebrow">
+            Pusat Bantuan
+          </span>
+          <h1 data-i18n="helpcenter.hero.title">
+            Temukan jawaban untuk kebutuhan digital Anda.
+          </h1>
+          <p data-i18n="helpcenter.hero.description">
             Akses panduan layanan, proses kerja, dan dukungan teknis Zeni
             Consulting dalam satu tempat yang mudah dicari.
           </p>
@@ -34,8 +42,7 @@ const totalArticles = helpCategories.reduce(
                   d="m20 20-4.2-4.2m1.2-5a6.2 6.2 0 1 1-12.4 0 6.2 6.2 0 0 1 12.4 0Z"
                   stroke="currentColor"
                   stroke-width="2"
-                  stroke-linecap="round"
-                ></path>
+                  stroke-linecap="round"></path>
               </svg>
             </span>
             <input
@@ -49,23 +56,29 @@ const totalArticles = helpCategories.reduce(
           <div class="help-stats" aria-label="Ringkasan pusat bantuan">
             <div>
               <strong>{helpCategories.length}</strong>
-              <span>Kategori</span>
+              <span data-i18n="helpcenter.stats.categories">Kategori</span>
             </div>
             <div>
               <strong>{totalArticles}</strong>
-              <span>Artikel bantuan</span>
+              <span data-i18n="helpcenter.stats.articles">Artikel bantuan</span>
             </div>
             <div>
               <strong>1:1</strong>
-              <span>Arahan konsultasi</span>
+              <span data-i18n="helpcenter.stats.consultation"
+                >Arahan konsultasi</span
+              >
             </div>
           </div>
         </div>
 
         <aside class="help-hero__panel" aria-label="Topik bantuan cepat">
-          <span class="help-panel__label">Mulai dari sini</span>
-          <h2>Topik yang paling sering dicari</h2>
-          <p>
+          <span class="help-panel__label" data-i18n="helpcenter.panel.label">
+            Mulai dari sini
+          </span>
+          <h2 data-i18n="helpcenter.panel.title">
+            Topik yang paling sering dicari
+          </h2>
+          <p data-i18n="helpcenter.panel.description">
             Pilih kategori untuk melihat panduan dan jawaban yang relevan dengan
             kebutuhan bisnis Anda.
           </p>
@@ -75,7 +88,7 @@ const totalArticles = helpCategories.reduce(
               helpCategories.slice(0, 3).map((item, index) => (
                 <a href={`/help-center/${item.slug}`}>
                   <span>{String(index + 1).padStart(2, "0")}</span>
-                  <strong>{item.title}</strong>
+                  <strong data-i18n={item.titleKey}>{t(item.titleKey)}</strong>
                 </a>
               ))
             }
@@ -87,9 +100,11 @@ const totalArticles = helpCategories.reduce(
     <section class="help-section">
       <div class="container">
         <div class="help-section__header">
-          <span class="help-eyebrow">Knowledge base</span>
-          <h2>Pilih kategori bantuan</h2>
-          <p>
+          <span class="help-eyebrow" data-i18n="helpcenter.section.eyebrow">
+            Knowledge base
+          </span>
+          <h2 data-i18n="helpcenter.section.title">Pilih kategori bantuan</h2>
+          <p data-i18n="helpcenter.section.description">
             Semua panduan disusun berdasarkan alur kerja nyata agar Anda bisa
             menemukan informasi dengan cepat.
           </p>
@@ -101,8 +116,11 @@ const totalArticles = helpCategories.reduce(
               <article
                 class="help-card"
                 data-help-card
-                data-search={`${item.title} ${item.description} ${item.articles
-                  .map((article) => `${article.title} ${article.content}`)
+                data-search={`${t(item.titleKey)} ${t(item.descriptionKey)} ${item.articles
+                  .map(
+                    (article) =>
+                      `${t(article.titleKey)} ${t(article.contentKey)}`,
+                  )
                   .join(" ")}`}
               >
                 <div class="help-card__top">
@@ -110,14 +128,19 @@ const totalArticles = helpCategories.reduce(
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <span class="help-card__count">
-                    {item.articles.length} artikel
+                    {item.articles.length}{" "}
+                    <span data-i18n="helpcenter.section.articles">artikel</span>
                   </span>
                 </div>
 
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
+                <h3 data-i18n={item.titleKey}>{t(item.titleKey)}</h3>
+                <p data-i18n={item.descriptionKey}>{t(item.descriptionKey)}</p>
 
-                <a class="help-card__link" href={`/help-center/${item.slug}`}>
+                <a
+                  class="help-card__link"
+                  href={`/help-center/${item.slug}`}
+                  data-i18n="helpcenter.section.viewguide"
+                >
                   Lihat panduan <span aria-hidden="true">&rarr;</span>
                 </a>
               </article>
@@ -125,7 +148,11 @@ const totalArticles = helpCategories.reduce(
           }
         </div>
 
-        <p class="help-empty" id="helpEmpty">
+        <p
+          class="help-empty"
+          id="helpEmpty"
+          data-i18n="helpcenter.section.empty"
+        >
           Tidak ada bantuan yang cocok dengan pencarian Anda.
         </p>
       </div>
@@ -134,9 +161,13 @@ const totalArticles = helpCategories.reduce(
     <section class="help-popular">
       <div class="container help-popular__layout">
         <div class="help-popular__intro">
-          <span class="help-eyebrow">FAQ populer</span>
-          <h2>Pertanyaan yang sering diajukan</h2>
-          <p>
+          <span class="help-eyebrow" data-i18n="helpcenter.popular.eyebrow">
+            FAQ populer
+          </span>
+          <h2 data-i18n="helpcenter.popular.title">
+            Pertanyaan yang sering diajukan
+          </h2>
+          <p data-i18n="helpcenter.popular.description">
             Jawaban cepat untuk pertanyaan yang biasanya muncul saat mulai
             berdiskusi dengan tim Zeni Consulting.
           </p>
@@ -149,7 +180,9 @@ const totalArticles = helpCategories.reduce(
                 <span class="popular-item__number">
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <span class="popular-item__title">{item.title}</span>
+                <span class="popular-item__title" data-i18n={item.titleKey}>
+                  {t(item.titleKey)}
+                </span>
                 <span class="popular-item__arrow" aria-hidden="true">
                   &rarr;
                 </span>
@@ -164,9 +197,13 @@ const totalArticles = helpCategories.reduce(
       <div class="container">
         <div class="help-cta__box">
           <div class="help-cta__content">
-            <span class="help-eyebrow">Masih butuh bantuan?</span>
-            <h2>Diskusikan kebutuhan bisnis Anda dengan tim kami.</h2>
-            <p>
+            <span class="help-eyebrow" data-i18n="helpcenter.cta.eyebrow">
+              Masih butuh bantuan?
+            </span>
+            <h2 data-i18n="helpcenter.cta.title">
+              Diskusikan kebutuhan bisnis Anda dengan tim kami.
+            </h2>
+            <p data-i18n="helpcenter.cta.description">
               Ceritakan konteks bisnis, tantangan operasional, atau ide sistem
               yang ingin Anda bangun. Tim Zeni Consulting akan membantu memberi
               arahan awal yang jelas.
@@ -174,7 +211,11 @@ const totalArticles = helpCategories.reduce(
           </div>
 
           <div class="help-cta__actions">
-            <WhatsAppButton label="Hubungi Kami" className="help-cta__button" />
+            <WhatsAppButton
+              label={t("helpcenter.cta.button")}
+              className="help-cta__button"
+              data-i18n="helpcenter.cta.button"
+            />
           </div>
         </div>
       </div>
@@ -191,8 +232,12 @@ const totalArticles = helpCategories.reduce(
     --help-shadow: 0 18px 42px rgba(15, 23, 42, 0.08);
 
     overflow: hidden;
-    background:
-      linear-gradient(180deg, var(--color-white) 0%, var(--help-soft) 48%, var(--color-white) 100%);
+    background: linear-gradient(
+      180deg,
+      var(--color-white) 0%,
+      var(--help-soft) 48%,
+      var(--color-white) 100%
+    );
     color: var(--help-ink);
   }
 
@@ -217,8 +262,12 @@ const totalArticles = helpCategories.reduce(
   .help-hero {
     position: relative;
     padding: calc(4rem + 4.5rem) 0 5rem;
-    background:
-      linear-gradient(135deg, var(--color-primary-50) 0%, #ffffff 52%, #eef6fc 100%);
+    background: linear-gradient(
+      135deg,
+      var(--color-primary-50) 0%,
+      #ffffff 52%,
+      #eef6fc 100%
+    );
   }
 
   .help-hero__pattern {
@@ -228,7 +277,11 @@ const totalArticles = helpCategories.reduce(
       linear-gradient(rgba(0, 96, 175, 0.06) 1px, transparent 1px),
       linear-gradient(90deg, rgba(0, 96, 175, 0.06) 1px, transparent 1px);
     background-size: 44px 44px;
-    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.88), transparent 82%);
+    mask-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.88),
+      transparent 82%
+    );
     pointer-events: none;
   }
 
@@ -632,8 +685,12 @@ const totalArticles = helpCategories.reduce(
     padding: 2rem;
     border: 1px solid rgba(0, 96, 175, 0.18);
     border-radius: var(--radius-md);
-    background:
-      linear-gradient(135deg, var(--color-primary-50) 0%, #ffffff 58%, #eef6fc 100%);
+    background: linear-gradient(
+      135deg,
+      var(--color-primary-50) 0%,
+      #ffffff 58%,
+      #eef6fc 100%
+    );
     box-shadow: 0 18px 42px rgba(15, 23, 42, 0.07);
   }
 

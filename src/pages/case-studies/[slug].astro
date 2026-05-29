@@ -2,6 +2,7 @@
 import type { CaseStudy } from "../../data/caseStudies";
 import { caseStudies } from "../../data/caseStudies";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { translations, type Lang } from "../../scripts/i18n";
 
 export function getStaticPaths() {
   return caseStudies.map((study) => ({
@@ -21,6 +22,9 @@ const study = propsStudy ?? caseStudies.find((item) => item.slug === slug);
 if (!study) {
   return Astro.redirect("/case-studies");
 }
+
+const lang = (Astro.currentLocale ?? "id") as Lang;
+const t = (key: string): string => translations[key]?.[lang] ?? key;
 ---
 
 <BaseLayout
@@ -55,13 +59,22 @@ if (!study) {
     <section class="case-hero">
       <div class="case-hero__inner">
         <div class="case-hero__content">
-          <a href="/case-studies" class="case-back"> ← Back to Study Case </a>
+          <a
+            data-i18n="casestudies.case-detail.back"
+            href="/case-studies"
+            class="case-back"
+          >
+            ← Back to Study Case
+          </a>
 
-          <div class="case-company-logo">
+          <div
+            data-i18n={`casestudies.case-detail.${study.company.name}.name`}
+            class="case-company-logo"
+          >
             {study.company.logoText}
           </div>
 
-          <h2>
+          <h2 data-i18n={`casestudies.case-detail.${study.key}.title`}>
             {
               study.title.length > 100
                 ? study.title.slice(0, 100) + "..."
@@ -84,9 +97,17 @@ if (!study) {
             }
 
             <div>
-              <span>Wawancara dengan</span>
-              <strong>{study.testimonial.person}</strong>
-              <small>{study.testimonial.position}</small>
+              <span data-i18n="casestudies.case-detail.wawancara"
+                >Wawancara dengan</span
+              >
+              <strong data-i18n={`casestudies.case-detail.${study.key}.person`}>
+                {study.testimonial.person}
+              </strong>
+              <small
+                data-i18n={`casestudies.case-detail.${study.key}.position`}
+              >
+                {study.testimonial.position}
+              </small>
             </div>
           </div>
         </div>
@@ -111,8 +132,16 @@ if (!study) {
       {
         study.stats.map((stat) => (
           <div class="case-stat-card">
-            <strong>{stat.value}</strong>
-            <span>{stat.label}</span>
+            <strong
+              data-i18n={`casestudies.case-detail.${study.key}.stats-value`}
+            >
+              {stat.value}
+            </strong>
+            <span
+              data-i18n={`casestudies.case-detail.${study.key}.stats-label`}
+            >
+              {stat.label}
+            </span>
           </div>
         ))
       }
@@ -126,8 +155,12 @@ if (!study) {
           {
             study.sidebar.map((item) => (
               <div class="case-sidebar__item">
-                <span>{item.label}</span>
-                <strong>{item.value}</strong>
+                <span data-i18n={item.labelKey}>
+                  {t(item.labelKey)}
+                </span>
+                <strong  data-i18n={item.valueKey}>
+                  {t(item.valueKey)}
+                </strong>
               </div>
             ))
           }
@@ -136,29 +169,21 @@ if (!study) {
 
       <!-- ARTICLE -->
       <article class="case-article">
-        <p class="case-article__intro">
+        <p
+          data-i18n={`casestudies.case-detail.${study.key}.excerpt`}
+          class="case-article__intro"
+        >
           {study.excerpt}
         </p>
 
         {
           study.sections.map((section) => (
             <section class="case-article-section">
-              <h2>{section.title}</h2>
-
-              {section.content.map((paragraph) => (
-                <p>{paragraph}</p>
+              <h2 data-i18n={section.titleKey}>{t(section.titleKey)}</h2>
+              {section.contentKeys.map((key) => (
+                <p data-i18n={key}>{t(key)}</p>
               ))}
-
-              {section.image && (
-                <img
-                  src={section.image}
-                  alt={section.title}
-                  loading="lazy"
-                  decoding="async"
-                  width="1200"
-                  height="800"
-                />
-              )}
+              {section.image && <img src={section.image} alt="" />}
             </section>
           ))
         }

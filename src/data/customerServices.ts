@@ -1,157 +1,157 @@
 export type CustomerService = {
   hero: {
-    eyebrow: string;
-    title: string;
-    description: string;
+    eyebrowKey: string;
+    titleKey: string;
+    descriptionKey: string;
   };
 
   tabs: {
     id: string;
-    label: string;
+    labelKey: string;
   }[];
 
   implementation: {
-    eyebrow: string;
-    title: string;
-    description: string;
-    points: string[];
-    cta: string;
+    eyebrowKey: string;
+    titleKey: string;
+    descriptionKey: string;
+    pointKeys: string[];
+    ctaKey: string;
   };
 
   support: {
-    eyebrow: string;
-    title: string;
-    description: string;
+    eyebrowKey: string;
+    titleKey: string;
+    descriptionKey: string;
     faqs: {
-      question: string;
-      answer: string;
+      questionKey: string;
+      answerKey: string;
     }[];
+    ctaKey: string;
   };
 
   accountManagement: {
-    eyebrow: string;
-    title: string;
-    description: string;
+    eyebrowKey: string;
+    titleKey: string;
+    descriptionKey: string;
     faqs: {
-      question: string;
-      answer: string;
+      questionKey: string;
+      answerKey: string;
     }[];
   };
 
   knowledgeCenter: {
-    eyebrow: string;
-    title: string;
-    description: string;
+    eyebrowKey: string;
+    titleKey: string;
+    descriptionKey: string;
+    whatsappKey: string;
+    ctaKey: string;
     categories: {
-      title: string;
-      description: string;
+      titleKey: string;
+      descriptionKey: string;
     }[];
   };
 
   testimonials: {
     company: string;
-    quote: string;
-    name: string;
-    role: string;
+    quoteKey: string;
+    nameKey: string;
+    roleKey: string;
     image: string;
   }[];
 
   cta: {
-    title: string;
-    description: string;
+    titleKey: string;
+    descriptionKey: string;
   };
 };
 export const customerServices: CustomerService[] = [
   {
     hero: {
-      eyebrow: "Customer Support & Success Zeni Konsulting",
-      title:
-        "Layanan customer service profesional untuk mendukung pertumbuhan bisnis Anda",
-      description:
-        "Kami membantu bisnis Anda memberikan pengalaman pelanggan yang cepat, responsif, dan terstruktur melalui support system, automation, dan knowledge base.",
+      eyebrowKey: "industry.customerservice.hero.eyebrow",
+      titleKey: "industry.customerservice.hero.title",
+      descriptionKey: "industry.customerservice.hero.description",
     },
 
     tabs: [
-      { id: "implementation", label: "Implementation & Training" },
-      { id: "support", label: "Customer Support" },
-      { id: "account", label: "Account Management" },
-      { id: "knowledge", label: "Knowledge Center" },
+      {
+        id: "implementation",
+        labelKey: "industry.customerservice.tabs.1.label",
+      },
+      { id: "support", labelKey: "industry.customerservice.tabs.2.label" },
+      { id: "account", labelKey: "industry.customerservice.tabs.3.label" },
+      { id: "knowledge", labelKey: "industry.customerservice.tabs.4.label" },
     ],
 
     implementation: {
-      eyebrow: "Implementation & Training",
-      title: "Pendampingan implementasi sistem dari awal hingga siap digunakan",
-      description:
-        "Kami membantu proses setup, konfigurasi, dan training agar tim Anda dapat menggunakan sistem dengan lancar.",
-      points: [
-        "Training penggunaan sistem untuk tim internal",
-        "Setup workflow sesuai kebutuhan bisnis",
-        "Pendampingan onboarding hingga sistem siap berjalan",
+      eyebrowKey: "industry.customerservice.implementation.eyebrow",
+      titleKey: "industry.customerservice.implementation.title",
+      descriptionKey: "industry.customerservice.implementation.description",
+      pointKeys: [
+        "industry.customerservice.implementation.points.1",
+        "industry.customerservice.implementation.points.2",
+        "industry.customerservice.implementation.points.3",
       ],
-      cta: "Konsultasi Sekarang",
+      ctaKey: "industry.customerservice.implementation.cta",
     },
 
     support: {
-      eyebrow: "Customer Support",
-      title: "Tim support yang responsif dan siap membantu Anda",
-      description:
-        "Dapatkan bantuan cepat untuk kendala teknis, pertanyaan penggunaan, dan kebutuhan operasional harian.",
+      eyebrowKey: "industry.customerservice.support.eyebrow",
+      titleKey: "industry.customerservice.support.title",
+      descriptionKey: "industry.customerservice.support.description",
       faqs: [
         {
-          question: "Langsung terhubung melalui live chat",
-          answer:
-            "Dapatkan bantuan langsung untuk menyelesaikan kendala dengan cepat melalui live chat.",
+          questionKey: "industry.customerservice.support.faqs.1.question",
+          answerKey: "industry.customerservice.support.faqs.1.answer",
         },
         {
-          question: "Support tersedia pada hari kerja",
-          answer:
-            "Tim kami siap membantu kebutuhan operasional Anda selama jam kerja.",
+          questionKey: "industry.customerservice.support.faqs.2.question",
+          answerKey: "industry.customerservice.support.faqs.2.answer",
         },
         {
-          question: "Respon cepat untuk kendala prioritas",
-          answer:
-            "Kami membantu menangani kendala penting agar operasional bisnis tetap berjalan.",
+          questionKey: "industry.customerservice.support.faqs.3.question",
+          answerKey: "industry.customerservice.support.faqs.3.answer",
         },
       ],
+      ctaKey: "industry.customerservice.support.cta",
     },
 
     accountManagement: {
-      eyebrow: "Account Management",
-      title: "Konsultasi personal dengan account manager",
-      description:
-        "Dapatkan arahan strategis dan rekomendasi penggunaan sistem sesuai kebutuhan bisnis Anda.",
+      eyebrowKey: "industry.customerservice.account.eyebrow",
+      titleKey: "industry.customerservice.account.title",
+      descriptionKey: "industry.customerservice.account.description",
       faqs: [
         {
-          question: "Account manager yang mudah dihubungi",
-          answer:
-            "Account manager membantu memastikan penggunaan sistem berjalan sesuai tujuan bisnis.",
+          questionKey: "industry.customerservice.account.faqs.1.question",
+          answerKey: "industry.customerservice.account.faqs.1.answer",
         },
         {
-          question: "Business check-in secara berkala",
-          answer:
-            "Kami melakukan evaluasi berkala untuk memahami kebutuhan dan perkembangan bisnis Anda.",
+          questionKey: "industry.customerservice.account.faqs.2.question",
+          answerKey: "industry.customerservice.account.faqs.2.answer",
         },
       ],
     },
 
     knowledgeCenter: {
-      eyebrow: "Knowledge Center",
-      title: "Panduan produk yang mudah diakses kapan saja",
-      description:
-        "Akses dokumentasi, panduan penggunaan, artikel bantuan, dan resource edukasi untuk mendukung tim Anda.",
+      eyebrowKey: "industry.customerservice.knowledge.eyebrow",
+      titleKey: "industry.customerservice.knowledge.title",
+      descriptionKey: "industry.customerservice.knowledge.description",
+      whatsappKey: "industry.customerservice.knowledge.whatsapp",
+      ctaKey: "industry.customerservice.knowledge.cta",
       categories: [
         {
-          title: "Guidebook",
-          description: "Panduan lengkap penggunaan sistem dan fitur utama.",
+          titleKey: "industry.customerservice.knowledge.categories.1.title",
+          descriptionKey:
+            "industry.customerservice.knowledge.categories.1.description",
         },
         {
-          title: "Blog",
-          description:
-            "Artikel edukatif seputar customer service dan bisnis digital.",
+          titleKey: "industry.customerservice.knowledge.categories.2.title",
+          descriptionKey:
+            "industry.customerservice.knowledge.categories.2.description",
         },
         {
-          title: "Release Notes",
-          description: "Informasi pembaruan fitur dan peningkatan sistem.",
+          titleKey: "industry.customerservice.knowledge.categories.3.title",
+          descriptionKey:
+            "industry.customerservice.knowledge.categories.3.description",
         },
       ],
     },
@@ -159,41 +159,36 @@ export const customerServices: CustomerService[] = [
     testimonials: [
       {
         company: "SCG",
-        quote:
-          "Sistem support sangat membantu tim kami dalam menangani kebutuhan operasional dengan lebih cepat.",
-        name: "Indah Limasari Nabati Tawan",
-        role: "HRIS Supervisor",
+        quoteKey: "industry.customerservice.testimonial.1.quote",
+        nameKey: "industry.customerservice.testimonial.1.name",
+        roleKey: "industry.customerservice.testimonial.1.role",
         image: "/images/customer-service/testimonial-1.webp",
       },
       {
         company: "PERMEDIA",
-        quote:
-          "Urusan layanan pelanggan jadi lebih terstruktur dan setiap kendala bisa ditangani dengan cepat.",
-        name: "Bambang Sugiyanto",
-        role: "Tax Officer",
+        quoteKey: "industry.customerservice.testimonial.2.quote",
+        nameKey: "industry.customerservice.testimonial.2.name",
+        roleKey: "industry.customerservice.testimonial.2.role",
         image: "/images/customer-service/testimonial-2.webp",
       },
       {
         company: "Narasi",
-        quote:
-          "Komunikasi dengan tim support jadi lebih mudah dan responsif untuk kebutuhan harian.",
-        name: "Laode Khairullah Dahlan",
-        role: "Head of HR",
+        quoteKey: "industry.customerservice.testimonial.3.quote",
+        nameKey: "industry.customerservice.testimonial.3.name",
+        roleKey: "industry.customerservice.testimonial.3.role",
         image: "/images/customer-service/testimonial-3.webp",
       },
       {
         company: "Support Team",
-        quote:
-          "Sistem support sangat membantu tim kami dalam menangani kebutuhan operasional dengan lebih cepat.",
-        name: "Indah Limasari Nabati Tawan",
-        role: "HRIS Supervisor",
+        quoteKey: "industry.customerservice.testimonial.4.quote",
+        nameKey: "industry.customerservice.testimonial.4.name",
+        roleKey: "industry.customerservice.testimonial.4.role",
         image: "/images/customer-service/testimonial-4.webp",
       },
     ],
     cta: {
-      title: "Siap tingkatkan kualitas layanan pelanggan Anda?",
-      description:
-        "Diskusikan kebutuhan bisnis Anda bersama kami dan temukan solusi customer service yang tepat.",
+      titleKey: "industry.customerservice.cta.title",
+      descriptionKey: "industry.customerservice.cta.description",
     },
   },
 ];

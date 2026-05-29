@@ -1,128 +1,97 @@
 export const helpCategories = [
   {
     slug: "mulai-konsultasi",
-    title: "Mulai Konsultasi",
-    description:
-      "Panduan untuk memulai konsultasi dan mendiskusikan kebutuhan bisnis Anda.",
+    titleKey: "helpcenter.cat.1.title",
+    descriptionKey: "helpcenter.cat.1.description",
     articles: [
       {
-				 id: "cara-memulai-konsultasi",
-        title: "Bagaimana cara memulai konsultasi?",
-        content:
-          "Anda dapat menghubungi tim Zeni Consulting melalui WhatsApp atau halaman kontak. Setelah itu, tim kami akan membantu memahami kebutuhan bisnis Anda.",
-					link : {
-						label: "Lihat Tentang Kami",
-						href: "/about",
-					},
-				},
-				{
-					id: "persiapan-sebelum-konsultasi",
-					title: "Apa saja yang perlu disiapkan sebelum konsultasi?",
-					content:
-          "Siapkan informasi singkat tentang bisnis, masalah yang ingin diselesaikan, target project, dan estimasi timeline yang diharapkan.",
-					link : {
-						label: "Lihat Tentang Kami",
-						href: "/about",
-					},
-				},
-			],
-		},
-		{
-			slug: "layanan-zeni",
-			title: "Layanan Zeni",
-			description:
-      "Informasi tentang pengembangan software, konsultasi IT, hardware, dan automasi.",
-			articles: [
-				{
-					title: "Layanan apa saja yang tersedia?",
-					content:
-          "Zeni Consulting menyediakan layanan pengembangan software, instalasi perangkat keras, konsultasi IT, dan automasi AI bisnis.",
-					link : {
-						label: "Lihat Layanan",
-						href: "/services",
-					},
+        id: "cara-memulai-konsultasi",
+        titleKey: "helpcenter.cat.1.article.1.title",
+        contentKey: "helpcenter.cat.1.article.1.content",
+        link: { labelKey: "helpcenter.cat.1.article.1.link", href: "/about" },
       },
       {
-        title: "Apakah bisa membuat sistem custom?",
-        content:
-          "Bisa. Kami dapat membangun sistem sesuai proses bisnis dan kebutuhan operasional perusahaan Anda.",
-					link : {
-						label: "Lihat Layanan",
-						href: "/services",
-					},
+        id: "persiapan-sebelum-konsultasi",
+        titleKey: "helpcenter.cat.1.article.2.title",
+        contentKey: "helpcenter.cat.1.article.2.content",
+        link: { labelKey: "helpcenter.cat.1.article.2.link", href: "/about" },
+      },
+    ],
+  },
+  {
+    slug: "layanan-zeni",
+    titleKey: "helpcenter.cat.2.title",
+    descriptionKey: "helpcenter.cat.2.description",
+    articles: [
+      {
+        titleKey: "helpcenter.cat.2.article.1.title",
+        contentKey: "helpcenter.cat.2.article.1.content",
+        link: {
+          labelKey: "helpcenter.cat.2.article.1.link",
+          href: "/services",
+        },
+      },
+      {
+        titleKey: "helpcenter.cat.2.article.2.title",
+        contentKey: "helpcenter.cat.2.article.2.content",
+        link: {
+          labelKey: "helpcenter.cat.2.article.2.link",
+          href: "/services",
+        },
       },
     ],
   },
   {
     slug: "project-proses-kerja",
-    title: "Project & Proses Kerja",
-    description:
-      "Pelajari alur kerja project, timeline, revisi, dan komunikasi selama pengerjaan.",
+    titleKey: "helpcenter.cat.3.title",
+    descriptionKey: "helpcenter.cat.3.description",
     articles: [
       {
-        title: "Bagaimana alur pengerjaan project?",
-        content:
-          "Alur umum dimulai dari konsultasi, analisis kebutuhan, perencanaan solusi, desain, pengembangan, testing, revisi, hingga deployment.",
-					link : {
-						label: "Lihat Tentang Kami",
-						href: "/about",
-					},
+        titleKey: "helpcenter.cat.3.article.1.title",
+        contentKey: "helpcenter.cat.3.article.1.content",
+        link: { labelKey: "helpcenter.cat.3.article.1.link", href: "/about" },
       },
       {
-        title: "Berapa lama estimasi pengerjaan?",
-        content:
-          "Durasi pengerjaan bergantung pada kompleksitas project. Website sederhana bisa lebih cepat, sedangkan sistem custom membutuhkan analisis dan pengembangan lebih detail.",
-					link : {
-						label: "Lihat Tentang Kami",
-						href: "/about",
-					},
+        titleKey: "helpcenter.cat.3.article.2.title",
+        contentKey: "helpcenter.cat.3.article.2.content",
+        link: { labelKey: "helpcenter.cat.3.article.2.link", href: "/about" },
       },
     ],
   },
   {
     slug: "support-maintenance",
-    title: "Support & Maintenance",
-    description:
-      "Bantuan setelah project selesai, perawatan sistem, dan dukungan teknis.",
+    titleKey: "helpcenter.cat.4.title",
+    descriptionKey: "helpcenter.cat.4.description",
     articles: [
       {
-        title: "Apakah tersedia layanan maintenance?",
-        content:
-          "Ya. Kami menyediakan layanan maintenance untuk menjaga sistem tetap berjalan stabil, aman, dan sesuai kebutuhan bisnis.",
-					link : {
-						label: "Lihat Tentang Kami",
-						href: "/about",
-					},
+        titleKey: "helpcenter.cat.4.article.1.title",
+        contentKey: "helpcenter.cat.4.article.1.content",
+        link: { labelKey: "helpcenter.cat.4.article.1.link", href: "/about" },
       },
       {
-        title: "Apa saja yang termasuk support?",
-        content:
-          "Support dapat mencakup bug fixing, monitoring, minor update, backup, dan konsultasi teknis lanjutan.",
-					link : {
-						label: "Lihat Tentang Kami",
-						href: "/about",
-					},
+        titleKey: "helpcenter.cat.4.article.2.title",
+        contentKey: "helpcenter.cat.4.article.2.content",
+        link: { labelKey: "helpcenter.cat.4.article.2.link", href: "/about" },
       },
-			
     ],
   },
 ];
 
 export const popularQuestions = [
   {
-    title: "Bagaimana cara memulai konsultasi dengan Zeni Consulting?",
+    titleKey: "helpcenter.popular.1.title",
     href: "/help-center/mulai-konsultasi#cara-memulai-konsultasi",
   },
   {
-    title: "Apakah Zeni Consulting bisa membuat sistem custom?",
-    href: "/help-center/pengembangan-software#sistem-custom",
+    titleKey: "helpcenter.popular.2.title",
+    href: "/help-center/layanan-zeni#sistem-custom",
   },
   {
-    title: "Berapa lama estimasi pengerjaan website atau sistem?",
+    titleKey: "helpcenter.popular.3.title",
     href: "/help-center/project-proses-kerja#estimasi-pengerjaan",
   },
   {
-    title: "Apakah tersedia layanan maintenance setelah project selesai?",
+    titleKey: "helpcenter.popular.4.title",
     href: "/help-center/support-maintenance#layanan-maintenance",
   },
 ];

@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 import { customerServices } from "../data/customerServices";
 import WhatsAppButton from "../components/WhatsAppButton.astro";
-
+import { translations, type Lang } from "../scripts/i18n";
 const customerService = customerServices[0];
 
 const {
@@ -21,6 +21,9 @@ const firstTestimonial = testimonials[0];
 const secondTestimonial = testimonials[1];
 const thirdTestimonial = testimonials[2];
 const forthTestimonial = testimonials[3];
+
+const lang = (Astro.currentLocale ?? "id") as Lang;
+const t = (key: string): string => translations[key]?.[lang] ?? key;
 ---
 
 <BaseLayout
@@ -28,7 +31,6 @@ const forthTestimonial = testimonials[3];
   description="Real projects, real outcomes. How we help businesses build systems that scale."
   noPadding
 >
-  <!-- Page Hero -->
   <section class="page-hero">
     <div class="page-hero__bg"></div>
     <div class="container page-hero__inner">
@@ -37,24 +39,16 @@ const forthTestimonial = testimonials[3];
         data-aos="fade-up"
         data-i18n="casestudies.hero.badge">In-Depth Analysis</span
       >
-      <!-- <h1 data-aos="fade-up" data-i18n="casestudies.hero.title">
-       Studi Kasus
-      </h1> -->
-      <h1 data-aos="fade-up">
-       Customer Services
+      <h1 data-aos="fade-up" data-i18n="industry.customerservice.title">
+        Customer Service
       </h1>
-      <!-- <p
-        class="page-hero__sub"
-        data-aos="fade-up"
-        data-i18n="casestudies.hero.sub"
-      >
-        Real projects. Measurable outcomes. Trust through evidence.
-      </p> -->
       <p
         class="page-hero__sub"
-        
+        data-aos="fade-up"
+        data-i18n="industry.customerservice.sub"
       >
-        Solusi customer service yang membantu mempercepat respons, merapikan alur kerja support, dan meningkatkan pengalaman pelanggan.
+        Solusi customer service yang membantu mempercepat respons, merapikan
+        alur kerja support, dan meningkatkan pengalaman pelanggan.
       </p>
     </div>
   </section>
@@ -64,9 +58,9 @@ const forthTestimonial = testimonials[3];
     <!-- HERO -->
     <section class="customer-hero">
       <div class="container">
-        <p class="eyebrow ">{hero.eyebrow}</p>
-        <h1>{hero.title}</h1>
-        <p class="hero-description">{hero.description}</p>
+        <p class="eyebrow" data-i18n={hero.eyebrowKey}></p>
+        <h1 data-i18n={hero.titleKey}></h1>
+        <p class="hero-description" data-i18n={hero.descriptionKey}></p>
       </div>
     </section>
 
@@ -80,7 +74,11 @@ const forthTestimonial = testimonials[3];
               class={`tab-link ${index === 0 ? "active" : ""}`}
               data-tab={tab.id}
             >
-              {tab.label}
+              {tab.labelKey ? (
+                <span data-i18n={tab.labelKey}>{tab.labelKey}</span>
+              ) : (
+                tab.labelKey
+              )}
             </a>
           ))
         }
@@ -89,59 +87,76 @@ const forthTestimonial = testimonials[3];
 
     <!-- IMPLEMENTATION -->
     <section id="implementation" class="customer-section">
-      <div class="container section-grid">
+      <di class="container section-grid">
         <article class="testimonial-card">
           <div class="testimonial-image">
             <img src={firstTestimonial.image} alt={firstTestimonial.company} />
           </div>
-
           <div class="testimonial-content">
             <span class="company">{firstTestimonial.company}</span>
-            <blockquote>“{firstTestimonial.quote}”</blockquote>
+            <blockquote data-i18n={firstTestimonial.quoteKey}>
+              "{t(firstTestimonial.quoteKey)}"
+            </blockquote>
             <div>
-              <strong>{firstTestimonial.name}</strong>
-              <p>{firstTestimonial.role}</p>
+              <strong data-i18n={firstTestimonial.nameKey}>
+                {t(firstTestimonial.nameKey)}
+              </strong>
+              <p data-i18n={firstTestimonial.roleKey}>
+                {t(firstTestimonial.roleKey)}
+              </p>
             </div>
           </div>
         </article>
 
         <div class="section-content">
-          <p class="eyebrow">{implementation.eyebrow}</p>
-          <h2>{implementation.title}</h2>
-          <p>{implementation.description}</p>
+          <p class="eyebrow">{t(implementation.eyebrowKey)}</p>
+          <h2>{t(implementation.titleKey)}</h2>
+          <p>{t(implementation.descriptionKey)}</p>
 
           <ul class="check-list">
             {
-              implementation.points.map((point) => (
+              implementation.pointKeys.map((key) => (
                 <li>
                   <span>✓</span>
-                  {point}
+                  <p data-i18n={key}>{t(key)}</p>
                 </li>
               ))
             }
           </ul>
 
-          <a href="/contact" class="primary-button">
-            {implementation.cta}
+          <a
+            href="/contact"
+            class="primary-button"
+            data-i18n={implementation.ctaKey}
+          >
+            {t(implementation.ctaKey)}
           </a>
         </div>
-      </div>
+      </di>
     </section>
 
     <!-- CUSTOMER SUPPORT -->
     <section id="support" class="customer-section">
       <div class="container section-grid reverse-mobile">
         <div class="section-content">
-          <p class="eyebrow">{support.eyebrow}</p>
-          <h2>{support.title}</h2>
-          <p>{support.description}</p>
+          <p class="eyebrow" data-i18n={support.eyebrowKey}>
+            {t(support.eyebrowKey)}
+          </p>
+          <h2 data-i18n={support.titleKey}>
+            {t(support.titleKey)}
+          </h2>
+          <p data-i18n={support.descriptionKey}>
+            {t(support.descriptionKey)}
+          </p>
 
           <div class="accordion-list">
             {
               support.faqs.map((faq, index) => (
                 <details class="accordion-item" open={index === 0}>
-                  <summary>{faq.question}</summary>
-                  <p>{faq.answer}</p>
+                  <summary data-i18n={faq.questionKey}>
+                    {t(faq.questionKey)}
+                  </summary>
+                  <p data-i18n={faq.answerKey}>{t(faq.answerKey)}</p>
                 </details>
               ))
             }
@@ -149,13 +164,17 @@ const forthTestimonial = testimonials[3];
 
           <div class="button-row">
             <WhatsAppButton
-            label="WhatsApp sekarang"
-            message="Halo, saya tertarik membuat website untuk bisnis logistik."
-            className="btn btn--primary"
-          />
-            <a href="/contact" class="secondary-button"
-              >Hubungi Customer Support</a
+              label="WhatsApp sekarang"
+              message="Halo, saya tertarik membuat website untuk bisnis logistik."
+              className="btn btn--primary"
+            />
+            <a
+              href="/contact"
+              class="secondary-button"
+              data-i18n={support.ctaKey}
             >
+              {t(support.ctaKey)}
+            </a>
           </div>
         </div>
 
@@ -169,10 +188,16 @@ const forthTestimonial = testimonials[3];
 
           <div class="testimonial-content">
             <span class="company">{secondTestimonial.company}</span>
-            <blockquote>“{secondTestimonial.quote}”</blockquote>
+            <blockquote data-i18n={secondTestimonial.quoteKey}>
+              "{t(secondTestimonial.quoteKey)}"
+            </blockquote>
             <div>
-              <strong>{secondTestimonial.name}</strong>
-              <p>{secondTestimonial.role}</p>
+              <strong data-i18n={secondTestimonial.nameKey}>
+                {t(secondTestimonial.nameKey)}
+              </strong>
+              <p data-i18n={secondTestimonial.roleKey}>
+                {t(secondTestimonial.roleKey)}
+              </p>
             </div>
           </div>
         </article>
@@ -186,38 +211,50 @@ const forthTestimonial = testimonials[3];
           <div class="testimonial-image">
             <img src={thirdTestimonial.image} alt={thirdTestimonial.company} />
           </div>
-
           <div class="testimonial-content">
             <span class="company">{thirdTestimonial.company}</span>
-            <blockquote>“{thirdTestimonial.quote}”</blockquote>
+            <blockquote data-i18n={thirdTestimonial.quoteKey}>
+              "{t(thirdTestimonial.quoteKey)}"
+            </blockquote>
             <div>
-              <strong>{thirdTestimonial.name}</strong>
-              <p>{thirdTestimonial.role}</p>
+              <strong data-i18n={thirdTestimonial.nameKey}>
+                {t(thirdTestimonial.nameKey)}
+              </strong>
+              <p data-i18n={thirdTestimonial.roleKey}>
+                {t(thirdTestimonial.roleKey)}
+              </p>
             </div>
           </div>
         </article>
 
         <div class="section-content">
-          <p class="eyebrow">{accountManagement.eyebrow}</p>
-          <h2>{accountManagement.title}</h2>
-          <p>{accountManagement.description}</p>
+          <p class="eyebrow" data-i18n={accountManagement.eyebrowKey}>
+            {t(accountManagement.eyebrowKey)}
+          </p>
+          <h2 data-i18n={accountManagement.titleKey}>
+            {t(accountManagement.titleKey)}
+          </h2>
+          <p data-i18n={accountManagement.descriptionKey}>
+            {t(accountManagement.descriptionKey)}
+          </p>
 
           <div class="accordion-list">
             {
               accountManagement.faqs.map((faq, index) => (
                 <details class="accordion-item" open={index === 0}>
-                  <summary>{faq.question}</summary>
-                  <p>{faq.answer}</p>
+                  <summary data-i18n={faq.questionKey}>
+                    {t(faq.questionKey)}
+                  </summary>
+                  <p data-i18n={faq.answerKey}>{t(faq.answerKey)}</p>
                 </details>
               ))
             }
           </div>
-          <br>
+          <br />
           <WhatsAppButton
             label="WhatsApp sekarang"
             message="Halo, saya tertarik membuat website untuk bisnis logistik."
             className="btn btn--primary"
-            
           />
         </div>
       </div>
@@ -225,93 +262,121 @@ const forthTestimonial = testimonials[3];
 
     <!-- KNOWLEDGE CENTER -->
     <section id="knowledge" class="customer-section">
-      <div class="container section-grid reverse-mobile">
-        <div class="section-content">
-          <p class="eyebrow">{knowledgeCenter.eyebrow}</p>
-          <h2>{knowledgeCenter.title}</h2>
-          <p>{knowledgeCenter.description}</p>
-          <div class="button-row">
-            <WhatsAppButton
-            label="WhatsApp sekarang"
-            message="Halo, saya tertarik membuat website untuk bisnis logistik."
-            className="btn btn--primary"
-          />
-            <a href="/contact" class="secondary-button"
-              >Hubungi Customer Support</a
-            >
-          </div>
-        </div>
-
-        <article class="testimonial-card">
-          <div class="testimonial-image">
-            <img
-              src={forthTestimonial.image}
-              alt={forthTestimonial.company}
-            />
-          </div>
-
-          <div class="testimonial-content">
-            <span class="company">{forthTestimonial.company}</span>
-            <blockquote>“{forthTestimonial.quote}”</blockquote>
-            <div>
-              <strong>{forthTestimonial.name}</strong>
-              <p>{forthTestimonial.role}</p>
-            </div>
-          </div>
-        </article>
+  <div class="container section-grid reverse-mobile">
+    <div class="section-content">
+      <p class="eyebrow" data-i18n={knowledgeCenter.eyebrowKey}>
+        {t(knowledgeCenter.eyebrowKey)}
+      </p>
+      <h2 data-i18n={knowledgeCenter.titleKey}>
+        {t(knowledgeCenter.titleKey)}
+      </h2>
+      <p data-i18n={knowledgeCenter.descriptionKey}>
+        {t(knowledgeCenter.descriptionKey)}
+      </p>
+      <div class="button-row">
+        <WhatsAppButton
+          label={t(knowledgeCenter.whatsappKey)}
+          message="Halo, saya tertarik membuat website untuk bisnis logistik."
+          className="btn btn--primary"
+          data-i18n={knowledgeCenter.whatsappKey}
+        />
+        <a
+          href="/contact"
+          class="secondary-button"
+          data-i18n={knowledgeCenter.ctaKey}
+        >
+          {t(knowledgeCenter.ctaKey)}
+        </a>
       </div>
-    </section>
+    </div>
+
+    <article class="testimonial-card">
+      <div class="testimonial-image">
+        <img src={forthTestimonial.image} alt={forthTestimonial.company} />
+      </div>
+      <div class="testimonial-content">
+        <span class="company">{forthTestimonial.company}</span>
+        <blockquote data-i18n={forthTestimonial.quoteKey}>
+          "{t(forthTestimonial.quoteKey)}"
+        </blockquote>
+        <div>
+          <strong data-i18n={forthTestimonial.nameKey}>
+            {t(forthTestimonial.nameKey)}
+          </strong>
+          <p data-i18n={forthTestimonial.roleKey}>
+            {t(forthTestimonial.roleKey)}
+          </p>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
 
     <!-- Help Center -->
-    <section  class="customer-section help-center-section">
-      <div class="container ">
-        <div class="help-center-box">
-          <aside class="help-center-menu">
-            <h3>Temukan panduan Anda berdasarkan kategori</h3>
-  
-            {
-              knowledgeCenter.categories.map((category) => (
-                <div class="help-center-menu-item">
-                  <strong>{category.title}</strong>
-                  <p>{category.description}</p>
-                </div>
-              ))
-            }
-          </aside>
-  
-          <div class="help-center-preview">
-            <div class="preview-icon">
-              <img src="/images/customer-service/knowledge-icon.webp" alt="Help Center icon" />
-            </div>
-            <h3>Guidebook</h3>
-            <p>
-              Sekarang, untuk mendapat lebih banyak wawasan tentang penggunaan
-              sistem dan layanan customer support Anda.
-            </p>
-            <a href="/contact" class="primary-button">
-              Kunjungi pusat bantuan
-            </a>
-          </div>
-        </div>
-        
+    <section class="customer-section help-center-section">
+  <div class="container">
+    <div class="help-center-box">
+      <aside class="help-center-menu">
+        <h3 data-i18n="industry.customerservice.helpcenter.heading">
+          {t('industry.customerservice.helpcenter.heading')}
+        </h3>
 
+        {knowledgeCenter.categories.map((category) => (
+          <div class="help-center-menu-item">
+            <strong data-i18n={category.titleKey}>
+              {t(category.titleKey)}
+            </strong>
+            <p data-i18n={category.descriptionKey}>
+              {t(category.descriptionKey)}
+            </p>
+          </div>
+        ))}
+      </aside>
+
+      <div class="help-center-preview">
+        <div class="preview-icon">
+          <img
+            src="/images/customer-service/knowledge-icon.webp"
+            alt="Help Center icon"
+          />
+        </div>
+        <h3 data-i18n="industry.customerservice.helpcenter.preview.title">
+          {t('industry.customerservice.helpcenter.preview.title')}
+        </h3>
+        <p data-i18n="industry.customerservice.helpcenter.preview.description">
+          {t('industry.customerservice.helpcenter.preview.description')}
+        </p>
+        <a
+          href="/contact"
+          class="primary-button"
+          data-i18n="industry.customerservice.helpcenter.preview.cta"
+        >
+          {t('industry.customerservice.helpcenter.preview.cta')}
+        </a>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
 
     <!-- CTA -->
     <section class="customer-cta">
       <div class="container">
         <div class="cta-star">
-          <img src="/images/sq.png" alt="Star">
+          <img src="/images/sq.png" alt="Star" />
         </div>
-        <h2>{cta.title}</h2>
-        <p>{cta.description}</p>
-        <a href="/contact" class="primary-button "> Hubungi Kami </a>
+        <h2 data-i18n={cta.titleKey}>
+          {t(cta.titleKey)}
+        </h2>
+        <p data-i18n={cta.descriptionKey}>
+          {t(cta.descriptionKey)}
+        </p>
+        <a href="/contact" class="primary-button" data-i18n="industry.customerservice.cta.button">
+          {t('industry.customerservice.cta.button')}
+        </a>
       </div>
     </section>
   </main>
 </BaseLayout>
-
 <style>
   /* ═══ PAGE HERO ═══ */
   .page-hero {
@@ -446,7 +511,6 @@ const forthTestimonial = testimonials[3];
   .tab-link.active {
     background: var(--color-primary);
     color: #ffffff;
-    
   }
 
   .customer-section {
@@ -507,7 +571,6 @@ const forthTestimonial = testimonials[3];
     font-weight: 800;
   }
 
-  
   .primary-button,
   .secondary-button {
     display: inline-flex;
@@ -529,7 +592,6 @@ const forthTestimonial = testimonials[3];
     color: #ffffff;
     background: var(--color-primary);
     box-shadow: 0 12px 28px rgba(79, 70, 229, 0.22);
-		
   }
 
   .primary-button:hover {
@@ -712,18 +774,18 @@ const forthTestimonial = testimonials[3];
   }
 
   .preview-icon {
-  width: 200px;
-  display: grid;
-  place-items: center;
-}
+    width: 200px;
+    display: grid;
+    place-items: center;
+  }
 
-.preview-icon img {
-  width: 100%;
-  max-width: 120px;
-  height: auto;
-  display: block;
-  object-fit: contain;
-}
+  .preview-icon img {
+    width: 100%;
+    max-width: 120px;
+    height: auto;
+    display: block;
+    object-fit: contain;
+  }
 
   .help-center h3 {
     margin: 0;
@@ -774,7 +836,6 @@ const forthTestimonial = testimonials[3];
     color: #5b6475;
     line-height: 1.8;
   }
-  
 
   @media (max-width: 900px) {
     .customer-hero {
@@ -844,7 +905,7 @@ const forthTestimonial = testimonials[3];
   const tabLinks = document.querySelectorAll<HTMLAnchorElement>(".tab-link");
 
   const sections = document.querySelectorAll<HTMLElement>(
-    "#implementation, #support, #account, #knowledge"
+    "#implementation, #support, #account, #knowledge",
   );
 
   const setActiveTab = (id: string) => {
@@ -870,7 +931,7 @@ const forthTestimonial = testimonials[3];
       {
         threshold: [0.2, 0.35, 0.5],
         rootMargin: "-120px 0px -45% 0px",
-      }
+      },
     );
 
     sections.forEach((section) => observer.observe(section));
