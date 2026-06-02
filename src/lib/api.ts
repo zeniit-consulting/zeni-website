@@ -33,9 +33,16 @@ export type ApiResponse<T> = {
   data: T;
 };
 
+export type ServiceGalleryImage = {
+  id: number;
+  image_url: string | null;
+  caption: string | null;
+  sort_order: number;
+
+}
+
 export type Service = {
   id: number;
-  image : string | null;
   image_url: string | null;
   title: string;
   slug: string;
@@ -43,8 +50,10 @@ export type Service = {
   techs : string[] | null;
   is_active: boolean;
   sort_order: number;
-  created_at: string;
-  updated_at: string;
+};
+
+export type ServiceDetail = Service & {
+  gallery: ServiceGalleryImage[];
 };
 
 export type Blog = {
@@ -95,7 +104,7 @@ export async function getServices() {
 }
 
 export async function getServiceBySlug(slug: string) {
-  return fetchApi<ApiResponse<Service>>(`/services/${slug}`);
+  return fetchApi<ApiResponse<ServiceDetail>>(`/services/${slug}`);
 }
 
 export async function getBlogs() {

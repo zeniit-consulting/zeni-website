@@ -2,12 +2,9 @@
 export const prerender = false;
 
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import ServiceDetail from "../../components/ServiceDetail.astro";
 import ServiceSidebar from "../../components/ServiceSidebar.astro";
 import { getServiceBySlug } from "../../lib/api";
-import { t } from "../../scripts/i18n";
-
-
+import ProjectGallery from "../../components/ProjectGallery.astro";
 
 const { slug } = Astro.params;
 
@@ -15,14 +12,13 @@ if (!slug) {
   return Astro.redirect("/404");
 }
 
-const serviceResponse = await getServiceBySlug(slug);
-const service = serviceResponse.data;
-
-
-
-
-
-
+let service;
+try {
+  const serviceResponse = await getServiceBySlug(slug);
+  service = serviceResponse.data;
+} catch (error) {
+  return Astro.redirect("/404");
+}
 
 const formatTech = (tech: string) => {
   const labels: Record<string, string> = {
@@ -48,13 +44,9 @@ const formatTech = (tech: string) => {
   <section class="svc-hero">
     <div class="svc-hero__bg"></div>
     <div class="container svc-hero__inner">
-      <a
-        href="/portfolio"
-        class="svc-hero__back"
-        >&larr; Kembali ke Portfolio</a
+      <a href="/portfolio" class="svc-hero__back">&larr; Kembali ke Portfolio</a
       >
       <h1>{service.title}</h1>
-      
     </div>
   </section>
   <section class="section">
@@ -85,13 +77,14 @@ const formatTech = (tech: string) => {
               )
             }
 
-            <h2 >{service.title}</h2>
-            <p >{service.description}</p>
+            <h2>{service.title}</h2>
+            <p>{service.description}</p>
           </div>
         </div>
         <!-- RIGHT -->
         <ServiceSidebar />
       </div>
+      <ProjectGallery gallery={service.gallery} />
     </div>
   </section>
 
@@ -319,18 +312,16 @@ const formatTech = (tech: string) => {
     font-weight: 600;
     margin-bottom: 14px;
     width: fit-content;
-  white-space: nowrap;
+    white-space: nowrap;
   }
 
   .project-badges {
-  display: grid;
-  grid-template-columns: repeat(5, auto);
-  gap: 0.5rem;
-  justify-content: start;
-  align-items: center;
-}
-
-
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    gap: 0.5rem;
+    justify-content: start;
+    align-items: center;
+  }
 
   /* ═══ PROCESS ═══ */
   .process-row {

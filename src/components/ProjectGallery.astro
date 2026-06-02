@@ -1,0 +1,363 @@
+---
+type GalleryImage = {
+  id: number;
+  image_url?: string | null;
+  caption?: string | null;
+  sort_order: number | null;
+};
+
+interface Props {
+  gallery: GalleryImage[];
+  projectTitle?: string;
+}
+
+const { gallery = [], projectTitle = "Project Gallery" } = Astro.props as Props;
+
+const items = gallery
+  .filter((item) => item.image_url)
+  .sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0))
+  .slice(0, 5)
+  .map((item, index) => ({
+    src: item.image_url!,
+    alt: item.caption ?? `${projectTitle} screenshot ${index + 1}`,
+    label: item.caption ?? `0${index + 1} Project Preview`,
+  }));
+
+const mainImage = items[0] ?? null;
+const sideImages = items.slice(1, 3);
+const bottomImages = items.slice(3, 5);
+---
+
+{
+  items.length > 0 && (
+    <section class="project-gallery">
+      <div class="project-gallery__container">
+        <div class="project-gallery__header">
+          <span class="project-gallery__label">
+            Project Image Gallery
+          </span>
+
+          <h2>
+            Tampilan Website
+          </h2>
+
+          <p>
+            Berikut beberapa tampilan utama dari website yang dikembangkan,
+            mulai dari halaman utama, layanan, blog, hingga tampilan mobile.
+          </p>
+        </div>
+
+        <div class="project-gallery__grid">
+          {
+            mainImage && (
+              <a
+                href={mainImage.src}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="project-gallery__item project-gallery__item--main"
+              >
+                <div class="project-gallery__image-wrap project-gallery__image-wrap--main">
+                  <img
+                    src={mainImage.src}
+                    alt={mainImage.alt}
+                    loading="lazy"
+                  />
+
+                  <div class="project-gallery__overlay"></div>
+
+                  <div class="project-gallery__caption">
+                    {mainImage.label}
+                  </div>
+                </div>
+              </a>
+            )
+          }
+
+          {
+            sideImages.length > 0 && (
+              <div class="project-gallery__side">
+                {sideImages.map((item) => (
+                  <a
+                    href={item.src}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="project-gallery__item"
+                  >
+                    <div class="project-gallery__image-wrap project-gallery__image-wrap--side">
+                      <img
+                        src={item.src}
+                        alt={item.alt}
+                        loading="lazy"
+                      />
+
+                      <div class="project-gallery__overlay"></div>
+
+                      <div class="project-gallery__caption project-gallery__caption--small">
+                        {item.label}
+                      </div>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            )
+          }
+        </div>
+
+        {
+          bottomImages.length > 0 && (
+            <div class="project-gallery__bottom">
+              {bottomImages.map((item) => (
+                <a
+                  href={item.src}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="project-gallery__item"
+                >
+                  <div class="project-gallery__image-wrap project-gallery__image-wrap--bottom">
+                    <img
+                      src={item.src}
+                      alt={item.alt}
+                      loading="lazy"
+                    />
+
+                    <div class="project-gallery__overlay"></div>
+
+                    <div class="project-gallery__caption project-gallery__caption--small">
+                      {item.label}
+                    </div>
+                  </div>
+                </a>
+              ))}
+            </div>
+          )
+        }
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .project-gallery {
+    position: relative;
+    overflow: hidden;
+    background:
+    padding: 96px 0;
+		margin-top: 96px;
+  }
+
+  .project-gallery__container {
+    width: min(1120px, calc(100% - 32px));
+    margin: 0 auto;
+  }
+
+  .project-gallery__header {
+    max-width: 720px;
+    margin: 0 auto 48px;
+    text-align: center;
+  }
+
+  .project-gallery__label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    color: var(--color-primary, #00579b);
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+  }
+
+  .project-gallery__header h2 {
+    margin: 0;
+    color: #0f172a;
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    font-weight: 900;
+    line-height: 1.06;
+    letter-spacing: -0.055em;
+  }
+
+  .project-gallery__header p {
+    max-width: 640px;
+    margin: 18px auto 0;
+    color: #64748b;
+    font-size: 15px;
+    line-height: 1.85;
+  }
+
+  .project-gallery__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+    gap: 22px;
+    align-items: stretch;
+  }
+
+  .project-gallery__side {
+    display: grid;
+    gap: 22px;
+  }
+
+  .project-gallery__bottom {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+    margin-top: 22px;
+  }
+
+  .project-gallery__item {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border: 1px solid rgba(226, 232, 240, 0.95);
+    border-radius: 32px;
+    background: #f8fafc;
+    box-shadow: 0 18px 54px rgba(15, 23, 42, 0.08);
+    transition:
+      transform 0.32s ease,
+      box-shadow 0.32s ease,
+      border-color 0.32s ease;
+  }
+
+  .project-gallery__item:hover {
+    transform: translateY(-6px);
+    border-color: rgba(0, 87, 155, 0.22);
+    box-shadow: 0 28px 80px rgba(15, 23, 42, 0.14);
+  }
+
+  .project-gallery__image-wrap {
+    position: relative;
+    overflow: hidden;
+    
+  }
+
+  .project-gallery__image-wrap--main {
+    height: 520px;
+  }
+
+  .project-gallery__image-wrap--side {
+    height: 249px;
+  }
+
+  .project-gallery__image-wrap--bottom {
+    height: 330px;
+  }
+
+  .project-gallery__image-wrap img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    transform: scale(1.001);
+    transition: transform 0.7s ease;
+  }
+
+  .project-gallery__item:hover img {
+    transform: scale(1.055);
+  }
+
+  .project-gallery__overlay {
+    position: absolute;
+    inset: auto 0 0;
+    height: 38%;
+    background: linear-gradient(
+      to top,
+      rgba(15, 23, 42, 0.62),
+      rgba(15, 23, 42, 0)
+    );
+    pointer-events: none;
+  }
+
+  .project-gallery__caption {
+    position: absolute;
+    left: 22px;
+    bottom: 22px;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    max-width: calc(100% - 44px);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.94);
+    padding: 10px 15px;
+    color: #0f172a;
+    font-size: 12px;
+    font-weight: 900;
+    line-height: 1;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.14);
+    backdrop-filter: blur(12px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .project-gallery__caption--small {
+    left: 18px;
+    bottom: 18px;
+    padding: 9px 13px;
+    font-size: 11px;
+  }
+
+  @media (max-width: 1024px) {
+    .project-gallery__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .project-gallery__side {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .project-gallery__image-wrap--main {
+      height: 460px;
+    }
+
+    .project-gallery__image-wrap--side {
+      height: 280px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .project-gallery {
+      padding: 72px 0;
+    }
+
+    .project-gallery__header {
+      margin-bottom: 36px;
+    }
+
+    .project-gallery__side,
+    .project-gallery__bottom {
+      grid-template-columns: 1fr;
+    }
+
+    .project-gallery__image-wrap--main,
+    .project-gallery__image-wrap--side,
+    .project-gallery__image-wrap--bottom {
+      height: 320px;
+    }
+
+    .project-gallery__item {
+      border-radius: 26px;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .project-gallery__container {
+      width: min(100% - 24px, 1120px);
+    }
+
+    .project-gallery__image-wrap--main,
+    .project-gallery__image-wrap--side,
+    .project-gallery__image-wrap--bottom {
+      height: 260px;
+    }
+
+    .project-gallery__caption {
+      left: 14px;
+      bottom: 14px;
+      max-width: calc(100% - 28px);
+      padding: 8px 12px;
+      font-size: 11px;
+    }
+  }
+</style>
