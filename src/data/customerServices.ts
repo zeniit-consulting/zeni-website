@@ -62,6 +62,7 @@ export type CustomerService = {
   cta: {
     titleKey: string;
     descriptionKey: string;
+    buttonKey: string;
   };
 };
 export const customerServices: CustomerService[] = [
@@ -189,6 +190,7 @@ export const customerServices: CustomerService[] = [
     cta: {
       titleKey: "industry.customerservice.cta.title",
       descriptionKey: "industry.customerservice.cta.description",
+      buttonKey: "industry.customerservice.cta.button",
     },
   },
 ];

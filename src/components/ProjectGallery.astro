@@ -19,7 +19,7 @@ const items = gallery
   .slice(0, 5)
   .map((item, index) => ({
     src: item.image_url!,
-    alt: item.caption ?? `${projectTitle} screenshot ${index + 1}`,
+    alt: item.caption ?? `${projectTitle} project preview ${index + 1}`,
     label: item.caption ?? `0${index + 1} Project Preview`,
   }));
 

@@ -56,22 +56,16 @@ const services = servicesResponse.data;
               </div>
               <div class="project-content">
                 {service.techs?.length ? (
-                  <div class="project-tech-pill">
-                    {service.techs?.map((tech, index) => (
-                      <>
-                        <span>{formatTech(tech)}</span>
-
-                        {index !== service.techs!.length - 1 && (
-                          <span class="project-tech-dot">•</span>
-                        )}
-                      </>
+                  <div class="project-tech-list">
+                    {service.techs?.map((tech) => (
+                      <span class="project-tech-pill">{formatTech(tech)}</span>
                     ))}
                   </div>
                 ) : null}
                 <h2 class="service-card__title">{service.title}</h2>
                 <p class="service-card__text">{service.description}</p>
                 <span
-                  class="service-card__link "
+                  class="service-card__link"
                   data-i18n="project.viewdetails"
                 >
                   View details &rarr;
@@ -398,29 +392,24 @@ const services = servicesResponse.data;
     transition: transform 0.6s ease;
   }
 
-  .project-tech-pill {
-    margin-bottom: 20px;
-    display: inline-flex;
+   .project-tech-list {
+    display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 0.45rem;
-    width: fit-content;
+    gap: 0.4rem;
+    margin-bottom: 20px;
+  }
 
+  
+
+  .project-tech-pill {
     padding: 0.5rem 0.9rem;
     border-radius: 999px;
-
     background: #eef4ff;
     color: #2563eb;
-
     font-size: 0.875rem;
     font-weight: 600;
     line-height: 1;
-
-    white-space: nowrap;
-  }
-
-  .project-tech-dot {
-    color: #60a5fa;
-    font-weight: 700;
   }
 
   .service-card__title {
@@ -450,6 +439,9 @@ const services = servicesResponse.data;
 
   .project-content {
     padding: 28px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
   }
 
   .project-content h3 {

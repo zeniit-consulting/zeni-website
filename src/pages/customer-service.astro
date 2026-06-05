@@ -370,8 +370,8 @@ const t = (key: string): string => translations[key]?.[lang] ?? key;
         <p data-i18n={cta.descriptionKey}>
           {t(cta.descriptionKey)}
         </p>
-        <a href="/contact" class="primary-button" data-i18n="industry.customerservice.cta.button">
-          {t('industry.customerservice.cta.button')}
+        <a href="/contact" class="primary-button">
+          {t(cta.buttonKey)}
         </a>
       </div>
     </section>

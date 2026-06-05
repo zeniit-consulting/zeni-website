@@ -5,6 +5,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import ServiceSidebar from "../../components/ServiceSidebar.astro";
 import { getServiceBySlug } from "../../lib/api";
 import ProjectGallery from "../../components/ProjectGallery.astro";
+import ProjectLightGallery from "../../components/ProjectLightGallery.astro";
 
 const { slug } = Astro.params;
 
@@ -84,7 +85,10 @@ const formatTech = (tech: string) => {
         <!-- RIGHT -->
         <ServiceSidebar />
       </div>
-      <ProjectGallery gallery={service.gallery} />
+      <ProjectGallery gallery={service.gallery ?? []}
+      projectTitle={service.title} />
+      <ProjectLightGallery gallery={service.gallery ?? []}
+      projectTitle={service.title} />
     </div>
   </section>
 

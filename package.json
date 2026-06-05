@@ -12,6 +12,7 @@
     "@astrojs/node": "^9.5.5",
     "aos": "^2.3.4",
     "astro": "^5.17.1",
+    "lightgallery": "^2.9.0",
     "three": "^0.183.1"
   }
 }

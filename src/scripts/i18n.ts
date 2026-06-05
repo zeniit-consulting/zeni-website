@@ -3231,6 +3231,12 @@ export const translations: Record<string, Record<Lang, string>> =  {
   en: "Discuss your business needs with us and find the right customer service solution.",
   es: "Discute las necesidades de tu negocio con nosotros y encuentra la solución de servicio al cliente adecuada.",
 },
+"industry.customerservice.cta.button": {
+  id: "Konsultasi via WhatsApp",
+  en: "Consult via WhatsApp",
+  es: "Consultar por WhatsApp",
+},
+ 
 
 // ===== NAVBAR & FOOTER LINKS =====
 "nav.customerservice": {

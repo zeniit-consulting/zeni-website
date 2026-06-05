@@ -1,0 +1,348 @@
+---
+import "lightgallery/css/lightgallery.css";
+import "lightgallery/css/lg-thumbnail.css";
+import "lightgallery/css/lg-zoom.css";
+
+type GalleryImage = {
+  id: number;
+  image_url?: string | null;
+  caption?: string | null;
+  sort_order: number | null;
+};
+
+interface Props {
+  gallery: GalleryImage[];
+  projectTitle?: string;
+}
+
+const { gallery = [], projectTitle = "Project Gallery" } = Astro.props as Props;
+
+const items = gallery
+  .filter((item) => item.image_url)
+  .sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0))
+  .slice(0, 5)
+  .map((item, index) => ({
+    id: item.id,
+    src: item.image_url!,
+    label: item.caption || `Project Preview ${index + 1}`,
+    alt: item.caption || `${projectTitle} Project Preview ${index + 1}`,
+  }));
+---
+
+{
+  items.length > 0 && (
+    <section class="project-lightgallery" data-lightgallery-section>
+      <div class="project-lightgallery__container">
+        <div class="project-lightgallery__header">
+          <div>
+            <span class="project-lightgallery__label">Interactive Preview</span>
+
+            <h2>Slide Gallery</h2>
+          </div>
+
+          <div class="project-lightgallery__actions">
+            <button
+              type="button"
+              class="project-lightgallery__nav"
+              aria-label="Previous image"
+              data-lightgallery-prev
+            >
+              ←
+            </button>
+
+            <button
+              type="button"
+              class="project-lightgallery__nav"
+              aria-label="Next image"
+              data-lightgallery-next
+            >
+              →
+            </button>
+          </div>
+        </div>
+
+        <p class="project-lightgallery__description">
+          Klik salah satu gambar untuk membuka tampilan besar. Di dalam preview,
+          gambar bisa digeser ke kiri dan kanan.
+        </p>
+
+        <div
+          class="project-lightgallery__track"
+          data-lightgallery-track
+          data-lightgallery-carousel
+        >
+          {items.map((item) => (
+            <a
+              href={item.src}
+              class="project-lightgallery__item"
+              data-src={item.src}
+              data-sub-html={`<h4>${item.label}</h4><p>${projectTitle}</p>`}
+            >
+              <img src={item.src} alt={item.alt} loading="lazy" />
+
+              <div class="project-lightgallery__overlay" />
+
+              <div class="project-lightgallery__caption">
+                <span>{item.label}</span>
+                <small>Click to open slider</small>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<script>
+  import lightGallery from "lightgallery";
+  import lgThumbnail from "lightgallery/plugins/thumbnail";
+  import lgZoom from "lightgallery/plugins/zoom";
+
+  const initProjectLightGallery = () => {
+    const sections = document.querySelectorAll("[data-lightgallery-section]");
+
+    sections.forEach((section) => {
+      const gallery = section.querySelector(
+        "[data-lightgallery-carousel]",
+      ) as HTMLElement | null;
+      const track = section.querySelector(
+        "[data-lightgallery-track]",
+      ) as HTMLElement | null;
+      const prevButton = section.querySelector(
+        "[data-lightgallery-prev]",
+      ) as HTMLElement | null;
+      const nextButton = section.querySelector(
+        "[data-lightgallery-next]",
+      ) as HTMLElement | null;
+
+      if (!gallery || !track) return;
+
+      if (gallery.getAttribute("data-lg-ready") !== "true") {
+        lightGallery(gallery, {
+          selector: ".project-lightgallery__item",
+          plugins: [lgThumbnail, lgZoom],
+          speed: 500,
+          thumbnail: true,
+          zoom: true,
+          download: false,
+          counter: true,
+          closable: true,
+          escKey: true,
+        });
+
+        gallery.setAttribute("data-lg-ready", "true");
+      }
+
+      if (prevButton && prevButton.getAttribute("data-bound") !== "true") {
+        prevButton.addEventListener("click", () => {
+          track.scrollBy({
+            left: -380,
+            behavior: "smooth",
+          });
+        });
+
+        prevButton.setAttribute("data-bound", "true");
+      }
+
+      if (nextButton && nextButton.getAttribute("data-bound") !== "true") {
+        nextButton.addEventListener("click", () => {
+          track.scrollBy({
+            left: 380,
+            behavior: "smooth",
+          });
+        });
+
+        nextButton.setAttribute("data-bound", "true");
+      }
+    });
+  };
+
+  document.addEventListener("DOMContentLoaded", initProjectLightGallery);
+  document.addEventListener("astro:page-load", initProjectLightGallery);
+</script>
+
+<style>
+  .project-lightgallery {
+		margin-top: 48px;
+    background: #ffffff;
+    padding: 24px 0 96px;
+  }
+
+  .project-lightgallery__container {
+    width: min(1120px, calc(100% - 32px));
+    margin: 0 auto;
+  }
+
+  .project-lightgallery__header {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 14px;
+  }
+
+  .project-lightgallery__label {
+    display: inline-flex;
+    margin-bottom: 10px;
+    color: var(--color-primary, #00579b);
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  .project-lightgallery__header h2 {
+    margin: 0;
+    color: #0f172a;
+    font-size: clamp(1.75rem, 4vw, 3rem);
+    font-weight: 900;
+    line-height: 1.08;
+    letter-spacing: -0.05em;
+  }
+
+  .project-lightgallery__description {
+    max-width: 560px;
+    margin: 0 0 28px;
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.75;
+  }
+
+  .project-lightgallery__actions {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .project-lightgallery__nav {
+    display: inline-flex;
+    width: 44px;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(226, 232, 240, 0.95);
+    border-radius: 999px;
+    background: #ffffff;
+    color: #0f172a;
+    font-size: 18px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+    transition:
+      transform 0.25s ease,
+      border-color 0.25s ease,
+      background 0.25s ease,
+      color 0.25s ease;
+  }
+
+  .project-lightgallery__nav:hover {
+    transform: translateY(-2px);
+    border-color: rgba(0, 87, 155, 0.25);
+    background: var(--color-primary, #00579b);
+    color: #ffffff;
+  }
+
+  .project-lightgallery__track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(280px, 360px);
+    gap: 18px;
+    overflow-x: auto;
+    padding: 6px 6px 20px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+  }
+
+  .project-lightgallery__item {
+    position: relative;
+    display: block;
+    height: 260px;
+    overflow: hidden;
+    border: 1px solid rgba(226, 232, 240, 0.95);
+    border-radius: 28px;
+    background: #f8fafc;
+    box-shadow: 0 16px 46px rgba(15, 23, 42, 0.08);
+    scroll-snap-align: start;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease,
+      border-color 0.3s ease;
+  }
+
+  .project-lightgallery__item:hover {
+    transform: translateY(-5px);
+    border-color: rgba(0, 87, 155, 0.22);
+    box-shadow: 0 24px 70px rgba(15, 23, 42, 0.13);
+  }
+
+  .project-lightgallery__item img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    transition: transform 0.7s ease;
+  }
+
+  .project-lightgallery__item:hover img {
+    transform: scale(1.06);
+  }
+
+  .project-lightgallery__overlay {
+    position: absolute;
+    inset: auto 0 0;
+    height: 48%;
+    background: linear-gradient(
+      to top,
+      rgba(15, 23, 42, 0.7),
+      rgba(15, 23, 42, 0)
+    );
+    pointer-events: none;
+  }
+
+  .project-lightgallery__caption {
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    bottom: 18px;
+    z-index: 2;
+    color: #ffffff;
+  }
+
+  .project-lightgallery__caption span {
+    display: block;
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1.3;
+  }
+
+  .project-lightgallery__caption small {
+    display: block;
+    margin-top: 4px;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  @media (max-width: 768px) {
+    .project-lightgallery {
+      padding: 16px 0 72px;
+    }
+
+    .project-lightgallery__header {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .project-lightgallery__track {
+      grid-auto-columns: minmax(240px, 82vw);
+    }
+
+    .project-lightgallery__item {
+      height: 230px;
+      border-radius: 22px;
+    }
+  }
+</style>
