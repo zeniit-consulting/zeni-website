@@ -94,11 +94,70 @@ const testimonials = [
 
 
 
+const homeFaqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Apa itu Zeni Consulting?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Zeni Consulting (PT Numa Teknologi Nusantara) adalah partner teknologi dan konsultan IT strategis yang membantu bisnis membangun sistem digital, software kustom, automasi, dan solusi IT yang scalable.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Layanan apa saja yang ditawarkan Zeni Consulting?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Kami menyediakan layanan pengembangan software kustom, aplikasi web modern, aplikasi mobile iOS & Android, konsultasi strategi IT, audit sistem teknologi, automasi AI bisnis, dan infrastruktur enterprise.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Apakah Zeni Consulting bisa membantu bisnis logistik?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Ya, kami berpengalaman membantu bisnis logistik dan transportasi membangun dashboard operasional, sistem pelacakan pengiriman real-time, manajemen armada, kontrol inventaris pergudangan, dan pelaporan otomatis.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Apakah solusi bisa disesuaikan dengan kebutuhan bisnis?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Bisa. Setiap solusi dibangun secara tailor-made tanpa vendor lock-in, sehingga klien memiliki 100% kepemilikan kode sumber dan infrastruktur yang sepenuhnya sesuai proses bisnis perusahaan.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Bagaimana cara mulai konsultasi dengan Zeni Consulting?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Anda dapat menghubungi kami melalui WhatsApp resmi di +62 857-1099-9144 atau mengisi formulir di halaman kontak untuk menjadwalkan sesi konsultasi teknologi gratis.",
+      },
+    },
+  ],
+};
 ---
 
 <BaseLayout
-  title="Home"
-  description="Strategic IT consulting for growing businesses. Software development, hardware installation, IT consulting, and AI automation."
+  title="Zeni Consulting | Konsultan IT, Rekayasa Software & Solusi AI"
+  description="Zeni Consulting (PT Numa Teknologi Nusantara) adalah konsultan IT strategis di Jakarta. Kami membantu bisnis membangun software kustom, aplikasi web & mobile, serta otomasi AI tanpa vendor lock-in."
+  keywords={[
+    "konsultan IT Jakarta",
+    "jasa pembuatan software",
+    "software house Indonesia",
+    "web development Jakarta",
+    "jasa aplikasi mobile Android iOS",
+    "custom software ERP CRM",
+    "otomasi AI bisnis",
+    "sistem logistik digital",
+    "Zeni Consulting",
+    "PT Numa Teknologi Nusantara",
+  ]}
+  jsonLd={homeFaqSchema}
   noPadding
 >
   <section class="hero">

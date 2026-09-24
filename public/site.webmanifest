@@ -1,0 +1,22 @@
+{
+  "name": "Zeni Consulting - PT Numa Teknologi Nusantara",
+  "short_name": "Zeni Consulting",
+  "description": "Solusi IT strategis, pengembangan software, aplikasi web & mobile, dan otomatisasi AI bisnis untuk perusahaan berkembang.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#004D8C",
+  "theme_color": "#0060AF",
+  "icons": [
+    {
+      "src": "/images/sq.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

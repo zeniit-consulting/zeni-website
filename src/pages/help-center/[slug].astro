@@ -1,4 +1,5 @@
 ---
+export const prerender = true;
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import WhatsAppButton from "../../components/WhatsAppButton.astro";
 import { helpCategories } from "../../data/helpCenter";
@@ -52,11 +53,31 @@ const articles = category.articles.map((article, index) => ({
 const relatedCategories = helpCategories
   .filter((item) => item.slug !== category.slug)
   .slice(0, 3);
+
+const helpFaqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: category.articles.map((art) => ({
+    "@type": "Question",
+    name: t(art.titleKey),
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: t(art.contentKey),
+    },
+  })),
+};
 ---
 
 <BaseLayout
-  title={t(category.titleKey)}
+  title={`${t(category.titleKey)} - Pusat Bantuan`}
   description={t(category.descriptionKey)}
+  keywords={[
+    t(category.titleKey),
+    "pusat bantuan",
+    "panduan konsultasi IT",
+    "FAQ Zeni Consulting",
+  ]}
+  jsonLd={helpFaqSchema}
   noPadding
 >
   <div class="help-detail-page">

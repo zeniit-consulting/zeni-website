@@ -1,4 +1,5 @@
 ---
+export const prerender = true;
 import type { CaseStudy } from "../../data/caseStudies";
 import { caseStudies } from "../../data/caseStudies";
 import BaseLayout from "../../layouts/BaseLayout.astro";
@@ -28,8 +29,17 @@ const t = (key: string): string => translations[key]?.[lang] ?? key;
 ---
 
 <BaseLayout
-  title="Case Studies"
-  description="Real projects, real outcomes. How we help businesses build systems that scale."
+  title={`${study.title} - Studi Kasus ${study.client}`}
+  description={study.excerpt || `Studi kasus mendalam implementasi solusi teknologi Zeni Consulting untuk ${study.client}.`}
+  ogImage={study.image}
+  keywords={[
+    study.title,
+    study.client,
+    study.category,
+    "studi kasus IT",
+    "transformasi digital",
+    "Zeni Consulting",
+  ]}
   noPadding
 >
   <!-- Page Hero -->

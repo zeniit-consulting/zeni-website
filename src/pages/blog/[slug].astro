@@ -53,7 +53,25 @@ const finalRelatedBlogs =
   relatedByCategory.length > 0 ? relatedByCategory : relatedFallback;
 ---
 
-<BaseLayout title={blog.title} description={blog.excerpt ?? ""} noPadding>
+<BaseLayout
+  title={blog.title}
+  metaTitle={blog.meta_title || blog.title}
+  description={blog.meta_description || blog.excerpt || `Baca artikel "${blog.title}" selengkapnya di Blog Zeni Consulting.`}
+  type="article"
+  author={blog.author || "Zeni Consulting"}
+  publishedTime={blog.published_at || blog.created_at}
+  modifiedTime={blog.updated_at || blog.published_at || undefined}
+  category={blog.category ?? undefined}
+  ogImage={blog.thumbnail_url || blog.thumbnail || undefined}
+  keywords={[
+    blog.title,
+    blog.category || "",
+    "artikel teknologi",
+    "software engineering",
+    "Zeni Consulting",
+  ].filter(Boolean)}
+  noPadding
+>
   <!-- Page Hero -->
   <section class="page-hero">
     <div class="page-hero__bg"></div>

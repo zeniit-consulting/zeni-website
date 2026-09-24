@@ -11,11 +11,33 @@ const { hero, challenges, solutions, advantages, testimonial, faqs } =
 
 const lang = (Astro.currentLocale ?? "id") as Lang;
 const t = (key: string): string => translations[key]?.[lang] ?? key;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: t(faq.questionKey),
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: t(faq.answerKey),
+    },
+  })),
+};
 ---
 
 <BaseLayout
-  title="Industri Logistik"
-  description="Real projects, real outcomes. How we help businesses build systems that scale."
+  title="Solusi Digital Industri Logistik & Transportasi Armada"
+  description="Sistem logistik digital terpadu untuk efisiensi operasional: pemantauan armada real-time, manajemen inventaris gudang, pelacakan pengiriman, dan pelaporan otomatis."
+  keywords={[
+    "sistem logistik digital",
+    "software manajemen armada",
+    "fleet management system Indonesia",
+    "aplikasi logistik pengiriman",
+    "sistem manajemen gudang WMS",
+    "transformasi digital logistik",
+  ]}
+  jsonLd={faqSchema}
   noPadding
 >
   <section class="page-hero">

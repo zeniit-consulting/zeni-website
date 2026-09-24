@@ -3,20 +3,177 @@ import "../styles/global.css";
 import "aos/dist/aos.css";
 import { getSiteSettings } from "../lib/api";
 
-const siteSettingsResponse = await getSiteSettings();
-const siteSettings = siteSettingsResponse.data;
+let siteSettings: any = null;
+try {
+  const siteSettingsResponse = await getSiteSettings();
+  siteSettings = siteSettingsResponse?.data ?? null;
+} catch (error) {
+  // Graceful fallback if backoffice is unreachable
+}
 
 interface Props {
   title: string;
+  metaTitle?: string;
   description?: string;
+  keywords?: string | string[];
+  image?: string;
+  ogImage?: string;
+  canonicalUrl?: string;
+  type?: "website" | "article";
+  publishedTime?: string;
+  modifiedTime?: string;
+  author?: string;
+  category?: string;
+  noIndex?: boolean;
   noPadding?: boolean;
+  jsonLd?: Record<string, any> | Array<Record<string, any>>;
 }
 
 const {
   title,
-  description = "Solusi IT strategis untuk bisnis yang berkembang. Zeni Consulting membantu Anda membangun sistem yang skalabel.",
+  metaTitle,
+  description = "Solusi IT strategis, pengembangan software kustom, aplikasi web & mobile, serta otomatisasi AI bisnis untuk perusahaan berkembang di Indonesia.",
+  keywords = [
+    "konsultan IT Jakarta",
+    "software house Indonesia",
+    "jasa pembuatan software",
+    "jasa pembuatan website",
+    "aplikasi mobile iOS Android",
+    "IT consulting Indonesia",
+    "transformasi digital bisnis",
+    "custom software ERP CRM",
+    "otomasi AI bisnis",
+    "Zeni Consulting",
+    "PT Numa Teknologi Nusantara",
+  ],
+  image,
+  ogImage,
+  canonicalUrl,
+  type = "website",
+  publishedTime,
+  modifiedTime,
+  author = "Zeni Consulting",
+  category,
+  noIndex = false,
   noPadding = false,
+  jsonLd,
 } = Astro.props;
+
+const siteUrl = (Astro.site?.toString() || "https://zeniconsulting.com").replace(/\/$/, "");
+const currentPath = Astro.url.pathname;
+const resolvedCanonical = canonicalUrl || `${siteUrl}${currentPath === "/" ? "" : currentPath}`;
+
+// Format title
+let fullTitle = metaTitle || title;
+if (!fullTitle.includes("Zeni Consulting")) {
+  fullTitle = `${fullTitle} | Zeni Consulting`;
+}
+
+// Format keywords
+const formattedKeywords = Array.isArray(keywords) ? keywords.join(", ") : keywords;
+
+// Format OG image
+const chosenImage = ogImage || image || "/images/og-image.png";
+const absoluteOgImage = chosenImage.startsWith("http")
+  ? chosenImage
+  : `${siteUrl}${chosenImage.startsWith("/") ? "" : "/"}${chosenImage}`;
+
+// Schema.org Structured Data (SEO, GEO & AEO)
+const baseSchemas: any[] = [
+  {
+    "@context": "https://schema.org",
+    "@type": ["Organization", "ProfessionalService"],
+    "@id": `${siteUrl}/#organization`,
+    name: "Zeni Consulting",
+    legalName: "PT Numa Teknologi Nusantara",
+    url: siteUrl,
+    logo: `${siteUrl}/images/sq.png`,
+    image: `${siteUrl}/images/og-image.png`,
+    description: "Konsultan IT dan pengembang software strategis untuk bisnis berkembang. Spesialisasi aplikasi web & mobile, arsitektur ERP/CRM, sistem logistik, dan otomatisasi AI.",
+    email: "hello@zeniconsulting.com",
+    telephone: "+6285710999144",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Jakarta",
+      addressRegion: "DKI Jakarta",
+      addressCountry: "ID",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: -6.2088,
+      longitude: 106.8456,
+    },
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        telephone: "+6285710999144",
+        contactType: "customer service",
+        availableLanguage: ["Indonesian", "English"],
+      },
+      {
+        "@type": "ContactPoint",
+        telephone: "+628811841064",
+        contactType: "technical support",
+        availableLanguage: ["Indonesian", "English"],
+      },
+    ],
+    sameAs: [
+      siteSettings?.linkedin_url || "https://www.linkedin.com/company/zeni-consulting",
+      siteSettings?.instagram_url || "https://www.instagram.com/zeniconsulting",
+    ].filter(Boolean),
+    knowsAbout: [
+      "Custom Software Development",
+      "Enterprise Web Applications",
+      "Mobile App Development (iOS & Android)",
+      "Logistics Management Systems",
+      "Artificial Intelligence & LLM Integration",
+      "IT Architecture Consulting",
+      "Cloud Infrastructure & DevOps",
+      "Technology Security Audit",
+    ],
+    priceRange: "$$",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${siteUrl}/#website`,
+    url: siteUrl,
+    name: "Zeni Consulting",
+    publisher: { "@id": `${siteUrl}/#organization` },
+    inLanguage: ["id-ID", "en-US"],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": type === "article" ? "TechArticle" : "WebPage",
+    "@id": `${resolvedCanonical}#webpage`,
+    url: resolvedCanonical,
+    name: fullTitle,
+    description: description,
+    isPartOf: { "@id": `${siteUrl}/#website` },
+    about: { "@id": `${siteUrl}/#organization` },
+    inLanguage: "id-ID",
+    ...(type === "article" && {
+      headline: title,
+      image: absoluteOgImage,
+      author: {
+        "@type": "Person",
+        name: author,
+      },
+      publisher: { "@id": `${siteUrl}/#organization` },
+      ...(publishedTime && { datePublished: publishedTime }),
+      ...(modifiedTime && { dateModified: modifiedTime }),
+      ...(category && { articleSection: category }),
+    }),
+  },
+];
+
+if (jsonLd) {
+  if (Array.isArray(jsonLd)) {
+    baseSchemas.push(...jsonLd);
+  } else {
+    baseSchemas.push(jsonLd);
+  }
+}
 ---
 
 <!doctype html>
@@ -24,15 +181,88 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Primary Meta Tags -->
+    <title>{fullTitle}</title>
+    <meta name="title" content={fullTitle} />
     <meta name="description" content={description} />
+    <meta name="keywords" content={formattedKeywords} />
+    <meta name="author" content={author} />
+    <link rel="canonical" href={resolvedCanonical} />
+
+    <!-- Robots & Crawler Directives -->
+    <meta
+      name="robots"
+      content={noIndex
+        ? "noindex, nofollow"
+        : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"}
+    />
+    <meta
+      name="googlebot"
+      content={noIndex
+        ? "noindex, nofollow"
+        : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"}
+    />
+    <meta
+      name="bingbot"
+      content={noIndex
+        ? "noindex, nofollow"
+        : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"}
+    />
+
+    <!-- Geographic & Local SEO (GEO) -->
+    <meta name="geo.region" content="ID-JK" />
+    <meta name="geo.placename" content="Jakarta, Indonesia" />
+    <meta name="geo.position" content="-6.2088;106.8456" />
+    <meta name="ICBM" content="-6.2088, 106.8456" />
+
+    <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content="Zeni Consulting" />
+    <meta property="og:url" content={resolvedCanonical} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={absoluteOgImage} />
+    <meta property="og:image:secure_url" content={absoluteOgImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={fullTitle} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:locale:alternate" content="en_US" />
+    {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+    {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+    {author && <meta property="article:author" content={author} />}
+    {category && <meta property="article:section" content={category} />}
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={resolvedCanonical} />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={absoluteOgImage} />
+    <meta name="twitter:creator" content="@zeniconsulting" />
+
+    <!-- Icons & Manifest -->
     <link rel="icon" type="image/png" href="/images/sq.png" />
+    <link rel="apple-touch-icon" href="/images/sq.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- GEO / AEO: LLM Documentation & Machine Context -->
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM & AI Answer Engine Summary" />
+    <link rel="alternate" type="text/plain" href="/llms-full.txt" title="LLM & AI Answer Engine Full Knowledge" />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+
+    <!-- Structured Data (JSON-LD) for SEO, GEO, and AEO -->
+    <script type="application/ld+json" set:html={JSON.stringify(baseSchemas)} />
+
+    <!-- Preconnect Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <title>{title} | Zeni Consulting</title>
     <!-- Meta Pixel Code -->
     <script>
       !(function (f, b, e, v, n, t, s) {

@@ -24,11 +24,33 @@ const forthTestimonial = testimonials[3];
 
 const lang = (Astro.currentLocale ?? "id") as Lang;
 const t = (key: string): string => translations[key]?.[lang] ?? key;
+
+const csFaqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: support.faqs.map((faq) => ({
+    "@type": "Question",
+    name: t(faq.questionKey),
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: t(faq.answerKey),
+    },
+  })),
+};
 ---
 
 <BaseLayout
-  title="Customer Service"
-  description="Real projects, real outcomes. How we help businesses build systems that scale."
+  title="Sistem Customer Service Digital & Solusi Omni-Channel"
+  description="Integrasikan layanan pelanggan dalam satu platform cerdas: ticketing terpusat, otomasi chatbot AI WhatsApp, SLA tracking, dan helpdesk omni-channel."
+  keywords={[
+    "sistem customer service digital",
+    "software helpdesk ticketing",
+    "chatbot WhatsApp CS",
+    "omnichannel customer support",
+    "otomasi layanan pelanggan",
+    "solusi customer support Indonesia",
+  ]}
+  jsonLd={csFaqSchema}
   noPadding
 >
   <section class="page-hero">
@@ -810,7 +832,7 @@ const t = (key: string): string => translations[key]?.[lang] ?? key;
   }
 
   .cta-star {
-    widht: 100px;
+    width: 100px;
     display: grid;
     place-items: center;
     margin-bottom: 20px;

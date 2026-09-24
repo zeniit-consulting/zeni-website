@@ -38,8 +38,16 @@ const formatTech = (tech: string) => {
 ---
 
 <BaseLayout
-  title="Projects"
-  description="Showcasing our work: real-world projects that demonstrate our expertise in web development, design, and digital solutions. See how we solve problems and create value for our clients."
+  title={`${service.title} - Portofolio Proyek`}
+  description={service.description || `Pelajari detail implementasi teknis dan solusi yang dibangun Zeni Consulting untuk proyek ${service.title}.`}
+  ogImage={service.image_url ?? undefined}
+  keywords={[
+    service.title,
+    ...(service.techs?.map(formatTech) ?? []),
+    "portofolio IT",
+    "studi kasus software",
+    "Zeni Consulting",
+  ]}
   noPadding
 >
   <section class="svc-hero">
